@@ -1,9 +1,10 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab2.css';
+import ExploreContainer from '../../components/ExploreContainer';
+import './LifeCounterNewGame.css';
+import FooterTabs from '../../components/FooterTabs/FooterTabs';
 
-const Tab2: React.FC = () => {
+const LifeCounterNewGame: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -19,8 +20,12 @@ const Tab2: React.FC = () => {
         </IonHeader>
         <ExploreContainer name="Tab 2 page" />
       </IonContent>
+
+      {/* Displays Tabs at the Bottom */}
+      <FooterTabs/>
+
     </IonPage>
   );
 };
 
-export default Tab2;
+export default LifeCounterNewGame;
