@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IonHeader, IonToolbar, IonTitle, IonMenu, IonContent, IonList, IonItem, IonMenuToggle, IonIcon, IonText } from "@ionic/react";
-import { searchOutline, search, cube, add, swapHorizontal, server, cash, chevronBackCircle, cogOutline } from 'ionicons/icons';
+import { searchOutline, search, cube, add, swapHorizontal, server, cash, chevronBackCircle, cogOutline, copy } from 'ionicons/icons';
 
 /*Interfaces*/
 //The Interface used for containing the important data when constructing a SideBar Item.
@@ -50,15 +50,18 @@ class SideBar extends Component {
       <IonMenu side="start" type="overlay" contentId="main">
         <IonHeader>
           <IonToolbar color="primary">
+            <IonIcon icon={copy} slot="start" size="large"/>
             <IonTitle>MTG Squire</IonTitle>
           </IonToolbar>
         </IonHeader>
+
         <IonContent>
           <IonList>
             {/* Creates the SideBar Items through calling the renderMenuItem for each item in the sideBarItems array*/}
             {this.sideBarItems.map((currentItem: SideBarItem) => this.renderMenuItem(currentItem))}
           </IonList>
         </IonContent>
+
       </IonMenu>
     );
   }

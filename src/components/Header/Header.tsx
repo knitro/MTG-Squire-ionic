@@ -1,9 +1,7 @@
 import React from 'react';
-import { menuController } from "@ionic/core";
 import { IonHeader, IonToolbar, IonTitle, IonIcon, IonButtons, IonMenuButton, IonMenu, IonContent, IonList, IonItem } from "@ionic/react";
 import './Header.css';
-import { menu, ellipsisVertical } from 'ionicons/icons';
-import SideBar from '../SideBar/SideBar';
+import { ellipsisVertical } from 'ionicons/icons';
 
 const Header: React.FC<{headerLabel : string}> = (props) => {
   
