@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IonHeader, IonToolbar, IonTitle, IonMenu, IonContent, IonList, IonItem, IonMenuToggle, IonIcon, IonText } from "@ionic/react";
-import { searchOutline, search, cube, add, swapHorizontal, server, cash, chevronBackCircle, cogOutline, copy } from 'ionicons/icons';
+import { searchOutline, search, cube, heartOutline, swapHorizontal, server, cash, chevronBackCircle, cogOutline, copy } from 'ionicons/icons';
 
 /*Interfaces*/
 //The Interface used for containing the important data when constructing a SideBar Item.
@@ -18,7 +18,7 @@ class SideBar extends Component {
     {label: "Quick Search", path: "/quick-search", iconName: searchOutline},
     {label: "Advanced Search", path: "/advanced-search", iconName: search},
     {label: "Dice", path: "/dice", iconName: cube},
-    {label: "Life Counter", path: "/life-counter/new-game", iconName: add},
+    {label: "Life Counter", path: "/life-counter/new-game", iconName: heartOutline},
     {label: "Trade Cards", path: "/trade-cards", iconName: swapHorizontal},
     {label: "Rules", path: "/rules/overview", iconName: server},
     {label: "Set EVs", path: "/set-ev/overview", iconName: cash},

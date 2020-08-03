@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
 import './FooterTabs.css';
-import { searchOutline, add, cogOutline } from 'ionicons/icons';
+import { searchOutline, heartOutline, cogOutline } from 'ionicons/icons';
 
 const FooterTabs: React.FC = () => {
   return (
@@ -12,7 +12,7 @@ const FooterTabs: React.FC = () => {
           <IonLabel>Quick Search</IonLabel>
         </IonTabButton>
         <IonTabButton tab="LifeCounterNewGame" href="/life-counter/new-game">
-          <IonIcon icon={add} />
+          <IonIcon icon={heartOutline} />
           <IonLabel>Life Counter</IonLabel>
         </IonTabButton>
         <IonTabButton tab="Settings" href="/settings">
