@@ -1,28 +1,27 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSplitPane, IonMenu } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
+import React, { useState } from 'react';
+import { IonContent, IonPage } from '@ionic/react';
 import './QuickSearch.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import SideBar from '../../components/SideBar/SideBar';
+import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
 
 const QuickSearch: React.FC = () => {
+
+  /*Hook Initialisation*/
+  const [searchText, setSearchText] = useState('');
+
   return (
 
     <IonPage>
       
+      
+
       {/* Displays the Header */}
       <Header headerLabel="Quick Search"/>
       
       <IonContent>
-        
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
 
-        <ExploreContainer name="Tab 1 page" />
+        <LiveSearchBar searchString="" placeholderText="Search for Magic Cards" category={LiveSearchCategory.Cards}/>
 
       </IonContent>
 
