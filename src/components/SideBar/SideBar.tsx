@@ -67,27 +67,4 @@ class SideBar extends Component {
   }
 }
 
-
-
-
-
-
-// const SideBar: React.FC = () => {
-
-//   return (
-
-//     <IonMenu side="start" type="overlay" contentId="main">
-//       <IonHeader>
-//         <IonToolbar color="primary">
-//           <IonTitle>MTG Squire</IonTitle>
-//         </IonToolbar>
-//       </IonHeader>
-//       <IonContent>
-//         <IonList>
-//         </IonList>
-//       </IonContent>
-//     </IonMenu>
-
-//   );
-// }
 export default SideBar;
