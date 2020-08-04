@@ -2,32 +2,32 @@ import React, { Component, useState } from "react";
 import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 // import { SQLite, SQLiteObject } from "@ionic-native/sqlite";
-import { HTTP } from '@ionic-native/http/ngx';
+// import { HTTP } from '@ionic-native/http/ngx';
 import { IonAlert, IonItem, IonButton } from "@ionic/react";
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file';
 
 import '@capacitor-community/http';
 import { Plugins, Filesystem, FilesystemDirectory } from '@capacitor/core';
-import { HttpDownloadFileResult } from "@capacitor-community/http";
+// import { HttpDownloadFileResult } from "@capacitor-community/http";
 
 export class TestDatabase extends Component {
 
   // http : HTTP = HTTP.prototype; 
   // downloader : Downloader = Downloader.prototype;
-  ret: HttpDownloadFileResult = {};
+  // ret: HttpDownloadFileResult = {};
 
 
-  constructor(props : any) {
-    super(props)
+  // constructor(props : any) {
+  //   super(props)
 
     // this.downloadDatabase();
 
     // let url = "https://www.reddit.com/r/gifs/new/.json?limit=10";
 
-    console.log("Started: Constructor");
-    this.downloadFile();
-    console.log("Finished: Constructor")
+    // console.log("Started: Constructor");
+    // this.downloadFile();
+    // console.log("Finished: Constructor")
 
     // this.getHTTP();
     // this.http.get(url, {}, {})
@@ -46,36 +46,36 @@ export class TestDatabase extends Component {
   
     // });
 
-  }
+  // }
 
-  async downloadFile() {
+  // async downloadFile() {
 
-    console.log("Started: downloadFile()");
-    const { Http } = Plugins;
+  //   console.log("Started: downloadFile()");
+  //   const { Http } = Plugins;
 
-    this.ret = await Http.downloadFile({
-      url: "https://mtgjson.com/api/v5/CompiledList.json",
-      filePath: "CompiledList.json",
-      fileDirectory: FilesystemDirectory.Data
-    })
-    // .then(data => {
-    //   console.log("Success")
-    // })
-    // .catch(error => {
-    //   console.log("Failure")
-    // });
+  //   this.ret = await Http.downloadFile({
+  //     url: "https://mtgjson.com/api/v5/CompiledList.json",
+  //     filePath: "CompiledList.json",
+  //     fileDirectory: FilesystemDirectory.Data
+  //   })
+  //   // .then(data => {
+  //   //   console.log("Success")
+  //   // })
+  //   // .catch(error => {
+  //   //   console.log("Failure")
+  //   // });
 
-    if (this.ret.path) {
-      const read = await Filesystem.readFile({
-        path: 'CompiledList.json',
-        directory: FilesystemDirectory.Data
-      });
-      // Data is here
-      console.log("HI");
-    }
+  //   if (this.ret.path) {
+  //     const read = await Filesystem.readFile({
+  //       path: 'CompiledList.json',
+  //       directory: FilesystemDirectory.Data
+  //     });
+  //     // Data is here
+  //     console.log("HI");
+  //   }
 
-    console.log("Finished: downloadFile()");
-  }
+  //   console.log("Finished: downloadFile()");
+  // }
 
   // async getHTTP() {
 
@@ -127,30 +127,30 @@ export class TestDatabase extends Component {
       
   // }
 
-  render() {
-    return(
-      <>
-        <IonButton onClick= { 
-          async () => {
-            if (this.ret.path) {
-              const read = await Filesystem.readFile({
-                path: 'CompiledList.json',
-                directory: FilesystemDirectory.Data
-              });
-              // Data is here
-              console.log("HI");
-            } else {
-              console.log("OOOf");
-            }
-          }
-        }>
-          Test!
-        </IonButton>
-      </>
-    )
-  }
+  // render() {
+  //   return(
+  //     <>
+  //       <IonButton onClick= { 
+  //         async () => {
+  //           if (this.ret.path) {
+  //             const read = await Filesystem.readFile({
+  //               path: 'CompiledList.json',
+  //               directory: FilesystemDirectory.Data
+  //             });
+  //             // Data is here
+  //             console.log("HI");
+  //           } else {
+  //             console.log("OOOf");
+  //           }
+  //         }
+  //       }>
+  //         Test!
+  //       </IonButton>
+  //     </>
+  //   )
+  // }
 
-}
+// }
 
   // downloader : Downloader = Downloader.prototype;
   // // private sqlite : SQLiteObject ;
@@ -190,4 +190,4 @@ export class TestDatabase extends Component {
 
   // }
 
-// }
+}

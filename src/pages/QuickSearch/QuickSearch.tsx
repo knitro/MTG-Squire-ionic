@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { } from 'react';
 import { IonContent, IonPage } from '@ionic/react';
 import './QuickSearch.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
-import { TestDatabase } from '../../databases/TestDatabase';
 
 const QuickSearch: React.FC = () => {
 
   /*Hook Initialisation*/
-  const [searchText, setSearchText] = useState('');
+  // const [searchText, setSearchText] = useState('');
 
   return (
 
@@ -28,7 +27,7 @@ const QuickSearch: React.FC = () => {
 
       {/* Displays Tabs at the Bottom */}
       <FooterTabs/>
-      <TestDatabase/>
+      {/* <TestDatabase/> */}
 
     </IonPage>
   );
