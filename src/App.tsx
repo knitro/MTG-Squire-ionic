@@ -22,14 +22,16 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-/*Page Imports (For Re-directions)*/
-import QuickSearch from './pages/QuickSearch/QuickSearch';
+/*Non-Default Imports*/
+import QuickSearch_Downloaded from './pages/QuickSearch/QuickSearch_Downloaded';
+import QuickSearch_RequireDownload from './pages/QuickSearch/QuickSearch_RequireDownload';
 import LifeCounterNewGame from './pages/LifeCounterNewGame/LifeCounterNewGame';
 import Settings from './pages/Settings/Settings';
 import SideBar from './components/SideBar/SideBar'; 
 import Database from './databases/Database'; 
 import CardsDB from './databases/CardDB/CardsDB';
 import RulesDB from './databases/RulesDB/RulesDB';
+import { Plugins } from '@capacitor/core';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -83,6 +85,7 @@ class App extends Component {
     App.databases.forEach(currentDatabaseState => {
       let currentDatabaseLoadState = currentDatabaseState.database.verifyDatabase();
       currentDatabaseState.loaded = currentDatabaseLoadState;
+      
     });
   }
 
@@ -91,6 +94,16 @@ class App extends Component {
   ////////////////////////
   
   render() {
+
+    /*Perform SplashScreen Actions*/
+    const { SplashScreen } = Plugins;
+    SplashScreen.hide();
+
+    SplashScreen.show({
+      showDuration: 3000,
+      autoHide: true
+    });
+
     return (
       <IonReactRouter>
         <IonApp>
@@ -98,7 +111,11 @@ class App extends Component {
             <SideBar/>  {/* The Acutal Sidebar */}
             <IonPage id="main"> {/* ID reference allowing for Sidebar Functionality */}         
                 <IonRouterOutlet>
-                  <Route path="/quick-search" component={QuickSearch} exact={true} />
+                  <Route path="/quick-search" component={
+                    (App.databases[0].loaded == DatabaseLoad.NOT_LOADED) 
+                    ? QuickSearch_RequireDownload 
+                    : QuickSearch_Downloaded} 
+                    exact={true} />
                   <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
                   <Route path="/settings" component={Settings} exact={true}/>
                   <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           

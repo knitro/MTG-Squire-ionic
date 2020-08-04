@@ -3,6 +3,7 @@ import App, { DatabaseLoad } from '../App';
 
 import axios from 'axios';
 import { FilesystemDirectory } from '@capacitor/core';
+import { useHistory } from 'react-router-dom';
 
 abstract class Database extends Component {
 
@@ -36,19 +37,23 @@ abstract class Database extends Component {
   async downloadingDatabase(url : string, fileName : string, databaseIndex : number) {
 
     console.log("Started: downloadingDatabase() ")
-    console.log("Started: Downloading Database " + fileName + " from " + url);
+    
 
     const FileDownload = require('js-file-download');
+    const history = useHistory();
 
-    console.log("FilesystemDirectory.Data = " + FilesystemDirectory.Data);
+    // console.log("FilesystemDirectory.Data = " + FilesystemDirectory.Data);
 
+    /*Download the File*/
     axios({
       url: url, //your url
       method: 'GET',
       responseType: 'blob', // important
     }).then((response) => {
+      console.log("Started: Downloading Database " + fileName + " from " + url);
       FileDownload(response.data, FilesystemDirectory.Data + "/" + fileName);
       App.updateDatabase(databaseIndex, DatabaseLoad.LOADED);
+      console.log("Finished: Downloading Database " + fileName + " from " + url);
     });
 
     console.log("Finished: downloadingDatabase() ");
@@ -74,7 +79,7 @@ abstract class Database extends Component {
 
     return DatabaseLoad.NOT_LOADED;
   }
-  
+
 }
   
 
