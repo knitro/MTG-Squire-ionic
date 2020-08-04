@@ -1,16 +1,6 @@
-import React from 'react';
-import { Redirect, Route, Router } from 'react-router-dom';
-import {
-  IonApp,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  IonSplitPane,
-  IonPage
-} from '@ionic/react';
+import React, { Component } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonPage } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -36,24 +26,83 @@ import './theme/variables.css';
 import QuickSearch from './pages/QuickSearch/QuickSearch';
 import LifeCounterNewGame from './pages/LifeCounterNewGame/LifeCounterNewGame';
 import Settings from './pages/Settings/Settings';
-import SideBar from './components/SideBar/SideBar';
+import SideBar from './components/SideBar/SideBar'; 
+import Database from './databases/Database'; 
+import CardsDB from './databases/CardDB/CardsDB';
+import RulesDB from './databases/RulesDB/RulesDB';
 
-const App: React.FC = () => (
-  <IonReactRouter>
-    <IonApp>
-      <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
-        <SideBar/>  {/* The Acutal Sidebar */}
-        <IonPage id="main"> {/* ID reference allowing for Sidebar Functionality */}         
-            <IonRouterOutlet>
-              <Route path="/quick-search" component={QuickSearch} exact={true} />
-              <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
-              <Route path="/settings" component={Settings} exact={true}/>
-              <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           
-            </IonRouterOutlet>
-        </IonPage>
-      </IonSplitPane>
-    </IonApp>
-  </IonReactRouter>
-);
+export enum DatabaseLoad {
+  NOT_LOADED,
+  LOADED,
+  OLD_DATA
+}
+
+export interface DatabaseState {
+  database : Database;
+  loaded : DatabaseLoad; 
+}
+
+class App extends Component {
+
+  ////////////////////////
+  /*Fields*/
+  ////////////////////////
+
+  /**
+   * Stores the databases, and the states of each one.
+   */
+  static databases : DatabaseState[] = [
+    { database: new CardsDB(null), loaded: DatabaseLoad.NOT_LOADED },
+    { database: new RulesDB(null), loaded: DatabaseLoad.NOT_LOADED },
+  ];
+
+  ////////////////////////
+  /*Constructor*/
+  ////////////////////////
+
+  constructor(props : any) {
+    super(props);
+    this.checkLocalDatabases();
+  }
+
+  ////////////////////////
+  /*Methods*/
+  ////////////////////////
+
+  /**
+   * Checks the Local Databases by "verifying" each one.
+   * This is done by calling the verifyDatabase method contained in the Abstract Class Database.
+   */
+  checkLocalDatabases() {
+    App.databases.forEach(currentDatabaseState => {
+      let currentDatabaseLoadState = currentDatabaseState.database.verifyDatabase();
+      currentDatabaseState.loaded = currentDatabaseLoadState;
+    });
+  }
+
+  ////////////////////////
+  /*Render*/
+  ////////////////////////
+  
+  render() {
+    return (
+      <IonReactRouter>
+        <IonApp>
+          <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
+            <SideBar/>  {/* The Acutal Sidebar */}
+            <IonPage id="main"> {/* ID reference allowing for Sidebar Functionality */}         
+                <IonRouterOutlet>
+                  <Route path="/quick-search" component={QuickSearch} exact={true} />
+                  <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
+                  <Route path="/settings" component={Settings} exact={true}/>
+                  <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           
+                </IonRouterOutlet>
+            </IonPage>
+          </IonSplitPane>
+        </IonApp>
+      </IonReactRouter>
+    );
+  }
+}
 
 export default App;
