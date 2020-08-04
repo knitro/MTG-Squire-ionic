@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton, IonItem, IonButton, IonRow, IonCol, IonGrid } from '@ionic/react';
 import ExploreContainer from '../../components/ExploreContainer';
 import './LifeCounterNewGame.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
@@ -12,15 +12,26 @@ const LifeCounterNewGame: React.FC = () => {
 
       {/* Displays the Header */}
       <Header headerLabel="Life Counter - New Game"/>
-      
-      <IonContent>
 
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 2 page" />
+      <IonContent>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonButton size="large">20</IonButton>
+            </IonCol>
+            <IonCol>
+              <IonButton size="large">30</IonButton>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonButton size="large">40</IonButton>
+            </IonCol>
+            <IonCol>
+              <IonButton size="large">__</IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
 
       </IonContent>
 
