@@ -15,6 +15,10 @@ class CardsDB extends Database {
   /*Methods*/
   ////////////////////////
   
+  downloadDatabase() : void {
+    this.downloadingDatabase("https://mtgjson.com/api/v5/AllPrintings.sqlite", "AllPrintings.sqlite", 0);
+  }
+
   verifyDatabase() : DatabaseLoad {
     return DatabaseLoad.NOT_LOADED;
   }

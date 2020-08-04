@@ -52,9 +52,15 @@ class App extends Component {
    * Stores the databases, and the states of each one.
    */
   static databases : DatabaseState[] = [
-    { database: new CardsDB(null), loaded: DatabaseLoad.NOT_LOADED },
-    { database: new RulesDB(null), loaded: DatabaseLoad.NOT_LOADED },
+    { database: new CardsDB(null), loaded: DatabaseLoad.NOT_LOADED }, //Card Database (Index 0)
+    { database: new RulesDB(null), loaded: DatabaseLoad.NOT_LOADED }, //Rules Database (Index 1)
   ];
+
+  static updateDatabase(index : number, newState : DatabaseLoad) {
+    let currentDatabase : DatabaseState = App.databases[index];
+    currentDatabase.loaded = newState;
+    console.log("Database State Updated to " + DatabaseLoad);
+  }
 
   ////////////////////////
   /*Constructor*/

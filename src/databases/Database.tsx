@@ -1,18 +1,14 @@
 import { Component } from 'react';
+import App, { DatabaseLoad } from '../App';
 
-// import { FileTransferObject, FileTransfer } from '@ionic-native/file-transfer';
-import { DatabaseLoad } from '../App';
-// import { File } from '@ionic-native/file';
-// import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import axios from 'axios';
+import { FilesystemDirectory } from '@capacitor/core';
 
 abstract class Database extends Component {
 
   ////////////////////////
   /*Fields*/
   ////////////////////////
-
-  // fileTransfer : FileTransferObject = FileTransfer.create();
-  // file : File = File.createFile();
 
   ////////////////////////
   /*Constructor*/
@@ -28,36 +24,36 @@ abstract class Database extends Component {
   ////////////////////////
 
   /**
+   * This method should download the database and call/return the return value from downloadingDatabase(string, string).
+   */
+  abstract downloadDatabase() : void;
+
+  /**
    * Downloads the Database from the given url.
    * @param url - the URL to the database
-   * @param fileName - the file name that the database will be saved under. Extension is not required
+   * @param fileName - the file name that the database will be saved under
    */
-  downloadDatabase(url : string, fileName : string) {
+  async downloadingDatabase(url : string, fileName : string, databaseIndex : number) {
 
-    // this.fileTransfer.download(url, ) //(url, this.storageDirectory + fileName).then((entry) => {
-    //   console.log('download complete: ' + entry.toURL());
-    // }, (error) => {
-    //   // handle error
-    // });
+    console.log("Started: downloadingDatabase() ")
+    console.log("Started: Downloading Database " + fileName + " from " + url);
 
-    // let fullFileName : string = fileName + ".db";
+    const FileDownload = require('js-file-download');
 
-    // try {
-    //   SQLite.create({ //This opens or creates a SQL file
-    //     name: fullFileName, location: 'default'
-    //   }).then(async (db: SQLiteObject) => {
-    //       try {
-    //         const create = await db.executeSql('create table if not exists danceMoves(name VARCHAR(32))', []);
-    //         console.log('Table created/exists. Msg: ', create);
-    //         const insert = await db.executeSql('insert into danceMoves (name) values (?)', ['Macarena']);
-    //         console.log('Inserted Macarena: ', insert);
-    //       } catch (e) {
-    //         console.log('SQL error: ', e);
-    //       }
-    //   })
-    // } catch(e) {
-    //   console.log("Error. SQL Database could not be set up. Could be due to not being used on an actual device?");
-    // }
+    console.log("FilesystemDirectory.Data = " + FilesystemDirectory.Data);
+
+    axios({
+      url: url, //your url
+      method: 'GET',
+      responseType: 'blob', // important
+    }).then((response) => {
+      FileDownload(response.data, FilesystemDirectory.Data + "/" + fileName);
+      App.updateDatabase(databaseIndex, DatabaseLoad.LOADED);
+    });
+
+    console.log("Finished: downloadingDatabase() ");
+
+    return true;
 
   }
 
@@ -73,9 +69,10 @@ abstract class Database extends Component {
    */
   protected verifyingDatabase(url : string, localDirectory : string) : DatabaseLoad {
 
+    //TODO:: Extension Work
+    //Assume Database is never loaded still meets requirements
 
-
-    return DatabaseLoad.LOADED;
+    return DatabaseLoad.NOT_LOADED;
   }
   
 }

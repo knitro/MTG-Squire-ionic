@@ -15,6 +15,10 @@ class RulesDB extends Database {
   /*Methods*/
   ////////////////////////
   
+  downloadDatabase() : boolean {
+    return false;
+  }
+
   verifyDatabase() : DatabaseLoad {
     return DatabaseLoad.NOT_LOADED;
   }
