@@ -5,12 +5,12 @@ import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
 import App, { DatabaseState } from '../../App';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 const QuickSearch_RequireDownload: React.FC = () => {
 
   const currentDatabase = App.databases[0];
-  const history = useHistory();
+  // const history = useHistory();
 
   return (
 
@@ -35,10 +35,10 @@ const QuickSearch_RequireDownload: React.FC = () => {
             onClick={e => {
               console.log("Button Pressed: Download Database");
               currentDatabase.database.downloadDatabase();
-              history.push("/settings");
+              // history.push("/settings");
             }}
           >
-              Download Card Database
+              {"Download Card Database"}
           </IonButton>
 
       </IonContent>
