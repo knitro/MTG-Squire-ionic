@@ -32,6 +32,7 @@ import Database from './databases/Database';
 import CardsDB from './databases/CardDB/CardsDB';
 import RulesDB from './databases/RulesDB/RulesDB';
 import { Plugins } from '@capacitor/core';
+import ResultDisplay from './pages/ResultDisplay/ResultDisplay';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -118,6 +119,7 @@ class App extends Component {
                     exact={true} />
                   <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
                   <Route path="/settings" component={Settings} exact={true}/>
+                  <Route path="/results-display" component={ResultDisplay} exact={true}/>
                   <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           
                 </IonRouterOutlet>
             </IonPage>
