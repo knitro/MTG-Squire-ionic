@@ -6,3 +6,35 @@
     width: 100%;
     /* height: 100%; */
 }
+
+.nextButton{
+    /* text */
+    text-align: center;
+    width: min-content;
+}
+
+.textbox{
+    outline-width: 2;
+    /* width: 50%; */
+    width: 100%;
+    height: 100%;
+    background-color: cornflowerblue;
+}
+.optionButton{
+    outline-width: 2;
+    /* width: 50%; */
+    width: 100%;
+    height: 100%;
+    background-color: cornflowerblue;
+}
+
+.buttonGrid {
+    height: 50%;
+    /* top: ; */
+    /* border: 2px solid black; */
+    vertical-align: middle;
+    
+}
+.buttonRow{
+    height: 50%;
+}
