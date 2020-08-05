@@ -3,7 +3,8 @@ import App, { DatabaseLoad } from '../App';
 
 import axios from 'axios';
 import { FilesystemDirectory } from '@capacitor/core';
-import { useHistory } from 'react-router-dom';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { threadId } from 'worker_threads';
 
 abstract class Database extends Component {
 
@@ -11,17 +12,26 @@ abstract class Database extends Component {
   /*Fields*/
   ////////////////////////
 
+  private sqlite : SQLite;
+  private database : SQLiteObject;
+
   ////////////////////////
   /*Constructor*/
   ////////////////////////
 
-  constructor(props : any) {
-    super(props);
-    // this.file = file;
+  // constructor(props : any) {
+  //   super(props);
+  //   // this.file = file;
+  // }
+
+  constructor(sqlite : SQLite) {
+    super(sqlite);
+    this.sqlite = sqlite;
+    this.database = SQLiteObject.prototype;
   }
 
   ////////////////////////
-  /*Methods*/
+  /*Abstract Methods*/
   ////////////////////////
 
   /**
@@ -30,17 +40,32 @@ abstract class Database extends Component {
   abstract downloadDatabase() : void;
 
   /**
+   * This method should verify the database and call/return the return value from verifyingDatabase(string, string).
+   */
+  abstract verifyDatabase() : DatabaseLoad;
+
+  /**
+   * TODO::
+   */
+  abstract loadDatabaseFile() : boolean;
+
+  ////////////////////////
+  /*"Implemented" Methods*/
+  ////////////////////////
+
+  /**
    * Downloads the Database from the given url.
    * @param url - the URL to the database
    * @param fileName - the file name that the database will be saved under
+   * @param databaseIndex 
    */
-  async downloadingDatabase(url : string, fileName : string, databaseIndex : number) {
+  protected async downloadingDatabase(url : string, fileName : string, databaseIndex : number) {
 
     console.log("Started: downloadingDatabase() ")
     
 
     const FileDownload = require('js-file-download');
-    const history = useHistory();
+    // const history = useHistory();
 
     // console.log("FilesystemDirectory.Data = " + FilesystemDirectory.Data);
 
@@ -63,11 +88,6 @@ abstract class Database extends Component {
   }
 
   /**
-   * This method should verify the database and call/return the return value from verifyingDatabase(string, string).
-   */
-  abstract verifyDatabase() : DatabaseLoad;
-
-  /**
    * This method is to be only called by verifyDatabase() once the variables are set accordingly.
    * @param url - the URL to the online SHA256 file
    * @param localDirectory the directory to the local SHA256 file
@@ -78,6 +98,26 @@ abstract class Database extends Component {
     //Assume Database is never loaded still meets requirements
 
     return DatabaseLoad.NOT_LOADED;
+  }
+
+  protected loadingDatabaseFile(directory : string, fileName : string) : boolean {
+
+    this.sqlite.create({
+      name: fileName,
+      location: directory
+    })
+    .then((db: SQLiteObject) => {
+  
+      this.database = db;
+        
+      db.executeSql('create table danceMoves(name VARCHAR(32))', [])
+        .then(() => {console.log('Executed SQL'); return true})
+        .catch(e => {console.log(e); return false;});
+
+
+    })
+    .catch(e => console.log(e));
+    return false;
   }
 
 }

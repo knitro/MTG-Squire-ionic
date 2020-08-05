@@ -14,8 +14,6 @@ const QuickSearch_Downloaded: React.FC = () => {
 
     <IonPage>
       
-      
-
       {/* Displays the Header */}
       <Header headerLabel="Quick Search - Downloaded"/>
       

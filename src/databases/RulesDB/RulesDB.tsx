@@ -2,7 +2,7 @@ import Database from '../Database';
 import { DatabaseLoad } from '../../App';
 
 class RulesDB extends Database {
-
+  
   ////////////////////////
   /*Fields*/
   ////////////////////////
@@ -21,6 +21,10 @@ class RulesDB extends Database {
 
   verifyDatabase() : DatabaseLoad {
     return DatabaseLoad.NOT_LOADED;
+  }
+
+  loadDatabaseFile(): boolean {
+    return false;
   }
 
   ////////////////////////
