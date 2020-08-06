@@ -1,33 +1,24 @@
 import React, { Component } from 'react';
-import { IonContent, IonPage, IonButton, IonText, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonImg } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonImg, IonRow, IonCol } from '@ionic/react';
 import './ResultDisplay.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
-import App, { DatabaseState } from '../../App';
-import { useHistory } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import ManaCost from '../../components/ManaCost/ManaCost';
 
 //////////////////////////////////////////////////////////
 /*Temporary Interfaces to be Components Later*/
 //////////////////////////////////////////////////////////
+
 export interface PriceProps {
   scryfallPricing : number //Remove if TCG/CK/SCG is implemented
 }
-export interface ManaCostProps {
-  genericPips: number
-  colourlessPips: number
-  whitePips : number
-  bluePips: number
-  blackPips: number
-  redPips : number
-  greenPips: number
-}
+
 
 export interface SetInformation {
   setName : string
   imageLink : string
 }
+
 //////////////////////////////////////////////////////////
 
 /**
@@ -36,7 +27,7 @@ export interface SetInformation {
 export interface ResultsDisplayProps {
   cardName: string
   imageLink: string
-  manaCost: ManaCostProps
+  manaCost: string
   prices: PriceProps
   fullType : string
   oracleText : string
@@ -53,17 +44,9 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
 
   public static defaultProps : ResultsDisplayProps = {
     cardName: "Llanowar Elves",
-    imageLink: "https://api.scryfall.com/cards/mb1/1262?format=image&version=png",
-    manaCost: {
-      genericPips: 0,
-      colourlessPips: 0,
-      whitePips: 0,
-      bluePips: 0,
-      blackPips: 0,
-      redPips: 0,
-      greenPips: 1
-    },
-    prices:  {
+    imageLink: "https://api.scryfall.com/cards/mb1/1262?format=image&version=png",\
+    manaCost: "G}",
+    prices: {
       scryfallPricing: 0.25
     },
     fullType: "Creature — Elf Druid",
@@ -119,8 +102,15 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
           {/* IonCard 1: Name + Image */}
           <IonCard color="secondary">
             <IonCardHeader>
+              <IonRow>
+                <IonCol>
+                  <IonCardTitle>{title}</IonCardTitle>
+                </IonCol>
+                <IonCol>
+                  <ManaCost cost={ResultDisplay.defaultProps.manaCost}/>
+                </IonCol>
+              </IonRow>
               <IonCardSubtitle>{subtitle}</IonCardSubtitle>
-              <IonCardTitle>{title}</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
             <IonImg src={imageLink} class="cardImage"/>

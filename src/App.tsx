@@ -33,6 +33,7 @@ import CardsDB from './databases/CardDB/CardsDB';
 import RulesDB from './databases/RulesDB/RulesDB';
 import { Plugins } from '@capacitor/core';
 import ResultDisplay from './pages/ResultDisplay/ResultDisplay';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -55,8 +56,8 @@ class App extends Component {
    * Stores the databases, and the states of each one.
    */
   static databases : DatabaseState[] = [
-    { database: new CardsDB(null), loaded: DatabaseLoad.NOT_LOADED }, //Card Database (Index 0)
-    { database: new RulesDB(null), loaded: DatabaseLoad.NOT_LOADED }, //Rules Database (Index 1)
+    // { database: new CardsDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Card Database (Index 0)
+    // { database: new RulesDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Rules Database (Index 1)
   ];
 
   static updateDatabase(index : number, newState : DatabaseLoad) {
@@ -69,9 +70,14 @@ class App extends Component {
   /*Constructor*/
   ////////////////////////
 
-  constructor(props : any) {
-    super(props);
+  constructor(sqlLite: SQLite) {
+    super(sqlLite);
     this.checkLocalDatabases();
+
+    App.databases = [
+      { database: new CardsDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Card Database (Index 0)
+      { database: new RulesDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Rules Database (Index 1)
+    ]
   }
 
   ////////////////////////

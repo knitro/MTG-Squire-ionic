@@ -26,7 +26,7 @@ class CardsDB extends Database {
   }
 
   loadDatabaseFile(): boolean {
-    this.loadingDatabaseFile("", this.fileName);
+    return this.loadingDatabaseFile("", this.fileName);
   }
 
   ////////////////////////
