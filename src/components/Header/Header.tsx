@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonHeader, IonToolbar, IonTitle, IonIcon, IonButtons, IonMenuButton, IonMenu, IonContent, IonList, IonItem } from "@ionic/react";
+import { IonHeader, IonToolbar, IonTitle, IonIcon, IonButtons, IonMenuButton } from "@ionic/react";
 import './Header.css';
 import { ellipsisVertical } from 'ionicons/icons';
 
@@ -8,7 +8,7 @@ const Header: React.FC<{headerLabel : string}> = (props) => {
   return (
     <IonHeader>
 
-      <IonToolbar>
+      <IonToolbar color="primary">
         <IonButtons slot="start">
           <IonMenuButton autoHide={false}/>
         </IonButtons>
