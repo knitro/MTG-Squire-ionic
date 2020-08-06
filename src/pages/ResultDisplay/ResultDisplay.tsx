@@ -44,8 +44,8 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
 
   public static defaultProps : ResultsDisplayProps = {
     cardName: "Llanowar Elves",
-    imageLink: "https://api.scryfall.com/cards/mb1/1262?format=image&version=png",\
-    manaCost: "G}",
+    imageLink: "https://api.scryfall.com/cards/mb1/1262?format=image&version=png",
+    manaCost: "{G}",
     prices: {
       scryfallPricing: 0.25
     },
