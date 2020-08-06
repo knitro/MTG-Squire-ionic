@@ -10,31 +10,42 @@
 .nextButton{
     /* text */
     text-align: center;
-    width: min-content;
+    width: 25%;
+    /* transform: translateX(295%);
+    transform: translateY(50%); */
+    transform: translate(295%,400%);
 }
 
-.textbox{
-    outline-width: 2;
-    /* width: 50%; */
+.optionTextField{
+    /* outline-width: 2; */
     width: 100%;
-    height: 100%;
-    background-color: cornflowerblue;
+    height: 50%;
+    background-color: lightseagreen;
 }
+
+.optionTextButton{
+    /* outline-width: 2; */
+    width: 100%;
+    height: 50%;
+}
+
 .optionButton{
-    outline-width: 2;
-    /* width: 50%; */
+    /* outline-width: 2; */
     width: 100%;
     height: 100%;
-    background-color: cornflowerblue;
+    font-size: xx-large;
 }
 
+.buttonCard {
+    height: 75%;
+    /* vertical-align: middle; */
+    /* transform: translateY(25%); */
+    transform: translateY(10%);
+}
 .buttonGrid {
     height: 50%;
-    /* top: ; */
-    /* border: 2px solid black; */
-    vertical-align: middle;
-    
+    /* vertical-align: middle; */
 }
 .buttonRow{
-    height: 50%;
+    height: 25%;
 }

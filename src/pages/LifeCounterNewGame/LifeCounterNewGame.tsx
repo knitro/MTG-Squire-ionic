@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonRow, IonCol, IonGrid, IonInput } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonRow, IonCol, IonGrid, IonInput, IonCard } from '@ionic/react';
 import './LifeCounterNewGame.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
@@ -14,45 +14,47 @@ const LifeCounterNewGame: React.FC = () => {
 
     <IonRow>
       <IonCol>
-        <IonButton class="lifeNavigationButtons" color="warning" expand="full">
+        <IonButton class="lifeNavigationButtons" color="secondary" expand="full">
           Number of<br/> Players
         </IonButton>
       </IonCol>
       <IonCol>
-        <IonButton class="lifeNavigationButtons" color="success" expand="full">
+        <IonButton class="lifeNavigationButtons" color="light" expand="full">
           Life Totals
         </IonButton>
       </IonCol>
       <IonCol>
-        <IonButton class="lifeNavigationButtons" color="tertiary" expand="full">
+        <IonButton class="lifeNavigationButtons" color="light" expand="full">
           Confirmation
         </IonButton>
       </IonCol>
     </IonRow>
 
       <IonContent>
-        <IonGrid class = "buttonGrid">
+        <IonCard class="buttonCard">
+        <IonGrid class="buttonGrid">
           <IonRow class="buttonRow">
             <IonCol>
-              <IonButton class="optionButton">20</IonButton>
+              <IonButton class="optionButton" color="tertiary">20</IonButton>
             </IonCol>
             <IonCol>
-              <IonButton class="optionButton">30</IonButton>
+              <IonButton class="optionButton" color="tertiary">30</IonButton>
             </IonCol>
           </IonRow>
+          <IonRow/>
           <IonRow class="buttonRow">
             <IonCol>
-              <IonButton class="optionButton">40</IonButton>
+              <IonButton class="optionButton" color="tertiary">40</IonButton>
             </IonCol>
             <IonCol>
               {/* <IonButton size="large">__</IonButton> */}
               <IonInput class="optionTextField" placeholder="Custom"/>
-              <IonButton >Use custom value</IonButton>
+              <IonButton class="optionTextButton" color="tertiary">Use custom value</IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
-
-        <IonButton item-end /*class="nextButton"*/ size="large">Next</IonButton>
+        <IonButton class="nextButton" size="large">Next</IonButton>
+        </IonCard>
 
       </IonContent>
 

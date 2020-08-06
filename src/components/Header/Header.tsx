@@ -8,7 +8,7 @@ const Header: React.FC<{headerLabel : string}> = (props) => {
   return (
     <IonHeader>
 
-      <IonToolbar color="secondary">
+      <IonToolbar color="primary">
         <IonButtons slot="start">
           <IonMenuButton autoHide={false}/>
         </IonButtons>
