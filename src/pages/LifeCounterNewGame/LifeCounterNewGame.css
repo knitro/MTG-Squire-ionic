@@ -1,51 +1,35 @@
 .lifeNavigationButtons {
     text-align: center;
-    /* position: absolute; */
     left: 0;
     right: 0;
     width: 100%;
-    /* height: 100%; */
 }
 
-.nextButton{
-    /* text */
+.lifeTitle{
+    font-size: xxx-large; 
+    font-variant-position: super;
     text-align: center;
-    width: 25%;
-    /* transform: translateX(295%);
-    transform: translateY(50%); */
-    transform: translate(295%,400%);
+    transform: translateY(-40%);
 }
 
 .optionTextField{
     /* outline-width: 2; */
-    width: 100%;
-    height: 50%;
-    background-color: lightseagreen;
-}
-
-.optionTextButton{
-    /* outline-width: 2; */
-    width: 100%;
-    height: 50%;
+    width: 50%;
+    height: 100%;
+    font-size: x-large;
+    /* outline: black 2px; */
+    transform: translate(50%,8%);
+    background-color: #5260ff;
 }
 
 .optionButton{
     /* outline-width: 2; */
-    width: 100%;
+    width: 50%;
+    transform: translateX(50%);
     height: 100%;
-    font-size: xx-large;
+    font-size: xxx-large;
 }
 
-.buttonCard {
-    height: 75%;
-    /* vertical-align: middle; */
-    /* transform: translateY(25%); */
-    transform: translateY(10%);
-}
-.buttonGrid {
-    height: 50%;
-    /* vertical-align: middle; */
-}
 .buttonRow{
-    height: 25%;
+    height: 100%;
 }

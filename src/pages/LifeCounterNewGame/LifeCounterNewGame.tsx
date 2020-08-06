@@ -12,23 +12,25 @@ const LifeCounterNewGame: React.FC = () => {
       {/* Displays the Header */}
       <Header headerLabel="Life Counter - New Game"/>
 
-    <IonRow>
-      <IonCol>
-        <IonButton class="lifeNavigationButtons" color="secondary" expand="full">
-          Number of<br/> Players
-        </IonButton>
-      </IonCol>
-      <IonCol>
-        <IonButton class="lifeNavigationButtons" color="light" expand="full">
-          Life Totals
-        </IonButton>
-      </IonCol>
-      <IonCol>
-        <IonButton class="lifeNavigationButtons" color="light" expand="full">
-          Confirmation
-        </IonButton>
-      </IonCol>
-    </IonRow>
+      <IonRow>
+        <IonCol>
+          <IonButton class="lifeNavigationButtons" color="secondary" expand="full">
+            Number of<br/> Players
+          </IonButton>
+        </IonCol>
+        <IonCol>
+          <IonButton class="lifeNavigationButtons" color="light" expand="full">
+            Life Totals
+          </IonButton>
+        </IonCol>
+        <IonCol>
+          <IonButton class="lifeNavigationButtons" color="light" expand="full">
+            Confirmation
+          </IonButton>
+        </IonCol>
+      </IonRow>
+
+      <IonTitle class="lifeTitle">Number of Players</IonTitle>
 
       <IonContent>
         <IonCard class="buttonCard">
@@ -41,19 +43,17 @@ const LifeCounterNewGame: React.FC = () => {
               <IonButton class="optionButton" color="tertiary">30</IonButton>
             </IonCol>
           </IonRow>
-          <IonRow/>
           <IonRow class="buttonRow">
             <IonCol>
               <IonButton class="optionButton" color="tertiary">40</IonButton>
             </IonCol>
             <IonCol>
-              {/* <IonButton size="large">__</IonButton> */}
-              <IonInput class="optionTextField" placeholder="Custom"/>
-              <IonButton class="optionTextButton" color="tertiary">Use custom value</IonButton>
+              <IonInput class="optionTextField" color="light" placeholder="Custom"/>
+              {/* <IonButton class="optionTextButton" color="tertiary">Use custom</IonButton> */}
             </IonCol>
           </IonRow>
         </IonGrid>
-        <IonButton class="nextButton" size="large">Next</IonButton>
+        {/* <IonButton class="nextButton" size="large">Next</IonButton> */}
         </IonCard>
 
       </IonContent>
