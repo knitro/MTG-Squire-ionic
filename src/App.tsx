@@ -45,7 +45,6 @@ import { GameContextProvider } from './LifeTotalStore';
 
 
 const App: React.FC = () => (
-  <GameContextProvider>
   <IonReactRouter>
     <IonApp>
       <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
@@ -64,7 +63,6 @@ const App: React.FC = () => (
       </IonSplitPane>
     </IonApp>
   </IonReactRouter>
-  </GameContextProvider>
 );
 
 export default App;

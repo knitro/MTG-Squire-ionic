@@ -3,13 +3,13 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonRow, IonCol, Io
 import './LifeCounterSetup.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import { GameContextConsumer, Game, saveGame } from '../../LifeTotalStore';
+import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../LifeTotalStore';
 
 const LifeCounterSetLife: React.FC = () => {
   return (
 
     <IonPage>
-
+      <GameContextProvider>
       {/* Displays the Header */}
       <Header headerLabel="Life Counter - New Game"/>
 
@@ -85,7 +85,7 @@ const LifeCounterSetLife: React.FC = () => {
 
       {/* Displays Tabs at the Bottom */}
       <FooterTabs/>
-
+      </GameContextProvider>
     </IonPage>
   );
 };
