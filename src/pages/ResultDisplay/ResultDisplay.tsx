@@ -4,45 +4,18 @@ import './ResultDisplay.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import ManaCost from '../../components/ManaCost/ManaCost';
+import { SearchState } from '../../states/SearchState';
 
-//////////////////////////////////////////////////////////
-/*Temporary Interfaces to be Components Later*/
-//////////////////////////////////////////////////////////
-
-export interface PriceProps {
-  scryfallPricing : number //Remove if TCG/CK/SCG is implemented
-}
-
-
-export interface SetInformation {
-  setName : string
-  imageLink : string
-}
-
-//////////////////////////////////////////////////////////
-
-/**
- * Interface that contains the parameters for the Class
- */
-export interface ResultsDisplayProps {
-  cardName: string
-  imageLink: string
-  manaCost: string
-  prices: PriceProps
-  fullType : string
-  oracleText : string
-}
-
-class ResultDisplay extends Component<ResultsDisplayProps> {
+class ResultDisplay extends Component<SearchState> {
 
   ////////////////////////
   /*Fields*/
   ////////////////////////
 
   //Default Value for the Results Display if not updated through props
-  private currentProps : ResultsDisplayProps;
+  private currentProps : SearchState;
 
-  public static defaultProps : ResultsDisplayProps = {
+  public static defaultProps : SearchState = {
     cardName: "Llanowar Elves",
     imageLink: "https://api.scryfall.com/cards/mb1/1262?format=image&version=png",
     manaCost: "{G}",
@@ -50,7 +23,12 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
       scryfallPricing: 0.25
     },
     fullType: "Creature — Elf Druid",
-    oracleText : "{T}: Add {G}."
+    oracleText : "{T}: Add {G}.",
+    set : {
+      setName: "Mystery Booster",
+      setCode: "MB1",
+      imageLink: "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/magic-card-symbol-core-set-2019-150x72.png" 
+    }
   };
 
   ////////////////////////

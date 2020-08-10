@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FilesystemDirectory } from '@capacitor/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { threadId } from 'worker_threads';
+import { SearchState } from '../states/SearchState';
 
 abstract class Database extends Component {
 
@@ -48,6 +49,11 @@ abstract class Database extends Component {
    * TODO::
    */
   abstract loadDatabaseFile() : boolean;
+
+  /**
+   * TODO::
+   */
+  abstract performSearch(currentSearchState: SearchState) : SearchState;
 
   ////////////////////////
   /*"Implemented" Methods*/
@@ -110,14 +116,18 @@ abstract class Database extends Component {
   
       this.database = db;
         
-      db.executeSql('create table danceMoves(name VARCHAR(32))', [])
-        .then(() => {console.log('Executed SQL'); return true})
-        .catch(e => {console.log(e); return false;});
+      // db.executeSql('create table danceMoves(name VARCHAR(32))', [])
+      //   .then(() => {console.log('Executed SQL'); return true})
+      //   .catch(e => {console.log(e); return false;});
 
-
+      return true;
     })
     .catch(e => console.log(e));
     return false;
+  }
+
+  protected getDatabase() : SQLiteObject {
+    return this.database;
   }
 
 }

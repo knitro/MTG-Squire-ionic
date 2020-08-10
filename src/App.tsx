@@ -75,8 +75,8 @@ class App extends Component {
     this.checkLocalDatabases();
 
     App.databases = [
-      { database: new CardsDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Card Database (Index 0)
-      { database: new RulesDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Rules Database (Index 1)
+      { database: new CardsDB(sqlLite), loaded: DatabaseLoad.LOADED }, //Card Database (Index 0)
+      { database: new RulesDB(sqlLite), loaded: DatabaseLoad.LOADED }, //Rules Database (Index 1)
     ]
   }
 

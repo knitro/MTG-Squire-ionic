@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
-import {  IonContent, IonSearchbar } from "@ionic/react";
+import React, { Component, useState } from 'react';
+import {  IonContent, IonSearchbar, IonButton, IonRouterOutlet } from "@ionic/react";
 import './LiveSearchBar.css';
+import { useHistory, Route } from 'react-router-dom';
+import { IonReactRouter } from '@ionic/react-router';
+import ResultDisplay, { } from '../../pages/ResultDisplay/ResultDisplay';
+import { emptySearch, SearchState } from '../../states/SearchState';
 
 export enum LiveSearchCategory {
   Cards,
@@ -18,9 +22,13 @@ interface SearchBarProps {
 class LiveSearchBar extends Component<SearchBarProps> {
   
   /*Fields*/
+  //Constructor Fields
   searchString : string = ""; //Default
   placeholderText : string = "Search"; //Default
   category : LiveSearchCategory = LiveSearchCategory.Cards; //Default
+  
+  //Search Field
+  currentSearch: SearchState = emptySearch;
 
   /*Constructor*/
   constructor(props : SearchBarProps) {
@@ -34,8 +42,22 @@ class LiveSearchBar extends Component<SearchBarProps> {
 
   /*Render*/
   render() {
+
+    /*React Hook Initialisation*/
+    // const {searchProps, updateSearchProps} = useState(ResultDisplay.defaultProps as ResultsDisplayProps);
+
+    /*Other Variable Initialisation*/
+    //None
+
+    /*Rendering*/
     return (
       <IonContent>
+
+        {/* <IonReactRouter>
+          <IonRouterOutlet>
+            <Route path="/result-display" component={ResultDisplay} />
+          </IonRouterOutlet>
+        </IonReactRouter> */}
 
         <IonSearchbar 
             autocomplete="on" 
@@ -45,6 +67,23 @@ class LiveSearchBar extends Component<SearchBarProps> {
             value={this.searchString} 
             onIonChange={e => this.searchString = e.detail.value! } animated
         />
+
+        <IonButton 
+            color="primary"
+            expand="block"
+            fill="outline"
+            shape="round"
+            size="large"
+            text-align="center"
+            class="searchButton"
+            href="/results-display"
+            onClick={e => {
+              console.log("Button Pressed: Search Database");
+              this.currentSearch.cardName = this.searchString;
+            }}
+          >
+              {"Search"}
+          </IonButton>
 
       </IonContent>
     );
