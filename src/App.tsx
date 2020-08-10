@@ -37,8 +37,15 @@ import QuickSearch from './pages/QuickSearch/QuickSearch';
 import LifeCounterNewGame from './pages/LifeCounterNewGame/LifeCounterNewGame';
 import Settings from './pages/Settings/Settings';
 import SideBar from './components/SideBar/SideBar';
+import LifeCounterPlayerNumber from './pages/LifeCounterNewGame/LifeCounterSetPlayers';
+import LifeCounterSetLife from './pages/LifeCounterNewGame/LifeCounterSetLife';
+import LifeCounterConfirm from './pages/LifeCounterNewGame/LifeCounterConfirm';
+
+import { GameContextProvider } from './LifeTotalStore';
+
 
 const App: React.FC = () => (
+  <GameContextProvider>
   <IonReactRouter>
     <IonApp>
       <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
@@ -47,6 +54,9 @@ const App: React.FC = () => (
             <IonRouterOutlet>
               <Route path="/quick-search" component={QuickSearch} exact={true} />
               <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
+              <Route path="/life-counter/set-players" component={LifeCounterPlayerNumber} exact={true}/>
+              <Route path="/life-counter/set-life" component={LifeCounterSetLife} exact={true}/>
+              <Route path="/life-counter/confirm" component={LifeCounterConfirm} exact={true}/>
               <Route path="/settings" component={Settings} exact={true}/>
               <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           
             </IonRouterOutlet>
@@ -54,6 +64,7 @@ const App: React.FC = () => (
       </IonSplitPane>
     </IonApp>
   </IonReactRouter>
+  </GameContextProvider>
 );
 
 export default App;

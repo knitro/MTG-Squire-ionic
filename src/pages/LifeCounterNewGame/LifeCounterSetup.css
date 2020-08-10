@@ -9,7 +9,13 @@
     font-size: xxx-large; 
     font-variant-position: super;
     text-align: center;
-    transform: translateY(-40%);
+}
+
+.lifeText{
+    font-size: x-large;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .optionTextField{

@@ -1,8 +1,10 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonRow, IonCol, IonGrid, IonInput, IonCard } from '@ionic/react';
-import './LifeCounterNewGame.css';
+import './LifeCounterSetup.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
+import { GameContextConsumer, Game, saveGame } from '../../LifeTotalStore';
+
 
 const LifeCounterNewGame: React.FC = () => {
   return (
@@ -11,52 +13,16 @@ const LifeCounterNewGame: React.FC = () => {
 
       {/* Displays the Header */}
       <Header headerLabel="Life Counter - New Game"/>
-
-      <IonRow>
-        <IonCol>
-          <IonButton class="lifeNavigationButtons" color="secondary" expand="full">
-            Number of<br/> Players
-          </IonButton>
-        </IonCol>
-        <IonCol>
-          <IonButton class="lifeNavigationButtons" color="light" expand="full">
-            Life Totals
-          </IonButton>
-        </IonCol>
-        <IonCol>
-          <IonButton class="lifeNavigationButtons" color="light" expand="full">
-            Confirmation
-          </IonButton>
-        </IonCol>
-      </IonRow>
-
-      <IonTitle class="lifeTitle">Number of Players</IonTitle>
-
-      <IonContent>
-        <IonCard class="buttonCard">
-        <IonGrid class="buttonGrid">
-          <IonRow class="buttonRow">
-            <IonCol>
-              <IonButton class="optionButton" color="tertiary">20</IonButton>
-            </IonCol>
-            <IonCol>
-              <IonButton class="optionButton" color="tertiary">30</IonButton>
-            </IonCol>
-          </IonRow>
-          <IonRow class="buttonRow">
-            <IonCol>
-              <IonButton class="optionButton" color="tertiary">40</IonButton>
-            </IonCol>
-            <IonCol>
-              <IonInput class="optionTextField" color="light" placeholder="Custom"/>
-              {/* <IonButton class="optionTextButton" color="tertiary">Use custom</IonButton> */}
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-        {/* <IonButton class="nextButton" size="large">Next</IonButton> */}
-        </IonCard>
-
-      </IonContent>
+      <GameContextConsumer>
+          {(context : Game) => (
+      <IonButton href="/life-counter/set-players" class="optionButton" color="tertiary"
+      onClick={e => {
+        context == null ?
+        saveGame({lifeTotal: 20, numberPlayers : 2}) : saveGame(context)
+      }}
+      >New Game</IonButton>
+      )}
+      </GameContextConsumer>
 
       {/* Displays Tabs at the Bottom */}
       <FooterTabs/>
