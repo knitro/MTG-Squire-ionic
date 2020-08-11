@@ -1,6 +1,6 @@
 import Database from '../Database';
 import { DatabaseLoad } from '../../App';
-import { SearchState } from '../../states/SearchState';
+import { SearchState, saveSearchState } from '../../states/SearchState';
 import { SQLiteObject } from '@ionic-native/sqlite/ngx';
 import ResultDisplay from '../../pages/ResultDisplay/ResultDisplay';
 import axios from 'axios';
@@ -8,15 +8,66 @@ import axios from 'axios';
 //https://scryfall.com/docs/api/cards
 interface ScryFallInformation {
 
-  name : string
-  mana_cost : string
-  type_line : string
-  oracle_text : string
-  set_name : string //Full set name
-  set : string //Set Code
-  //set image?
-  prices : Object
-  image_uris	: Object
+  name:         string
+  mana_cost:    string
+  type_line :   string
+  oracle_text:  string
+  set_name:     string //Full set name
+  set:          string //Set Code
+  collector_number: string
+  image_uris:   ScryFallImages
+  legalities:   ScryFallLegality
+  reserved:     boolean
+  foil:         boolean
+  nonfoil:      boolean
+  promo:        boolean
+  reprint:      boolean
+  rarity:       string
+  frame:        string
+  artist:       string
+  prices :      ScryFallPrices
+  released_at:  string
+  rulings_uri:  string
+  prints_search_uri: string
+}
+
+interface ScryFallImages {
+  small:        string;
+  normal:       string;
+  large:        string;
+  png:          string;
+  art_crop:     string;
+  border_crop:  string
+}
+
+interface ScryFallLegality {
+  standard:   string
+  future:     string
+  historic:   string
+  pioneer:    string
+  modern:     string
+  legacy:     string
+  pauper:     string
+  vintage:    string
+  penny:      string
+  commander:  string
+  brawl:      string
+  duel:       string
+  oldschool:  string
+}
+
+interface ScryFallPrices {
+  usd:      string
+  usd_foil: string
+  tix:      string
+}
+
+interface ScryFallRulings {
+  object:       string
+  oracle_id:    string
+  source:       string
+  published_at: string
+  comment:      string
 }
 
 class CardsDB extends Database {
@@ -25,15 +76,20 @@ class CardsDB extends Database {
   /*Fields*/
   ////////////////////////
 
+  /*Constant Links*/
   private fileName : string = "AllPrintings.sqlite";
   private fileDownloadLink : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite";
+  private sha256Link : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite.sha256";
+
+  /*Fields*/
+  private rulings : string[] = [];
 
   ////////////////////////
   /*Constructor*/
   ////////////////////////
 
   ////////////////////////
-  /*Methods*/
+  /*Implemented Methods*/
   ////////////////////////
   
   downloadDatabase() : void {
@@ -41,78 +97,124 @@ class CardsDB extends Database {
   }
 
   verifyDatabase() : DatabaseLoad {
-    return DatabaseLoad.NOT_LOADED;
+    //Proper Verification Implementation: Remove return below
+    return DatabaseLoad.LOADED;
   }
 
   loadDatabaseFile(): boolean {
     return this.loadingDatabaseFile("", this.fileName);
   }
 
-  performSearch(currentSearch : SearchState) : SearchState {
+  async performSearch(currentSearch : SearchState) {
 
     /*Variable Initialisation*/
-    //Reference: https://scryfall.com/docs/api/cards/search
-    let url = "https://api.scryfall.com/cards/search?order=released&q=" + currentSearch.cardName;
+    let url = this.percentEncode("https://api.scryfall.com/cards/search?order=released&q=" + currentSearch.cardName);
 
-    /*Download the File*/
+    /*Get the API Call*/
     axios({
-      url: url, //your url
+      url: url,
       method: 'GET',
-      responseType: 'blob', // important
     }).then((response) => {
-      console.log("Started: Scryfall API ping from " + url);
 
-      let reponseJSON = JSON.parse(response.data);
-      responseJSON.
-      // response.data
+      /*Grab the JSON Data*/
+      let output : ScryFallInformation[] = response.data.data;
+      let latestResult : ScryFallInformation = output[0];
 
-      console.log("Finished: Scryfall API ping from " + url);
+      /*Get Additional Rulings*/
+      // let additionalRulings: string[] = this.getCardRuling(latestResult.rulings_uri).then(
+      //   (result) => {return result;
+      // });
+      // additionalRulings.map((currentItem: string) => console.log(currentItem));
+      this.getCardRuling(latestResult.rulings_uri);
+
+      /*Get CardImageURL*/
+      let cardImageURL : string = "" 
+          + "https://api.scryfall.com/cards/" 
+          + latestResult.set
+          + "/" + latestResult.collector_number
+          + "?format=image&version=png";
+
+      /*Generate the SearchState*/
+      let searchResult : SearchState = {
+        cardName:   latestResult.name,
+        imageLink:  cardImageURL,
+        manaCost:   latestResult.mana_cost,
+        prices: {
+          scryFallPricing_nonfoil:  latestResult.prices.usd,
+          scryFallPricing_foil:     latestResult.prices.usd_foil
+        },
+        fullType:   latestResult.type_line,
+        oracleText: latestResult.oracle_text,
+        set : {
+          setName: latestResult.set_name,
+          setCode: latestResult.set,
+          imageLink: ""
+        },
+        legality: {
+          standard:   latestResult.legalities.standard,
+          future:     latestResult.legalities.future,
+          historic:   latestResult.legalities.historic,
+          pioneer:    latestResult.legalities.pioneer,
+          modern:     latestResult.legalities.modern,
+          legacy:     latestResult.legalities.legacy,
+          pauper:     latestResult.legalities.pauper,
+          vintage:    latestResult.legalities.vintage,
+          penny:      latestResult.legalities.penny,
+          commander:  latestResult.legalities.commander,
+          brawl:      latestResult.legalities.brawl,
+          duel:       latestResult.legalities.duel,
+          oldschool:  latestResult.legalities.oldschool
+        },
+        misc: {
+          reserved: latestResult.reserved,
+          foil:     latestResult.foil,
+          nonfoil:  latestResult.nonfoil,
+          promo:    latestResult.promo,
+          reprint:  latestResult.reprint,
+          collector_number: latestResult.collector_number,
+          rarity:   latestResult.rarity,
+          frame:    latestResult.frame,
+          artist:   latestResult.artist,
+          released: latestResult.released_at
+        },
+        rulings: this.rulings
+      };
+
+      /*Save SearchState to Storage*/
+      saveSearchState(searchResult);
+
+      console.log("Finished: performSearch() http");
+
     });
+
+    console.log("Finished: performedSearch() quick")
 
   }
 
+  /**
+   * TODO::
+   * @param url 
+   */
+  async getCardRuling(url : string) {
 
-  // performSearch(currentSearch : SearchState) : SearchState {
+    let returnArray : string[] = [];
 
-  //   let currentDB : SQLiteObject = this.getDatabase();
+     /*Get the API Call*/
+     axios({
+      url: url,
+      method: 'GET',
+    }).then((response) => {
+
+      /*Grab the JSON Data*/
+      let output : ScryFallRulings[] = response.data.data;
+      output.map((currentRuling: ScryFallRulings) => returnArray.push(currentRuling.comment));
+      this.rulings = returnArray;
+      this.rulings.map((currentItem: string) => console.log(currentItem));
+    });
     
-  //   let sqlCommand : string = "SELECT *"
-  //                           + "FROM cards"
-  //                           + "WHERE name = " + currentSearch.cardName
-  //                           ;
-
-  //   currentDB.executeSql("SELECT upper('Test string') AS upperString", [], function(tr, rs) {
-  //     console.log('Got upperString result: ' + rs.rows.item(0).upperString);
-  //   });
-  //   currentDB.executeSql(sqlCommand, [])
-  //     .then(() => {
-
-  //       console.log('Executed SQL'); 
-        
-  //       let finalResult : SearchState = {
-  //         cardName: "Llanowar Elves",
-  //         imageLink: "https://api.scryfall.com/cards/mb1/1262?format=image&version=png",
-  //         manaCost: "{G}",
-  //         prices: {
-  //           scryfallPricing: 0.25
-  //         },
-  //         fullType: "Creature — Elf Druid",
-  //         oracleText : "{T}: Add {G}.",
-  //         set : {
-  //           setName: "Mystery Booster",
-  //           setCode: "MB1",
-  //           imageLink: "https://cdn-cardmavin.mavin.io/wp-content/uploads/2019/04/magic-card-symbol-core-set-2019-150x72.png" 
-  //         }
-  //       }
-
-  //     })
-  //     .catch(e => {
-  //       console.log(e); 
-  //       return ResultDisplay.defaultProps;
-  //     });
-
-  //   return ResultDisplay.defaultProps;
-  // }
+    this.rulings = returnArray;
+    console.log("");
+  }
 
   ////////////////////////
   /*Render*/

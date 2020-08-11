@@ -4,7 +4,6 @@ import App, { DatabaseLoad } from '../App';
 import axios from 'axios';
 import { FilesystemDirectory } from '@capacitor/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import { threadId } from 'worker_threads';
 import { SearchState } from '../states/SearchState';
 
 abstract class Database extends Component {
@@ -20,15 +19,10 @@ abstract class Database extends Component {
   /*Constructor*/
   ////////////////////////
 
-  // constructor(props : any) {
-  //   super(props);
-  //   // this.file = file;
-  // }
-
   constructor(sqlite : SQLite) {
     super(sqlite);
     this.sqlite = sqlite;
-    this.database = SQLiteObject.prototype;
+    this.database = SQLiteObject.prototype; //Initial Initialisation (To be properly initialised later)
   }
 
   ////////////////////////
@@ -46,14 +40,14 @@ abstract class Database extends Component {
   abstract verifyDatabase() : DatabaseLoad;
 
   /**
-   * TODO::
+   * This method should load the database file and call/return the return value from loadingDatabaseFile(string, string).
    */
   abstract loadDatabaseFile() : boolean;
 
   /**
-   * TODO::
+   * This method should perform the search and store the search result in the database
    */
-  abstract performSearch(currentSearchState: SearchState) : SearchState;
+  abstract performSearch(currentSearchState: SearchState) : void;
 
   ////////////////////////
   /*"Implemented" Methods*/
@@ -61,25 +55,22 @@ abstract class Database extends Component {
 
   /**
    * Downloads the Database from the given url.
+   * Note that this method exists SOLEY to show that there was some intended implementation of downloading a database,
+   * but plugin failures have negated the possible use. 
    * @param url - the URL to the database
    * @param fileName - the file name that the database will be saved under
-   * @param databaseIndex 
+   * @param databaseIndex - the Index of the database as per App.tsx
    */
   protected async downloadingDatabase(url : string, fileName : string, databaseIndex : number) {
 
-    console.log("Started: downloadingDatabase() ")
-    
+    console.log("Started: downloadingDatabase() ");
 
     const FileDownload = require('js-file-download');
-    // const history = useHistory();
-
-    // console.log("FilesystemDirectory.Data = " + FilesystemDirectory.Data);
 
     /*Download the File*/
     axios({
-      url: url, //your url
-      method: 'GET',
-      responseType: 'blob', // important
+      url: url,
+      method: 'GET'
     }).then((response) => {
       console.log("Started: Downloading Database " + fileName + " from " + url);
       FileDownload(response.data, FilesystemDirectory.Data + "/" + fileName);
@@ -88,24 +79,28 @@ abstract class Database extends Component {
     });
 
     console.log("Finished: downloadingDatabase() ");
-
-    return true;
+    return;
 
   }
 
   /**
    * This method is to be only called by verifyDatabase() once the variables are set accordingly.
+   * Note that this method exists SOLEY to show that there was some intended implementation of downloading a database,
+   * but plugin failures have negated the possible use. 
    * @param url - the URL to the online SHA256 file
    * @param localDirectory the directory to the local SHA256 file
    */
   protected verifyingDatabase(url : string, localDirectory : string) : DatabaseLoad {
-
     //TODO:: Extension Work
     //Assume Database is never loaded still meets requirements
-
     return DatabaseLoad.NOT_LOADED;
   }
 
+  /**
+   * Loads up the database from the given directory and filename.
+   * @param directory - the directory of the database
+   * @param fileName  - the name of the database
+   */
   protected loadingDatabaseFile(directory : string, fileName : string) : boolean {
 
     this.sqlite.create({
@@ -113,21 +108,27 @@ abstract class Database extends Component {
       location: directory
     })
     .then((db: SQLiteObject) => {
-  
       this.database = db;
-        
-      // db.executeSql('create table danceMoves(name VARCHAR(32))', [])
-      //   .then(() => {console.log('Executed SQL'); return true})
-      //   .catch(e => {console.log(e); return false;});
-
       return true;
     })
     .catch(e => console.log(e));
     return false;
   }
 
+  /**
+   * Returns the database object.
+   */
   protected getDatabase() : SQLiteObject {
     return this.database;
+  }
+
+  /**
+   * Percent Encode the parameter string.
+   * @param stringToEncode - the string to encode.
+   */
+  protected percentEncode(stringToEncode : string) : string {
+    let encodedString = encodeURI(stringToEncode)
+    return encodedString;
   }
 
 }

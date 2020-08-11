@@ -1,5 +1,6 @@
 import Database from '../Database';
 import { DatabaseLoad } from '../../App';
+import { SearchState } from '../../states/SearchState';
 
 class RulesDB extends Database {
   
@@ -25,6 +26,10 @@ class RulesDB extends Database {
 
   loadDatabaseFile(): boolean {
     return false;
+  }
+
+  performSearch(currentSearch : SearchState) : void {
+    return;
   }
 
   ////////////////////////

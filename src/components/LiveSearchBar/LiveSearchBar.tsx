@@ -4,7 +4,8 @@ import './LiveSearchBar.css';
 import { useHistory, Route } from 'react-router-dom';
 import { IonReactRouter } from '@ionic/react-router';
 import ResultDisplay, { } from '../../pages/ResultDisplay/ResultDisplay';
-import { emptySearch, SearchState } from '../../states/SearchState';
+import { emptySearch, SearchState, SearchStateContextProvider, SearchStateContextConsumer } from '../../states/SearchState';
+import App from '../../App';
 
 export enum LiveSearchCategory {
   Cards,
@@ -65,7 +66,12 @@ class LiveSearchBar extends Component<SearchBarProps> {
             type="text" 
             placeholder={this.placeholderText}
             value={this.searchString} 
-            onIonChange={e => this.searchString = e.detail.value! } animated
+            onIonChange={
+              e => {
+                this.searchString = e.detail.value!;
+                this.currentSearch.cardName = this.searchString;
+              } 
+            } animated
         />
 
         <IonButton 
@@ -76,14 +82,44 @@ class LiveSearchBar extends Component<SearchBarProps> {
             size="large"
             text-align="center"
             class="searchButton"
-            href="/results-display"
             onClick={e => {
               console.log("Button Pressed: Search Database");
               this.currentSearch.cardName = this.searchString;
+              App.databases[0].database.performSearch(this.currentSearch);
             }}
           >
               {"Search"}
           </IonButton>
+
+          <IonButton 
+            color="primary"
+            expand="block"
+            fill="outline"
+            shape="round"
+            size="large"
+            text-align="center"
+            class="searchButton"
+            href="/results-display"
+            onClick={e => {
+              console.log("Button Pressed: Search Database");
+            }}
+          >
+              {"Go to Result"}
+          </IonButton>
+
+          <SearchStateContextConsumer>
+          {(context : SearchState) => (
+            <IonButton onClick={e =>
+            {
+              console.log(context.cardName);
+              console.log(context.fullType);
+              console.log(context.imageLink);
+              console.log(context.manaCost);
+              console.log(context.oracleText);
+            }
+            }>Check DB Status</IonButton>
+          )}
+        </SearchStateContextConsumer>
 
       </IonContent>
     );
