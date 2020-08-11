@@ -9,53 +9,8 @@ import uuid from 'uuid';
 
 /**
  * The Main Interface.
- * This is used as a parameter props for the initialisation of the Mana Cost.
+ * This is used as for the "static database" to map a tag to an asset image link.
  */
-// export interface ManaCostProps {
-//   standard : StandardManaCosts
-//   phyrexian : PhyrexianManaCosts
-//   hybridSingle : HybridSingleManaCosts
-//   hybridGuild : HybridGuildManaCosts
-// }
-
-// export interface StandardManaCosts {
-//   genericPips: number
-//   colourlessPips: number
-//   whitePips : number
-//   bluePips: number
-//   blackPips: number
-//   redPips : number
-//   greenPips: number
-// }
-
-// export interface PhyrexianManaCosts {
-//   whitePhyrexian : number
-//   bluePhyrexian: number
-//   blackPhyrexian: number
-//   redPhyrexian : number
-//   greenPhyrexian: number
-// }
-
-// export interface HybridSingleManaCosts {
-//   white2 : number
-//   blue2: number
-//   black2: number
-//   red2 : number
-//   green2: number
-// }
-
-// export interface HybridGuildManaCosts {
-//   azorius : number
-//   dimir: number
-//   rakdos: number
-//   selesnya : number
-//   orzhov: number
-//   izzet : number
-//   golgari: number
-//   boros: number
-//   simic : number
-// }
-
 export interface symbolToImageInterface {
   tag: string
   dir : string

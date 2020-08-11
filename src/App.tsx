@@ -34,6 +34,7 @@ import RulesDB from './databases/RulesDB/RulesDB';
 import { Plugins } from '@capacitor/core';
 import ResultDisplay from './pages/ResultDisplay/ResultDisplay';
 import { SQLite } from '@ionic-native/sqlite/ngx';
+import { SearchStateContextProvider } from './states/SearchState';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -65,7 +66,7 @@ class App extends Component {
     currentDatabase.loaded = newState;
     console.log("Database State Updated to " + DatabaseLoad);
   }
-
+  
   ////////////////////////
   /*Constructor*/
   ////////////////////////
@@ -75,8 +76,8 @@ class App extends Component {
     this.checkLocalDatabases();
 
     App.databases = [
-      { database: new CardsDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Card Database (Index 0)
-      { database: new RulesDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Rules Database (Index 1)
+      { database: new CardsDB(sqlLite), loaded: DatabaseLoad.LOADED }, //Card Database (Index 0)
+      { database: new RulesDB(sqlLite), loaded: DatabaseLoad.LOADED }, //Rules Database (Index 1)
     ]
   }
 
@@ -113,6 +114,7 @@ class App extends Component {
 
     return (
       <IonReactRouter>
+        <SearchStateContextProvider>
         <IonApp>
           <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
             <SideBar/>  {/* The Acutal Sidebar */}
@@ -131,6 +133,7 @@ class App extends Component {
             </IonPage>
           </IonSplitPane>
         </IonApp>
+        </SearchStateContextProvider>
       </IonReactRouter>
     );
   }
