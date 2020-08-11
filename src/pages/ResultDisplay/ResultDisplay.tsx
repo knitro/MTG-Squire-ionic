@@ -5,6 +5,7 @@ import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import ManaCost from '../../components/ManaCost/ManaCost';
 import { SearchState, SearchStateContextConsumer } from '../../states/SearchState';
+import uuid from 'uuid';
 
 class ResultDisplay extends Component<SearchState> {
 
@@ -53,7 +54,6 @@ class ResultDisplay extends Component<SearchState> {
             <IonCardHeader>
               <IonRow>
                 <IonCol>
-                  {/* <IonCardTitle>{title}</IonCardTitle> */}
                   <IonCardTitle>{context.cardName}</IonCardTitle>
                 </IonCol>
                 <IonCol>
@@ -97,7 +97,7 @@ class ResultDisplay extends Component<SearchState> {
             </IonCardHeader>
             <IonCardContent>
                 {context.rulings.map((currentItem: string) => 
-                  <IonCardContent>
+                  <IonCardContent key={uuid.v4()}>
                     {currentItem}
                   </IonCardContent>
                 )}

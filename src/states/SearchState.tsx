@@ -164,7 +164,14 @@ export async function updateSaveStateWithRulings(rulings : string[]) {
     (result) => {
         if (typeof result.value === 'string') {
           currentSearchState = JSON.parse(result.value) as SearchState;
-          
+          currentSearchState.rulings = rulings;
+
+          console.log(currentSearchState.rulings[0]);
+
+          Storage.set({
+            key: storageKey,
+            value: JSON.stringify(currentSearchState)
+          });
         }
     },
     (reason) => console.log("Failed to load state from storage because of: " + reason)
@@ -174,14 +181,6 @@ export async function updateSaveStateWithRulings(rulings : string[]) {
   if (currentSearchState == emptySearch) {
     return;
   }
-
-  currentSearchState.rulings = rulings;
-
-  await Storage.set({
-    key: storageKey,
-    value: JSON.stringify(currentSearchState)
-  });
-
 }
 
 let SearchStateContext = createContext({} as SearchState);

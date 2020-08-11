@@ -1,6 +1,6 @@
 import Database from '../Database';
 import { DatabaseLoad } from '../../App';
-import { SearchState, saveSearchState } from '../../states/SearchState';
+import { SearchState, saveSearchState, updateSaveStateWithRulings } from '../../states/SearchState';
 import { SQLiteObject } from '@ionic-native/sqlite/ngx';
 import ResultDisplay from '../../pages/ResultDisplay/ResultDisplay';
 import axios from 'axios';
@@ -210,10 +210,11 @@ class CardsDB extends Database {
       output.map((currentRuling: ScryFallRulings) => returnArray.push(currentRuling.comment));
       this.rulings = returnArray;
       this.rulings.map((currentItem: string) => console.log(currentItem));
+      this.rulings = returnArray;
+      updateSaveStateWithRulings(this.rulings);
     });
     
-    this.rulings = returnArray;
-    console.log("");
+    
   }
 
   ////////////////////////
