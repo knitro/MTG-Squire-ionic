@@ -16,6 +16,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    size: large;
+}
+
+.lifeStartButton{
+    font-size: xxx-large;
+    width: 50%;
+    height: 100%;
+    transform: translateX(50%);
+
 }
 
 .optionTextField{
@@ -38,4 +47,12 @@
 
 .buttonRow{
     height: 100%;
+}
+
+.newGameButton{
+    /* outline-width: 2; */
+    width: 70%;
+    transform: translateX(20%);
+    height: 30%;
+    font-size: xxx-large;
 }

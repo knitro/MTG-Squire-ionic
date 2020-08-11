@@ -1,25 +1,12 @@
 import React from 'react';
 import { createContext, useState, useEffect } from 'react';
 import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 
 export interface Game {
     numberPlayers : number;
     lifeTotal : number;
-    // players : LifeCount[]
 }
-
-export interface LifeCount{
-    lifeTotal : number;
-    valueW : number;
-    valueU : number;
-    valueB : number;
-    valueR : number;
-    valueG : number;
-}
-
-
-
-const { Storage } = Plugins;
 
 export async function saveGame(g : Game){
     await Storage.set({

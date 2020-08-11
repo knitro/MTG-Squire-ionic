@@ -1,13 +1,8 @@
 import React from 'react';
-import { Redirect, Route, Router } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
   IonSplitPane,
   IonPage
 } from '@ionic/react';
@@ -34,15 +29,13 @@ import './theme/variables.css';
 
 /*Page Imports (For Re-directions)*/
 import QuickSearch from './pages/QuickSearch/QuickSearch';
-import LifeCounterNewGame from './pages/LifeCounterNewGame/LifeCounterNewGame';
+import LifeCounterNewGame from './pages/LifeCounter/LifeCounterNewGame';
 import Settings from './pages/Settings/Settings';
 import SideBar from './components/SideBar/SideBar';
-import LifeCounterPlayerNumber from './pages/LifeCounterNewGame/LifeCounterSetPlayers';
-import LifeCounterSetLife from './pages/LifeCounterNewGame/LifeCounterSetLife';
-import LifeCounterConfirm from './pages/LifeCounterNewGame/LifeCounterConfirm';
-
-import { GameContextProvider } from './LifeTotalStore';
-
+import LifeCounterPlayerNumber from './pages/LifeCounter/LifeCounterSetPlayers';
+import LifeCounterSetLife from './pages/LifeCounter/LifeCounterSetLife';
+import LifeCounterConfirm from './pages/LifeCounter/LifeCounterConfirm';
+import LifeCounter from './pages/LifeCounter/LifeCounter';
 
 const App: React.FC = () => (
   <IonReactRouter>
@@ -56,6 +49,7 @@ const App: React.FC = () => (
               <Route path="/life-counter/set-players" component={LifeCounterPlayerNumber} exact={true}/>
               <Route path="/life-counter/set-life" component={LifeCounterSetLife} exact={true}/>
               <Route path="/life-counter/confirm" component={LifeCounterConfirm} exact={true}/>
+              <Route path="/life-counter/game" component={LifeCounter} exact={true}/>
               <Route path="/settings" component={Settings} exact={true}/>
               <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           
             </IonRouterOutlet>

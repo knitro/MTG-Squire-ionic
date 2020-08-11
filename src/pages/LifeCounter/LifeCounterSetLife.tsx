@@ -1,9 +1,9 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonRow, IonCol, IonGrid, IonInput, IonCard } from '@ionic/react';
+import { IonContent, IonPage, IonTitle, IonButton, IonRow, IonCol, IonGrid, IonInput, IonCard } from '@ionic/react';
 import './LifeCounterSetup.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../LifeTotalStore';
+import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../states/LifeCounterSetupState';
 
 const LifeCounterSetLife: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const LifeCounterSetLife: React.FC = () => {
 
         <IonRow>
           <IonCol>
-            <IonButton class="lifeNavigationButtons" color="light" expand="full">
+            <IonButton class="lifeNavigationButtons" color="light" expand="full" href="/life-counter/set-players">
               Number of<br/> Players
             </IonButton>
           </IonCol>
@@ -27,7 +27,7 @@ const LifeCounterSetLife: React.FC = () => {
             </IonButton>
           </IonCol>
           <IonCol>
-            <IonButton class="lifeNavigationButtons" color="light" expand="full">
+            <IonButton class="lifeNavigationButtons" color="light" expand="full" href="/life-counter/confirm">
               Confirmation
             </IonButton>
           </IonCol>

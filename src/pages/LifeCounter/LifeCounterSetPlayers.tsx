@@ -3,7 +3,7 @@ import { IonContent, IonPage, IonTitle, IonButton, IonRow, IonCol, IonGrid, IonC
 import './LifeCounterSetup.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../LifeTotalStore';
+import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../states/LifeCounterSetupState';
 
 
 const LifeCounterSetPlayers: React.FC = () => {
@@ -22,12 +22,12 @@ const LifeCounterSetPlayers: React.FC = () => {
             </IonButton>
           </IonCol>
           <IonCol>
-            <IonButton class="lifeNavigationButtons" color="light" expand="full">
+            <IonButton class="lifeNavigationButtons" color="light" expand="full" href="/life-counter/set-life">
               Life Totals
             </IonButton>
           </IonCol>
           <IonCol>
-            <IonButton class="lifeNavigationButtons" color="light" expand="full">
+            <IonButton class="lifeNavigationButtons" color="light" expand="full" href="/life-counter/confirm">
               Confirmation
             </IonButton>
           </IonCol>
