@@ -4,54 +4,16 @@ import './ResultDisplay.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import ManaCost from '../../components/ManaCost/ManaCost';
+import { SearchState, SearchStateContextConsumer } from '../../states/SearchState';
+import uuid from 'uuid';
 
-//////////////////////////////////////////////////////////
-/*Temporary Interfaces to be Components Later*/
-//////////////////////////////////////////////////////////
-
-export interface PriceProps {
-  scryfallPricing : number //Remove if TCG/CK/SCG is implemented
-}
-
-
-export interface SetInformation {
-  setName : string
-  imageLink : string
-}
-
-//////////////////////////////////////////////////////////
-
-/**
- * Interface that contains the parameters for the Class
- */
-export interface ResultsDisplayProps {
-  cardName: string
-  imageLink: string
-  manaCost: string
-  prices: PriceProps
-  fullType : string
-  oracleText : string
-}
-
-class ResultDisplay extends Component<ResultsDisplayProps> {
+class ResultDisplay extends Component<SearchState> {
 
   ////////////////////////
   /*Fields*/
   ////////////////////////
 
-  //Default Value for the Results Display if not updated through props
-  private currentProps : ResultsDisplayProps;
-
-  public static defaultProps : ResultsDisplayProps = {
-    cardName: "Llanowar Elves",
-    imageLink: "https://api.scryfall.com/cards/mb1/1262?format=image&version=png",\
-    manaCost: "G}",
-    prices: {
-      scryfallPricing: 0.25
-    },
-    fullType: "Creature — Elf Druid",
-    oracleText : "{T}: Add {G}."
-  };
+  /*None*/
 
   ////////////////////////
   /*Constructor*/
@@ -59,44 +21,32 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
 
   constructor(props : any) {
     super(props);
-    if (props == null) {
-      this.currentProps = ResultDisplay.defaultProps;
-    } else if (typeof (props) == typeof (ResultDisplay.defaultProps)) {
-      this.currentProps = props;
-    } else {
-      this.currentProps = ResultDisplay.defaultProps;
-    }
   }
 
   ////////////////////////
   /*Methods*/
   ////////////////////////
 
+  /*None*/
+
   ////////////////////////
   /*Render*/
   ////////////////////////
 
   render() {
-  /*Initialise Hooks*/
-
-  /*Initialise Variable Fields*/
-  let headerLabel : string = "Card: " + this.currentProps.cardName;
-  let subtitle : string = this.currentProps.fullType;
-  let title : string = this.currentProps.cardName;
-  let imageLink : string = this.currentProps.imageLink;
-  let oracleText : string = this.currentProps.oracleText;
-  let additionalRulings : string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
   /*Display*/ 
   return (
-
+    
     <IonPage>
+      <SearchStateContextConsumer>
+      {(context : SearchState) =>
 
+      <>
       {/* Displays the Header */}
-      <Header headerLabel={headerLabel}/>
+      <Header headerLabel={"Card: " + context.cardName}/>
       
       <IonContent>
-
+      
         <IonList>
 
           {/* IonCard 1: Name + Image */}
@@ -104,16 +54,16 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
             <IonCardHeader>
               <IonRow>
                 <IonCol>
-                  <IonCardTitle>{title}</IonCardTitle>
+                  <IonCardTitle>{context.cardName}</IonCardTitle>
                 </IonCol>
                 <IonCol>
-                  <ManaCost cost={ResultDisplay.defaultProps.manaCost}/>
+                  <ManaCost cost={context.manaCost}/>
                 </IonCol>
               </IonRow>
-              <IonCardSubtitle>{subtitle}</IonCardSubtitle>
+              <IonCardSubtitle>{context.fullType}</IonCardSubtitle>
             </IonCardHeader>
             <IonCardContent>
-            <IonImg src={imageLink} class="cardImage"/>
+            <IonImg src={context.imageLink} class="cardImage"/>
             </IonCardContent>
           </IonCard>
           
@@ -123,9 +73,8 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
               <IonCardTitle>{"Oracle Text"}</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              {oracleText}
+              {context.oracleText}
             </IonCardContent>
-
           </IonCard>
 
           {/* IonCard 3:  Pricing*/}
@@ -134,9 +83,11 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
               <IonCardTitle>{"Prices"}</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              {"Scryfall Price: $"} {this.currentProps.prices.scryfallPricing}
+              {"Scryfall USD Non-Foil Price: $"}{context.prices.scryFallPricing_nonfoil}
             </IonCardContent>
-
+            <IonCardContent>
+              {"Scryfall USD Foil Price: $"}{context.prices.scryFallPricing_foil}
+            </IonCardContent>
           </IonCard>
 
           {/* IonCard 4:  Additional Rulings*/}
@@ -145,9 +96,12 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
               <IonCardTitle>{"Additional Rulings"}</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              {additionalRulings}
+                {context.rulings.map((currentItem: string) => 
+                  <IonCardContent key={uuid.v4()}>
+                    {currentItem}
+                  </IonCardContent>
+                )}
             </IonCardContent>
-
           </IonCard>
 
           {/* IonCard 5:  Other Printings*/}
@@ -162,7 +116,7 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
           </IonCard>
 
         </IonList>
-
+        
         {/* <IonButton 
             id="downloadDatabaseButton"
             color="primary"
@@ -186,6 +140,8 @@ class ResultDisplay extends Component<ResultsDisplayProps> {
       {/* Displays Tabs at the Bottom */}
       <FooterTabs/>
       {/* <TestDatabase/> */}
+      </>
+      }</SearchStateContextConsumer>
 
     </IonPage>
   );
