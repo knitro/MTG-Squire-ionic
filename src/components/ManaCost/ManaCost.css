@@ -1,0 +1,10 @@
+.symbolImage {
+  width: 15%;
+  display: flex;
+}
+
+.manaCostRow {
+  /* margin: auto; */
+  display: flex;
+  justify-content: flex-end;
+}
