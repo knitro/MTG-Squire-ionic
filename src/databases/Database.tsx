@@ -3,7 +3,6 @@ import App, { DatabaseLoad } from '../App';
 
 import axios from 'axios';
 import { FilesystemDirectory } from '@capacitor/core';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { SearchState } from '../states/SearchState';
 
 abstract class Database extends Component {
@@ -12,18 +11,25 @@ abstract class Database extends Component {
   /*Fields*/
   ////////////////////////
 
-  private sqlite : SQLite;
-  private database : SQLiteObject;
+  /** Constructor to be Uncommented if SQLite is to be used*/
+  // private sqlite : SQLite;
+  // private database : SQLiteObject;
 
   ////////////////////////
   /*Constructor*/
   ////////////////////////
 
-  constructor(sqlite : SQLite) {
-    super(sqlite);
-    this.sqlite = sqlite;
-    this.database = SQLiteObject.prototype; //Initial Initialisation (To be properly initialised later)
+  constructor(props : any) {
+    super(props);
+    console.log("Constructed Database Instance");
   }
+
+  /** Constructor to be Uncommented if SQLite is to be used*/
+  // constructor(sqlite : SQLite) {
+  //   super(sqlite);
+  //   this.sqlite = sqlite;
+  //   this.database = SQLiteObject.prototype; //Initial Initialisation (To be properly initialised later)
+  // }
 
   ////////////////////////
   /*Abstract Methods*/
@@ -97,32 +103,6 @@ abstract class Database extends Component {
   }
 
   /**
-   * Loads up the database from the given directory and filename.
-   * @param directory - the directory of the database
-   * @param fileName  - the name of the database
-   */
-  protected loadingDatabaseFile(directory : string, fileName : string) : boolean {
-
-    this.sqlite.create({
-      name: fileName,
-      location: directory
-    })
-    .then((db: SQLiteObject) => {
-      this.database = db;
-      return true;
-    })
-    .catch(e => console.log(e));
-    return false;
-  }
-
-  /**
-   * Returns the database object.
-   */
-  protected getDatabase() : SQLiteObject {
-    return this.database;
-  }
-
-  /**
    * Percent Encode the parameter string.
    * @param stringToEncode - the string to encode.
    */
@@ -130,6 +110,39 @@ abstract class Database extends Component {
     let encodedString = encodeURI(stringToEncode)
     return encodedString;
   }
+
+  ////////////////////////
+  /*SQLite Methods*/
+  ////////////////////////
+
+  //Methods to be uncommented if SQLite functionality is to be implemented.
+  //Note that for these methods to work, the sqlite dependency needs to be installed.
+
+  // /**
+  //  * Loads up the database from the given directory and filename.
+  //  * @param directory - the directory of the database
+  //  * @param fileName  - the name of the database
+  //  */
+  // protected loadingDatabaseFile(directory : string, fileName : string) : boolean {
+
+  //   this.sqlite.create({
+  //     name: fileName,
+  //     location: directory
+  //   })
+  //   .then((db: SQLiteObject) => {
+  //     this.database = db;
+  //     return true;
+  //   })
+  //   .catch(e => console.log(e));
+  //   return false;
+  // }
+
+  // /**
+  //  * Returns the database object.
+  //  */
+  // protected getDatabase() : SQLiteObject {
+  //   return this.database;
+  // }
 
 }
   
