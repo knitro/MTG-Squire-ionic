@@ -58,7 +58,7 @@ const LifeCounterSetPlayers: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow class="buttonRow">
-            <IonCol>
+            <IonCol class="buttonCol">
               <IonButton href="/life-counter/set-life" class="optionButton" color="tertiary"
               onClick={e => {
                 context != null ?
@@ -67,7 +67,7 @@ const LifeCounterSetPlayers: React.FC = () => {
               }}
               >3</IonButton>
             </IonCol>
-            <IonCol>
+            <IonCol class="buttonCol">
               <IonButton href="/life-counter/set-life" class="optionButton" color="tertiary"
               onClick={e => {
                 context != null ?

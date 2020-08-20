@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../states/LifeCounterSetupState';
 
 const LifeCounterSetLife: React.FC = () => {
-  var customLife : number;
+  var customLife : number = 0;
 
   return (
 
@@ -41,7 +41,7 @@ const LifeCounterSetLife: React.FC = () => {
           {(context : Game) => (
         <>
           <IonRow class="buttonRow">
-            <IonCol class="buttonCol">
+            <IonCol>
               <IonButton href="/life-counter/confirm" class="optionButton" color="tertiary"
               onClick={e => {
                 context != null ?
@@ -50,7 +50,7 @@ const LifeCounterSetLife: React.FC = () => {
               }}
               >20</IonButton>
             </IonCol>
-            <IonCol class="buttonCol">
+            <IonCol>
               <IonButton href="/life-counter/confirm" class="optionButton" color="tertiary"
               onClick={e => {
                 context != null ?
@@ -62,7 +62,7 @@ const LifeCounterSetLife: React.FC = () => {
           </IonRow>
           <IonRow class="buttonRow">
             <IonCol class="buttonCol">
-              <IonButton href="/life-counter/confirm" class="optionButton" color="tertiary" size="large"
+              <IonButton href="/life-counter/confirm" class="optionButton" color="tertiary"
               onClick={e => {
                 context != null ?
                 saveGame({lifeTotal: 40, numberPlayers : context.numberPlayers}) :
@@ -75,7 +75,16 @@ const LifeCounterSetLife: React.FC = () => {
               <IonInput class="optionTextField" color="light" placeholder="Custom" type="number"
               onIonChange={e => (customLife = Number(e.detail.value!), console.log(customLife))
               }/>
-              {/* <IonButton class="optionTextButton" color="tertiary">Use custom</IonButton> */}
+              <IonButton href="/life-counter/confirm" class="optionTextButton" color="tertiary"
+              onClick={e => {
+                (
+                // (customLife = NaN : customLife == 10 ? console.log(customLife)),
+                context != null ?
+                saveGame({lifeTotal: customLife, numberPlayers : context.numberPlayers}) :
+                saveGame({lifeTotal: customLife, numberPlayers : 4})
+                )
+              }}
+              >Use custom</IonButton>
               {/* <IonButton class="optionTextButton" color="tertiary">Use custom</IonButton> */}
 
             </IonCol>
