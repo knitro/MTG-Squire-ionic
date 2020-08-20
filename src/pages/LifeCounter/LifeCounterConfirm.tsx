@@ -45,7 +45,7 @@ const LifeCounterConfirm: React.FC = () => {
           Number of players: {context.numberPlayers}<div/>
           Starting life: {context.lifeTotal}
         </IonLabel>
-        <IonButton class="lifeStartButton" href="/life-counter/game" shape="round"
+        <IonButton class="lifeStartButton" href="/life-counter/game" shape="round" color="tertiary"
             onClick={e => {
               createPlayers(context);
             }}>
