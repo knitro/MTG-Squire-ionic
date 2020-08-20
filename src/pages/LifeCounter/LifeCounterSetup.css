@@ -27,6 +27,21 @@
 
 }
 
+.newGameButton{
+    /* outline-width: 2; */
+    width: 70%;
+    transform: translateX(20%);
+    height: 30%;
+    font-size: xxx-large;
+}
+
+.optionButton{
+    width: 50%;
+    transform: translateX(50%);
+    height: 100%;
+    font-size: xxx-large;
+}
+
 .optionTextField{
     /* outline-width: 2; */
     width: 50%;
@@ -37,22 +52,21 @@
     background-color: #5260ff;
 }
 
-.optionButton{
+.optionTextButton{
     /* outline-width: 2; */
     width: 50%;
     transform: translateX(50%);
-    height: 100%;
-    font-size: xxx-large;
+    /* height: 25%; */
+    font-size: x-large;
 }
 
 .buttonRow{
-    height: 100%;
+    height: 15%;
+    transform: translateY(150%);
 }
-
-.newGameButton{
-    /* outline-width: 2; */
-    width: 70%;
-    transform: translateX(20%);
-    height: 30%;
-    font-size: xxx-large;
+.buttonColText{
+    transform: translateY(-5%);
+}
+.confirmGrid{
+    transform: translateY(125%);
 }
