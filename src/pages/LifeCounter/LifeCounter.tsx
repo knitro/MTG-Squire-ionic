@@ -22,87 +22,101 @@ const LifeCounter: React.FC = () => {
         //   p4: {context.players[3] == null ? "NA" : context.players[3].lifeTotal}
         // </IonLabel>
 
-        (context.players.length == 4) ? 
-        // 4 player
-
+        (context.players.length == 4) ? // if 4 players
         <IonGrid class="playerGrid">
           <IonRow class="fourPlayerRow">
             <IonCol class="fourPlayerCol">
               <IonButton class="fourPlayerButton" expand="full">
-                {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                <IonLabel class="text90">
+                  {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
             <IonCol class="fourPlayerCol">
               <IonButton class="fourPlayerButton" expand="full">
-                {context.players[1] == null ? "NA" : context.players[1].lifeTotal}
+                <IonLabel class="text270">
+                  {context.players[1] == null ? "NA" : context.players[1].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
           </IonRow>
           <IonRow class="fourPlayerRow">
             <IonCol class="fourPlayerCol">
               <IonButton class="fourPlayerButton" expand="full">
-                {context.players[2] == null ? "NA" : context.players[2].lifeTotal}
+                <IonLabel class="text90">
+                  {context.players[2] == null ? "NA" : context.players[2].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
             <IonCol class="fourPlayerCol">
               <IonButton class="fourPlayerButton" expand="full">
-                {context.players[3] == null ? "NA" : context.players[1].lifeTotal}
+                <IonLabel class="text270">
+                  {context.players[3] == null ? "NA" : context.players[1].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
-        : (context.players.length == 3) ?
-        //3 player
-
+        
+        : (context.players.length == 3) ? //if 3 players
         <IonGrid class="playerGrid">
           <IonRow class="threePlayerRowUpper">
             <IonCol class="threePlayerColUpper">
               <IonButton class="threePlayerButton" expand="full">
-                {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                <IonLabel class="text180">
+                  {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
           </IonRow>
           <IonRow class="threePlayerRowLower">
             <IonCol class="threePlayerColLower">
               <IonButton class="threePlayerButton" expand="full">
-                {context.players[1] == null ? "NA" : context.players[1].lifeTotal}
+                <IonLabel class="text90">
+                  {context.players[1] == null ? "NA" : context.players[1].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
             <IonCol class="threePlayerColLower">
               <IonButton class="threePlayerButton" expand="full">
-                {context.players[2] == null ? "NA" : context.players[2].lifeTotal}
+                <IonLabel class="text270">
+                  {context.players[2] == null ? "NA" : context.players[2].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
-        : (context.players.length == 3) ?
-
-        // 2 player
-
+        
+        : (context.players.length == 2) ? // if 2 players
         <IonGrid class="playerGrid">
           <IonRow class="twoPlayerRow">
             <IonCol class="twoPlayerCol">
               <IonButton class="twoPlayerButton" expand="full">
-                {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                <IonLabel class="text180">
+                  {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
           </IonRow>
           <IonRow class="twoPlayerRow">
             <IonCol class="twoPlayerCol">
               <IonButton class="twoPlayerButton" expand="full">
-                {context.players[1] == null ? "NA" : context.players[1].lifeTotal}
+                <IonLabel class="text0">
+                  {context.players[1] == null ? "NA" : context.players[1].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
 
-        //1 player
-        :
+        : //if 1 player
         <IonGrid class="playerGrid">
           <IonRow class="onePlayerRow">
             <IonCol class="onePlayerCol">
               <IonButton class="onePlayerButton" expand="full">
-                {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                <IonLabel class="text0">
+                  {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                </IonLabel>
               </IonButton>
             </IonCol>
           </IonRow>

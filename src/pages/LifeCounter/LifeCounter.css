@@ -2,6 +2,24 @@
     width: 100%;
     height: 100%;
 }
+/* Text */
+.text0{
+    /* transform: rotate(-90deg); */
+    font-size: xxx-large;
+}
+.text90{
+    transform: rotate(90deg);
+    font-size: xxx-large;
+}
+.text180{
+    transform: rotate(180deg);
+    font-size: xxx-large;
+}
+.text270{
+    transform: rotate(-90deg);
+    font-size: xxx-large;
+}
+
 /* 4 players */
 .fourPlayerRow{
     width: 100%;
@@ -12,7 +30,6 @@
     height: 100%;
 }
 .fourPlayerButton{
-    font-size: xxx-large;
     width: 100%;
     height: 100%;
 }
@@ -34,7 +51,6 @@
     height: 100%;
 }
 .threePlayerButton{
-    font-size: xxx-large;
     width: 100%;
     height: 100%;
 }
@@ -48,7 +64,6 @@
     height: 100%;
 }
 .twoPlayerButton{
-    font-size: xxx-large;
     width: 100%;
     height: 100%;
 }
@@ -62,7 +77,6 @@
     height: 100%;
 }
 .onePlayerButton{
-    font-size: xxx-large;
     width: 100%;
     height: 100%;
 }
