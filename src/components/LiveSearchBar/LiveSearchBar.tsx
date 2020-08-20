@@ -1,9 +1,7 @@
 import React, { Component, useState } from 'react';
-import {  IonContent, IonSearchbar, IonButton, IonRouterOutlet } from "@ionic/react";
+import {  IonContent, IonSearchbar, IonButton, IonRouterOutlet, IonLoading, IonAlert } from "@ionic/react";
 import './LiveSearchBar.css';
 import { useHistory, Route } from 'react-router-dom';
-import { IonReactRouter } from '@ionic/react-router';
-import ResultDisplay, { } from '../../pages/ResultDisplay/ResultDisplay';
 import { emptySearch, SearchState, SearchStateContextProvider, SearchStateContextConsumer } from '../../states/SearchState';
 import App from '../../App';
 
@@ -20,110 +18,119 @@ interface SearchBarProps {
   category : LiveSearchCategory;
 }
 
-class LiveSearchBar extends Component<SearchBarProps> {
-  
-  /*Fields*/
-  //Constructor Fields
-  searchString : string = ""; //Default
-  placeholderText : string = "Search"; //Default
-  category : LiveSearchCategory = LiveSearchCategory.Cards; //Default
-  
-  //Search Field
-  currentSearch: SearchState = emptySearch;
+// class LiveSearchBar extends Component<SearchBarProps> {
+const LiveSearchBar = (props : SearchBarProps) => {
 
-  /*Constructor*/
-  constructor(props : SearchBarProps) {
-    super(props);
-    this.searchString = props.searchString;
-    this.placeholderText = props.placeholderText;
-    this.category = props.category;
-  }
+  /*Variable Initialisation*/
+  //Parameter Variables
+  let searchString : string = props.searchString;
+  let placeholderText : string = props.placeholderText;
+  let category : LiveSearchCategory = props.category;
 
-  /*Methods*/
+  //Other Initialisations
+  const history = useHistory();
+  let currentSearch: SearchState = emptySearch;
+  const [showAlert1, setShowAlert1] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
 
-  /*Render*/
-  render() {
+  /*Rendering*/
+  return (
+    <IonContent>
 
-    /*React Hook Initialisation*/
-    // const {searchProps, updateSearchProps} = useState(ResultDisplay.defaultProps as ResultsDisplayProps);
+      <IonSearchbar 
+        autocomplete="on" 
+        inputmode="text" 
+        type="search" 
+        placeholder={placeholderText}
+        value={searchString} 
+        onIonChange={
+          e => {
+            searchString = e.detail.value!;
+            currentSearch.cardName = searchString;
+          } 
+        } animated
+      />
 
-    /*Other Variable Initialisation*/
-    //None
-
-    /*Rendering*/
-    return (
-      <IonContent>
-
-        {/* <IonReactRouter>
-          <IonRouterOutlet>
-            <Route path="/result-display" component={ResultDisplay} />
-          </IonRouterOutlet>
-        </IonReactRouter> */}
-
-        <IonSearchbar 
-            autocomplete="on" 
-            inputmode="text" 
-            type="text" 
-            placeholder={this.placeholderText}
-            value={this.searchString} 
-            onIonChange={
-              e => {
-                this.searchString = e.detail.value!;
-                this.currentSearch.cardName = this.searchString;
-              } 
-            } animated
-        />
-
-        <IonButton 
-            color="primary"
-            expand="block"
-            fill="outline"
-            shape="round"
-            size="large"
-            text-align="center"
-            class="searchButton"
-            onClick={e => {
-              console.log("Button Pressed: Search Database");
-              this.currentSearch.cardName = this.searchString;
-              App.databases[0].database.performSearch(this.currentSearch);
-            }}
-          >
-              {"Search"}
-          </IonButton>
-
-          <IonButton 
-            color="primary"
-            expand="block"
-            fill="outline"
-            shape="round"
-            size="large"
-            text-align="center"
-            class="searchButton"
-            href="/results-display"
-            onClick={e => {
-              console.log("Button Pressed: Search Database");
-            }}
-          >
-              {"Go to Result"}
-          </IonButton>
-
-          <SearchStateContextConsumer>
-          {(context : SearchState) => (
-            <IonButton onClick={e =>
-            {
-              console.log(context.cardName);
-              console.log(context.fullType);
-              console.log(context.imageLink);
-              console.log(context.manaCost);
-              console.log(context.oracleText);
+      <IonButton 
+        color="primary"
+        expand="block"
+        fill="outline"
+        shape="round"
+        size="large"
+        text-align="center"
+        class="searchButton"
+        onClick={e => {
+          console.log("Button Pressed: Search Database");
+          currentSearch.cardName = searchString;
+          console.log("Started: Card Searching");
+          setShowLoading(true)
+          App.databases[0].database.performSearch(currentSearch).then((didPerform) => {
+            if (didPerform) {
+              setShowLoading(false)
+              history.push("/results-display");
+              console.log("Finished: Card Searching");
+            } else {
+              setShowLoading(false)
+              setShowAlert1(true);
+              console.log("Finished but Failed: Card Searching");
             }
-            }>Check DB Status</IonButton>
-          )}
-        </SearchStateContextConsumer>
+            
+          });
+        }}
+      >
+        {"Search"}
+      </IonButton>
+      
+      <IonLoading
+        cssClass='my-custom-class'
+        isOpen={showLoading}
+        onDidDismiss={() => setShowLoading(false)}
+        message={'Please wait...'}
+        duration={2000}
+      />
 
-      </IonContent>
-    );
-  }
-};
+      <IonAlert
+        isOpen={showAlert1}
+        onDidDismiss={() => setShowAlert1(false)}
+        cssClass='my-custom-class'
+        header={'Alert'}
+        subHeader={'Subtitle'}
+        message={'This is an alert message.'}
+        buttons={['OK']}
+      />
+        
+        {/* <IonButton 
+          color="primary"
+          expand="block"
+          fill="outline"
+          shape="round"
+          size="large"
+          text-align="center"
+          class="searchButton"
+          href="/results-display"
+          onClick={e => {
+            console.log("Button Pressed: Search Database");
+          }}
+        >
+            {"Go to Result"}
+        </IonButton> */}
+
+        {/* <SearchStateContextConsumer>
+        {(context : SearchState) => (
+          <IonButton onClick={e =>
+          {
+            console.log(context.cardName);
+            console.log(context.fullType);
+            console.log(context.imageLink);
+            console.log(context.manaCost);
+            console.log(context.oracleText);
+          }
+          }>Check DB Status</IonButton>
+        )}
+      </SearchStateContextConsumer> */}
+
+    </IonContent>
+  );
+}
 
 export default LiveSearchBar;

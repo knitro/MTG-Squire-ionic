@@ -145,67 +145,30 @@ export interface MiscInformation {
 /*Capacitor Storage*/
 ////////////////////////
 
-export async function saveSearchState(currentSearchState : SearchState) {
+export async function saveSearchState(currentSearchState : SearchState) : Promise<boolean> {
 
   let valueToSave : string = JSON.stringify(currentSearchState);
 
-  await Storage.set({
+  const returnValue = await Storage.set({
     key: storageKey,
     value: valueToSave
+  }).then( () => {
+    return true;
+  }).catch(err => {
+    console.log(err);
+    return false;
   });
 
+  return returnValue;
 }
 
-export async function updateSaveStateWithRulings(rulings : string[]) {
+export async function getSearchState() : Promise<SearchState> {
 
-  let currentSearchState : SearchState = emptySearch;
+  const storageReturn = await Storage.get({key: storageKey});
 
-  Promise.resolve(Storage.get({key: storageKey}).then(
-    (result) => {
-        if (typeof result.value === 'string') {
-          currentSearchState = JSON.parse(result.value) as SearchState;
-          currentSearchState.rulings = rulings;
-
-          console.log(currentSearchState.rulings[0]);
-
-          Storage.set({
-            key: storageKey,
-            value: JSON.stringify(currentSearchState)
-          });
-        }
-    },
-    (reason) => console.log("Failed to load state from storage because of: " + reason)
-  ));
-
-  //Don't update if the storage value could not be retrieved.
-  if (currentSearchState == emptySearch) {
-    return;
+  if (typeof storageReturn.value === 'string') {
+    return (JSON.parse(storageReturn.value) as SearchState);
+  } else { //Null Case
+    return emptySearch;
   }
 }
-
-let SearchStateContext = createContext({} as SearchState);
-
-function SearchStateContextProvider(props: { children: React.ReactNode; }) {
-    
-    const [initialSearchState, setInitialSearchState] = useState(emptySearch as SearchState);
-
-    //Attempt to get Storage Value: Code based off Lecturer's Sample Code
-    useEffect(() => {
-        Promise.resolve(Storage.get({key: storageKey}).then(
-            (result) => {
-                if (typeof result.value === 'string') {
-                  setInitialSearchState(JSON.parse(result.value) as SearchState);
-                }
-            },
-            (reason) => console.log("Failed to load state from storage because of: " + reason)
-        ));
-    }, []);
-
-    return (
-        <SearchStateContext.Provider value={initialSearchState}>{props.children}</SearchStateContext.Provider>
-    )
-}
-
-let SearchStateContextConsumer = SearchStateContext.Consumer;
-
-export { SearchStateContext, SearchStateContextProvider, SearchStateContextConsumer };

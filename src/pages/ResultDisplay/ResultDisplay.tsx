@@ -4,8 +4,9 @@ import './ResultDisplay.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import ManaCost from '../../components/ManaCost/ManaCost';
-import { SearchState, SearchStateContextConsumer } from '../../states/SearchState';
+import { SearchState, getSearchState, emptySearch } from '../../states/SearchState';
 import uuid from 'uuid';
+import { render } from '@testing-library/react';
 
 class ResultDisplay extends Component<SearchState> {
 
@@ -13,7 +14,7 @@ class ResultDisplay extends Component<SearchState> {
   /*Fields*/
   ////////////////////////
 
-  /*None*/
+  currentSearchState : SearchState;
 
   ////////////////////////
   /*Constructor*/
@@ -21,29 +22,43 @@ class ResultDisplay extends Component<SearchState> {
 
   constructor(props : any) {
     super(props);
+    this.currentSearchState = emptySearch;
   }
 
   ////////////////////////
   /*Methods*/
   ////////////////////////
 
-  /*None*/
+  async componentDidMount() {
+    this.currentSearchState = await getSearchState();
+    console.log(this.currentSearchState.oracleText);
+  }
+
+  getPrice(label : string, price : string) {
+    if (price.localeCompare("") == 0) {
+      return;
+    } else {
+      return (
+        <IonCardContent key={uuid.v4()}>
+          {label + ": $"}{price}
+        </IonCardContent>
+      )
+    }
+  }
 
   ////////////////////////
   /*Render*/
   ////////////////////////
 
   render() {
+    console.log("ManaCost = " + this.currentSearchState.manaCost);
+
   /*Display*/ 
   return (
     
     <IonPage>
-      <SearchStateContextConsumer>
-      {(context : SearchState) =>
-
-      <>
       {/* Displays the Header */}
-      <Header headerLabel={"Card: " + context.cardName}/>
+      <Header headerLabel={this.currentSearchState.cardName}/>
       
       <IonContent>
       
@@ -54,16 +69,16 @@ class ResultDisplay extends Component<SearchState> {
             <IonCardHeader>
               <IonRow>
                 <IonCol>
-                  <IonCardTitle>{context.cardName}</IonCardTitle>
+                  <IonCardTitle>{this.currentSearchState.cardName}</IonCardTitle>
                 </IonCol>
                 <IonCol>
-                  <ManaCost cost={context.manaCost}/>
+                  <ManaCost cost={this.currentSearchState.manaCost}/>
                 </IonCol>
               </IonRow>
-              <IonCardSubtitle>{context.fullType}</IonCardSubtitle>
+              <IonCardSubtitle>{this.currentSearchState.fullType}</IonCardSubtitle>
             </IonCardHeader>
             <IonCardContent>
-            <IonImg src={context.imageLink} class="cardImage"/>
+            <IonImg src={this.currentSearchState.imageLink} class="cardImage"/>
             </IonCardContent>
           </IonCard>
           
@@ -72,9 +87,13 @@ class ResultDisplay extends Component<SearchState> {
             <IonCardHeader>
               <IonCardTitle>{"Oracle Text"}</IonCardTitle>
             </IonCardHeader>
-            <IonCardContent>
-              {context.oracleText}
-            </IonCardContent>
+            <>
+              {this.currentSearchState.oracleText.split("\n").map((currentItem: string) => 
+                <IonCardContent key={uuid.v4()}>
+                  {currentItem}
+                </IonCardContent>
+              )}
+            </>
           </IonCard>
 
           {/* IonCard 3:  Pricing*/}
@@ -82,12 +101,8 @@ class ResultDisplay extends Component<SearchState> {
             <IonCardHeader>
               <IonCardTitle>{"Prices"}</IonCardTitle>
             </IonCardHeader>
-            <IonCardContent>
-              {"Scryfall USD Non-Foil Price: $"}{context.prices.scryFallPricing_nonfoil}
-            </IonCardContent>
-            <IonCardContent>
-              {"Scryfall USD Foil Price: $"}{context.prices.scryFallPricing_foil}
-            </IonCardContent>
+              {this.getPrice("Scryfall USD Non-Foil", this.currentSearchState.prices.scryFallPricing_nonfoil)}
+              {this.getPrice("Scryfall USD Foil", this.currentSearchState.prices.scryFallPricing_foil)}
           </IonCard>
 
           {/* IonCard 4:  Additional Rulings*/}
@@ -95,13 +110,13 @@ class ResultDisplay extends Component<SearchState> {
             <IonCardHeader>
               <IonCardTitle>{"Additional Rulings"}</IonCardTitle>
             </IonCardHeader>
-            <IonCardContent>
-                {context.rulings.map((currentItem: string) => 
+            <>
+                {this.currentSearchState.rulings.map((currentItem: string) => 
                   <IonCardContent key={uuid.v4()}>
                     {currentItem}
                   </IonCardContent>
                 )}
-            </IonCardContent>
+            </>
           </IonCard>
 
           {/* IonCard 5:  Other Printings*/}
@@ -116,32 +131,12 @@ class ResultDisplay extends Component<SearchState> {
           </IonCard>
 
         </IonList>
-        
-        {/* <IonButton 
-            id="downloadDatabaseButton"
-            color="primary"
-            expand="block"
-            fill="outline"
-            shape="round"
-            size="large"
-            text-align="center"
-            class="downloadDatabaseButton"
-            onClick={e => {
-              console.log("Button Pressed: Download Database");
-              currentDatabase.database.downloadDatabase();
-              history.push("/settings");
-            }}
-          >
-              Download Card Database
-          </IonButton> */}
 
       </IonContent>
 
       {/* Displays Tabs at the Bottom */}
       <FooterTabs/>
       {/* <TestDatabase/> */}
-      </>
-      }</SearchStateContextConsumer>
 
     </IonPage>
   );

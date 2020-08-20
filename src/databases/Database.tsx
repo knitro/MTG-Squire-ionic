@@ -53,7 +53,7 @@ abstract class Database extends Component {
   /**
    * This method should perform the search and store the search result in the database
    */
-  abstract performSearch(currentSearchState: SearchState) : void;
+  abstract async performSearch(currentSearchState: SearchState) : Promise<boolean>;
 
   ////////////////////////
   /*"Implemented" Methods*/

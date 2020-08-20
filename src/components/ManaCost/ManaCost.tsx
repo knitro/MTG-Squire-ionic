@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IonImg, IonRow } from "@ionic/react";
 import './ManaCost.css';
 import uuid from 'uuid';
+import { getSearchState } from '../../states/SearchState';
 
 ////////////////////////
 /*Interfaces*/
@@ -93,6 +94,10 @@ class ManaCost extends Component<{cost : string}> {
   /*Methods*/
   ////////////////////////
 
+  async componentDidMount() {
+    this.currentCost = (await getSearchState()).manaCost;
+  }
+
   /**
    * Parses the Entire Mana Cost as per the parameter.
    * It should call determineSymbol(string) for each symbol it comes across.
@@ -123,7 +128,7 @@ class ManaCost extends Component<{cost : string}> {
 
     ManaCost.symbolToImageCollection.forEach(
       currentInterface => {
-        if (currentInterface.tag == symbol) {
+        if (currentInterface.tag === symbol) {
           currentDirectory = currentInterface.dir;
         }
       }
