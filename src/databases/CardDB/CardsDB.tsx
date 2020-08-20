@@ -2,71 +2,7 @@ import Database from '../Database';
 import { DatabaseLoad } from '../../App';
 import { SearchState, saveSearchState } from '../../states/SearchState';
 import axios from 'axios';
-
-//https://scryfall.com/docs/api/cards
-interface ScryFallInformation {
-
-  name:         string
-  mana_cost:    string
-  type_line :   string
-  oracle_text:  string
-  set_name:     string //Full set name
-  set:          string //Set Code
-  collector_number: string
-  image_uris:   ScryFallImages
-  legalities:   ScryFallLegality
-  reserved:     boolean
-  foil:         boolean
-  nonfoil:      boolean
-  promo:        boolean
-  reprint:      boolean
-  rarity:       string
-  frame:        string
-  artist:       string
-  prices :      ScryFallPrices
-  released_at:  string
-  rulings_uri:  string
-  prints_search_uri: string
-}
-
-interface ScryFallImages {
-  small:        string;
-  normal:       string;
-  large:        string;
-  png:          string;
-  art_crop:     string;
-  border_crop:  string
-}
-
-interface ScryFallLegality {
-  standard:   string
-  future:     string
-  historic:   string
-  pioneer:    string
-  modern:     string
-  legacy:     string
-  pauper:     string
-  vintage:    string
-  penny:      string
-  commander:  string
-  brawl:      string
-  duel:       string
-  oldschool:  string
-}
-
-interface ScryFallPrices {
-  usd:      string
-  usd_foil: string
-  tix:      string
-}
-
-interface ScryFallRulings {
-  object:       string
-  oracle_id:    string
-  source:       string
-  published_at: string
-  comment:      string
-}
+import { ScryFallInformation, blankScryFallInformation, ScryFallRulings } from './ScryFallInterfaces';
 
 class CardsDB extends Database {
 
@@ -77,57 +13,9 @@ class CardsDB extends Database {
   /*Constant Links*/
   private fileName : string = "AllPrintings.sqlite";
   private fileDownloadLink : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite";
+  private sha256 : string = "AllPrintings.sqlite.sha256";
   private sha256Link : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite.sha256";
-
-  /*Fields*/
-  private blankScryFallInformation : ScryFallInformation = {
-    name:         "Error",
-    mana_cost:    "{0}",
-    type_line :   "Error",
-    oracle_text:  "Error",
-    set_name:     "Error",
-    set:          "ERR",
-    collector_number: "0",
-    image_uris: {
-      small:        "Error",
-      normal:       "Error",
-      large:        "Error",
-      png:          "Error",
-      art_crop:     "Error",
-      border_crop:  "Error"
-    },
-    legalities:   {
-      standard:   "Error",
-      future:     "Error",
-      historic:   "Error",
-      pioneer:    "Error",
-      modern:     "Error",
-      legacy:     "Error",
-      pauper:     "Error",
-      vintage:    "Error",
-      penny:      "Error",
-      commander:  "Error",
-      brawl:      "Error",
-      duel:       "Error",
-      oldschool:  "Error"
-    },
-    reserved:     false,
-    foil:         false,
-    nonfoil:      false,
-    promo:        false,
-    reprint:      false,
-    rarity:       "Error",
-    frame:        "Error",
-    artist:       "Error",
-    prices : {
-      usd:      "Error",
-      usd_foil: "Error",
-      tix:      "Error"
-    },
-    released_at:  "Error",
-    rulings_uri:  "Error",
-    prints_search_uri: "Error",
-  };
+  private directory : string = ""; //To be Filled in if this work is extended upon
 
   ////////////////////////
   /*Constructor*/
@@ -142,13 +30,11 @@ class CardsDB extends Database {
   }
 
   verifyDatabase() : DatabaseLoad {
-    //Proper Verification Implementation: Remove return below
-    return DatabaseLoad.LOADED;
+    return this.verifyingDatabase(this.sha256Link, this.sha256);
   }
 
-  loadDatabaseFile(): boolean {
-    return false;
-    // return this.loadingDatabaseFile("", this.fileName);
+  loadDatabase(): boolean {
+    return this.loadingDatabase(this.fileName, this.directory);
   }
 
   async performSearch(currentSearch : SearchState) : Promise<boolean> {
@@ -171,7 +57,7 @@ class CardsDB extends Database {
 
       }).catch(err => {
         console.log(err);
-        return this.blankScryFallInformation;
+        return blankScryFallInformation;
       });
       
       const cardRulings : string[] = await this.getCardRuling(axiosResult.rulings_uri)
@@ -230,7 +116,7 @@ class CardsDB extends Database {
       };
 
       const returnValue = await saveSearchState(searchResult);
-      if (returnValue == true) {
+      if (returnValue === true) {
         console.log("Searching Returned True");
         return true;
       } else {
@@ -274,11 +160,6 @@ class CardsDB extends Database {
     return returnArray;
     
   }
-  
-
-  ////////////////////////
-  /*Render*/
-  ////////////////////////
 
 }
   

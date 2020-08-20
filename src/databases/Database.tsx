@@ -11,9 +11,7 @@ abstract class Database extends Component {
   /*Fields*/
   ////////////////////////
 
-  /** Constructor to be Uncommented if SQLite is to be used*/
-  // private sqlite : SQLite;
-  // private database : SQLiteObject;
+  /*None*/
 
   ////////////////////////
   /*Constructor*/
@@ -23,13 +21,6 @@ abstract class Database extends Component {
     super(props);
     console.log("Constructed Database Instance");
   }
-
-  /** Constructor to be Uncommented if SQLite is to be used*/
-  // constructor(sqlite : SQLite) {
-  //   super(sqlite);
-  //   this.sqlite = sqlite;
-  //   this.database = SQLiteObject.prototype; //Initial Initialisation (To be properly initialised later)
-  // }
 
   ////////////////////////
   /*Abstract Methods*/
@@ -48,7 +39,7 @@ abstract class Database extends Component {
   /**
    * This method should load the database file and call/return the return value from loadingDatabaseFile(string, string).
    */
-  abstract loadDatabaseFile() : boolean;
+  abstract loadDatabase() : boolean;
 
   /**
    * This method should perform the search and store the search result in the database
@@ -61,7 +52,7 @@ abstract class Database extends Component {
 
   /**
    * Downloads the Database from the given url.
-   * Note that this method exists SOLEY to show that there was some intended implementation of downloading a database,
+   * Note that this method exists SOLELY to show that there was some intended implementation of downloading a database,
    * but plugin failures have negated the possible use. 
    * @param url - the URL to the database
    * @param fileName - the file name that the database will be saved under
@@ -91,16 +82,24 @@ abstract class Database extends Component {
 
   /**
    * This method is to be only called by verifyDatabase() once the variables are set accordingly.
-   * Note that this method exists SOLEY to show that there was some intended implementation of downloading a database,
+   * Note that this method exists SOLELY to show that there was some intended implementation of downloading a database,
    * but plugin failures have negated the possible use. 
    * @param url - the URL to the online SHA256 file
    * @param localDirectory the directory to the local SHA256 file
    */
   protected verifyingDatabase(url : string, localDirectory : string) : DatabaseLoad {
-    //TODO:: Extension Work
-    //Assume Database is never loaded still meets requirements
-    return DatabaseLoad.NOT_LOADED;
+    //Code Exists to allow for Extension of the System
+    return DatabaseLoad.LOADED;
   }
+
+  protected loadingDatabase(fileName : string, directory: string) : boolean {
+    //Code Exists to allow for Extension of the System
+    return true;
+  }
+
+  ////////////////////////
+  /*Supporting Methods*/
+  ////////////////////////
 
   /**
    * Percent Encode the parameter string.
@@ -110,39 +109,6 @@ abstract class Database extends Component {
     let encodedString = encodeURI(stringToEncode)
     return encodedString;
   }
-
-  ////////////////////////
-  /*SQLite Methods*/
-  ////////////////////////
-
-  //Methods to be uncommented if SQLite functionality is to be implemented.
-  //Note that for these methods to work, the sqlite dependency needs to be installed.
-
-  // /**
-  //  * Loads up the database from the given directory and filename.
-  //  * @param directory - the directory of the database
-  //  * @param fileName  - the name of the database
-  //  */
-  // protected loadingDatabaseFile(directory : string, fileName : string) : boolean {
-
-  //   this.sqlite.create({
-  //     name: fileName,
-  //     location: directory
-  //   })
-  //   .then((db: SQLiteObject) => {
-  //     this.database = db;
-  //     return true;
-  //   })
-  //   .catch(e => console.log(e));
-  //   return false;
-  // }
-
-  // /**
-  //  * Returns the database object.
-  //  */
-  // protected getDatabase() : SQLiteObject {
-  //   return this.database;
-  // }
 
 }
   

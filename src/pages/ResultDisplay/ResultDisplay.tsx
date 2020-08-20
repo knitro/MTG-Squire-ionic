@@ -6,7 +6,6 @@ import Header from '../../components/Header/Header';
 import ManaCost from '../../components/ManaCost/ManaCost';
 import { SearchState, getSearchState, emptySearch } from '../../states/SearchState';
 import uuid from 'uuid';
-import { render } from '@testing-library/react';
 
 class ResultDisplay extends Component<SearchState> {
 
@@ -35,7 +34,7 @@ class ResultDisplay extends Component<SearchState> {
   }
 
   getPrice(label : string, price : string) {
-    if (price.localeCompare("") == 0) {
+    if (price.localeCompare("") === 0) {
       return;
     } else {
       return (

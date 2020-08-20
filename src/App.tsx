@@ -33,7 +33,6 @@ import CardsDB from './databases/CardDB/CardsDB';
 import RulesDB from './databases/RulesDB/RulesDB';
 import { Plugins } from '@capacitor/core';
 import ResultDisplay from './pages/ResultDisplay/ResultDisplay';
-import { SQLite } from '@ionic-native/sqlite/ngx';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -55,10 +54,7 @@ class App extends Component {
   /**
    * Stores the databases, and the states of each one.
    */
-  static databases : DatabaseState[] = [
-    // { database: new CardsDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Card Database (Index 0)
-    // { database: new RulesDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Rules Database (Index 1)
-  ];
+  static databases : DatabaseState[] = [];
 
   static updateDatabase(index : number, newState : DatabaseLoad) {
     let currentDatabase : DatabaseState = App.databases[index];
@@ -70,13 +66,13 @@ class App extends Component {
   /*Constructor*/
   ////////////////////////
 
-  constructor(sqlLite: SQLite) {
-    super(sqlLite);
+  constructor(props : any) {
+    super(props);
     this.checkLocalDatabases();
 
     App.databases = [
-      { database: new CardsDB(sqlLite), loaded: DatabaseLoad.LOADED }, //Card Database (Index 0)
-      // { database: new RulesDB(sqlLite), loaded: DatabaseLoad.LOADED }, //Rules Database (Index 1)
+      { database: new CardsDB(null), loaded: DatabaseLoad.LOADED }, //Card Database (Index 0)
+      { database: new RulesDB(null), loaded: DatabaseLoad.LOADED }, //Rules Database (Index 1)
     ]
   }
 
@@ -119,7 +115,7 @@ class App extends Component {
             <IonPage id="main"> {/* ID reference allowing for Sidebar Functionality */}         
                 <IonRouterOutlet>
                   <Route path="/quick-search" component={
-                    (App.databases[0].loaded == DatabaseLoad.NOT_LOADED) 
+                    (App.databases[0].loaded === DatabaseLoad.NOT_LOADED) 
                     ? QuickSearch_RequireDownload 
                     : QuickSearch_Downloaded} 
                     exact={true} />

@@ -2,7 +2,6 @@
 /*Imports*/
 ////////////////////////
 
-import React, { createContext, useState, useEffect } from 'react';
 import { Plugins } from '@capacitor/core';
 
 ////////////////////////
