@@ -56,7 +56,7 @@ function PlayersContextProvider(props: { children: React.ReactNode; }) {
         Promise.resolve(Storage.get({key: 'players'}).then(
             (result) => {
                 if (typeof result.value === 'string') {
-                    console.log(result.value);
+                    // console.log(result.value);
                     setInitialPlayers(JSON.parse(result.value) as Player[]);
                 }
             },
