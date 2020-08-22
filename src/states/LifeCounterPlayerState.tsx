@@ -18,6 +18,12 @@ export interface Players {
     players : Player[]
 }
 
+
+export function updatePlayer(players : Player[],player : number, change : number){
+    players[player].lifeTotal += change;
+    savePlayers(players)
+}
+
 export function createPlayers(g : Game){
     let p : Player[] = [];
     for (let index = 0; index < g.numberPlayers; index++) {

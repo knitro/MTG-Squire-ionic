@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IonPage, IonLabel, IonButton, IonGrid, IonCol, IonRow } from '@ionic/react';
 import './LifeCounter.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import { PlayersContextConsumer, Players, PlayersContextProvider } from '../../states/LifeCounterPlayerState';
+import { PlayersContextConsumer, Players, PlayersContextProvider, updatePlayer } from '../../states/LifeCounterPlayerState';
 
 
 const LifeCounter: React.FC = () => {
+  const [count,setCount] = useState(0);
   return (
 
     <IonPage>
@@ -14,14 +15,6 @@ const LifeCounter: React.FC = () => {
       {/* <Header headerLabel="Life Counter"/> */}
       <PlayersContextConsumer>
           {(context : Players) => (
-        // <IonLabel class="lifeText">
-        //   players: {context.players.length}<div/>
-        //   p1: {context.players[0] == null ? "NA" : context.players[0].lifeTotal}<div/>
-        //   p2: {context.players[1] == null ? "NA" : context.players[1].lifeTotal}<div/>
-        //   p3: {context.players[2] == null ? "NA" : context.players[2].lifeTotal}<div/>
-        //   p4: {context.players[3] == null ? "NA" : context.players[3].lifeTotal}
-        // </IonLabel>
-
         (context.players.length == 4) ? // if 4 players
         <IonGrid class="playerGrid">
           <IonRow class="fourPlayerRow">
@@ -113,9 +106,20 @@ const LifeCounter: React.FC = () => {
         <IonGrid class="playerGrid">
           <IonRow class="onePlayerRow">
             <IonCol class="onePlayerCol">
-              <IonButton class="onePlayerButton" expand="full">
+              <IonButton class="onePlayerButton" expand="full"
+              onClick={e => {
+                // console.log('y',e.clientX,'/',window.innerWidth);
+                // console.log('y',e.clientY,'/',window.innerHeight);
+                if(e.clientY > window.innerHeight/2){
+                  updatePlayer(context.players,0,-1);
+                } else {
+                  updatePlayer(context.players,0,1);
+                }
+                setCount(context.players[0] == null ? 0 : context.players[0].lifeTotal)
+              }}
+              >
                 <IonLabel class="text0">
-                  {context.players[0] == null ? "NA" : context.players[0].lifeTotal}
+                  {(setCount(context.players[0] == null ? 0 : context.players[0].lifeTotal),count)}
                 </IonLabel>
               </IonButton>
             </IonCol>
