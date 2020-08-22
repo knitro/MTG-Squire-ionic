@@ -17,6 +17,7 @@ const LifeTotalFourPlayer = () => {
             <IonRow class="fourPlayerRow">
               <IonCol class="fourPlayerCol">
                 <IonButton class="fourPlayerButton" expand="full"
+                color="player-one"
                 onClick={e => {
                   if(e.clientX >= (window.innerWidth/4)){
                     updatePlayer(context.players,0,1);
@@ -36,6 +37,7 @@ const LifeTotalFourPlayer = () => {
               </IonCol>
               <IonCol class="fourPlayerCol">
                 <IonButton class="fourPlayerButton" expand="full"
+                color="player-two"
                 onClick={e => {
                   if(e.clientX >= (window.innerWidth * 3/4)){
                     updatePlayer(context.players,1,-1);
@@ -57,6 +59,7 @@ const LifeTotalFourPlayer = () => {
             <IonRow class="fourPlayerRow">
               <IonCol class="fourPlayerCol">
                 <IonButton class="fourPlayerButton" expand="full"
+                color="player-three"
                 onClick={e => {
                   if(e.clientX >= (window.innerWidth/4)){
                     updatePlayer(context.players,2,1);
@@ -76,6 +79,7 @@ const LifeTotalFourPlayer = () => {
               </IonCol>
               <IonCol class="fourPlayerCol">
                 <IonButton class="fourPlayerButton" expand="full"
+                color="player-four"
                 onClick={e => {
                   if(e.clientX >= (window.innerWidth*3/4)){
                     updatePlayer(context.players,3,-1);

@@ -80,3 +80,23 @@
     width: 100%;
     height: 100%;
 }
+/* Colours */
+:root {
+    --ion-color-new-red: #FF0000;
+    --ion-color-new-yellow: #FFD300;
+    --ion-color-new-green: #0E6B0E;
+    --ion-color-new-blue: #001f3d;
+  }
+
+  .ion-color-player-one {
+    --ion-color-base: var(--ion-color-new-red);
+  }
+  .ion-color-player-two {
+    --ion-color-base: var(--ion-color-new-blue);
+  }
+  .ion-color-player-four {
+    --ion-color-base: var(--ion-color-new-yellow);
+  }
+  .ion-color-player-three {
+    --ion-color-base: var(--ion-color-new-green);
+  }

@@ -15,6 +15,7 @@ const LifeTotalTwoPlayer = () => {
         <IonRow class="twoPlayerRow">
           <IonCol class="twoPlayerCol">
             <IonButton class="twoPlayerButton" expand="full"
+            color="player-one"
             onClick={e => {
               if(e.clientY >= ((window.innerHeight - 65)/4)){
                 updatePlayer(context.players,0,1);
@@ -36,6 +37,7 @@ const LifeTotalTwoPlayer = () => {
         <IonRow class="twoPlayerRow">
           <IonCol class="twoPlayerCol">
             <IonButton class="twoPlayerButton" expand="full"
+            color="player-two"
             onClick={e => {
               if(e.clientY >= ((window.innerHeight - 65)*3/4)){
                 updatePlayer(context.players,1,-1);

@@ -14,6 +14,7 @@ const LifeTotalOnePlayer = () => {
           <IonRow class="onePlayerRow">
             <IonCol class="onePlayerCol">
               <IonButton class="onePlayerButton" expand="full"
+              color="player-one"
               onClick={e => {
                 // console.log('x:',e.clientX,'/',window.innerWidth,':',(e.clientX - window.innerWidth));
                 // console.log('y:',e.clientY,'/',window.innerHeight,':',(e.clientY - window.innerHeight));

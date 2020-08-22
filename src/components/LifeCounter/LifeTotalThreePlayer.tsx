@@ -16,6 +16,7 @@ const LifeTotalThreePlayer = () => {
         <IonRow class="threePlayerRowUpper">
           <IonCol class="threePlayerColUpper">
             <IonButton class="threePlayerButton" expand="full"
+            color="player-one"
             onClick={e => {
               if(e.clientY >= ((window.innerHeight - 65)/6)){
                 updatePlayer(context.players,0,1);
@@ -37,6 +38,7 @@ const LifeTotalThreePlayer = () => {
         <IonRow class="threePlayerRowLower">
           <IonCol class="threePlayerColLower">
             <IonButton class="threePlayerButton" expand="full"
+            color="player-two"
             onClick={e => {
               if(e.clientX >= (window.innerWidth/4)){
                 updatePlayer(context.players,1,1);
@@ -56,6 +58,7 @@ const LifeTotalThreePlayer = () => {
           </IonCol>
           <IonCol class="threePlayerColLower">
             <IonButton class="threePlayerButton" expand="full"
+            color="player-three"
             onClick={e => {
               if(e.clientX >= (window.innerWidth * 3/4)){
                 updatePlayer(context.players,2,-1);
