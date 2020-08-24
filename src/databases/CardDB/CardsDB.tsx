@@ -155,14 +155,20 @@ class CardsDB extends Database {
    */
   async generateSearchState(axiosResult : ScryFallInformation, otherPrints : SearchState[]) : Promise<SearchState> {
     
-    /*Get Card Image*/
+    /*Get Card Images*/
     const cardImageURL : string = "" 
         + "https://api.scryfall.com/cards/" 
         + axiosResult.set
         + "/" + axiosResult.collector_number
         + "?format=image&version=png";
+    
+    const cardImageOnlyURL : string = "" 
+        + "https://api.scryfall.com/cards/" 
+        + axiosResult.set
+        + "/" + axiosResult.collector_number
+        + "?format=image&version=art_crop";
 
-    console.log("cardImageURL = " + cardImageURL);
+    // console.log("cardImageURL = " + cardImageURL);
 
     /*Set Arbitrary Value to the Card Rulings*/
     const cardRulings : string[] = await this.getCardRuling(axiosResult.rulings_uri);
@@ -171,6 +177,7 @@ class CardsDB extends Database {
     let searchResult : SearchState = {
       cardName:   axiosResult.name,
       imageLink:  cardImageURL,
+      imageOnlyLink: cardImageOnlyURL,
       manaCost:   axiosResult.mana_cost,
       prices: {
         scryFallPricing_nonfoil:  axiosResult.prices.usd,

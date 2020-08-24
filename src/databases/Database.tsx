@@ -54,11 +54,6 @@ abstract class Database extends Component {
    */
   abstract async performSearchURL(url : string, singleCard : boolean) : Promise<boolean>;
 
-  /**
-   * TEST
-   * @param url 
-   */
-  abstract async updateSearchStateWithURL(url : string) : Promise<boolean>;
   ////////////////////////
   /*"Implemented" Methods*/
   ////////////////////////

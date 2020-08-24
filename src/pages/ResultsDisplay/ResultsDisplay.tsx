@@ -336,8 +336,13 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
           <IonSlide>
             {/* <IonList> */}
               <IonList>
-              
-                {/* IonCards 1:  Prices and Purchase Link Header*/}
+                
+                {/*IonCard 0: Image Card*/}
+                <IonCard>
+                  <img src={currentSearchState.imageOnlyLink} alt={currentSearchState.imageOnlyLink}/>
+                </IonCard>
+
+                {/* IonCards 1: Prices and Purchase Link Header*/}
                 <IonCard color="secondary">
                   <IonCardHeader>
                     <IonCardSubtitle>{"Prices for:"}</IonCardSubtitle>
@@ -374,8 +379,22 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
           
           {/* IonSlide 4: Legalities */}
           <IonSlide>
+            <IonList>
+              
+              {/*IonCard 0: Image Card*/}
+              <IonCard>
+                <img src={currentSearchState.imageOnlyLink} alt={currentSearchState.imageOnlyLink}/>
+              </IonCard>
 
-              {/* IonCard 1: Legalities */}
+              {/* IonCards 1: Legality Header*/}
+              <IonCard color="secondary">
+                  <IonCardHeader>
+                    <IonCardSubtitle>{"Format Legality for:"}</IonCardSubtitle>
+                    <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
+                  </IonCardHeader>
+                </IonCard>
+
+              {/* IonCard 2: Legalities */}
               <IonCard>
                 <IonCardHeader>
                   <IonCardTitle>{"Legalities"}</IonCardTitle>
@@ -389,14 +408,28 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
                     )}
                 </>
               </IonCard>
-
+            </IonList>
           </IonSlide>
             
           {/* IonSlide 5: Misc Information */}
           <IonSlide>
-
-              {/* IonCard 1:  Misc Information*/}
+            <IonList>
+              
+              {/*IonCard 0: Image Card*/}
               <IonCard>
+                <img src={currentSearchState.imageOnlyLink} alt={currentSearchState.imageOnlyLink}/>
+              </IonCard>
+
+              {/* IonCards 1: Misc Information Header*/}
+              <IonCard color="secondary">
+                  <IonCardHeader>
+                    <IonCardSubtitle>{"Miscellaneous Information for:"}</IonCardSubtitle>
+                    <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
+                  </IonCardHeader>
+                </IonCard>
+
+              {/* IonCard 2:  Misc Information*/}
+              <IonCard class="fullScreenCard">
 
                 <IonCardHeader>
                   <IonCardTitle>{"Miscellaneous Information"}</IonCardTitle>
@@ -453,7 +486,7 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
                 </IonCardContent>
 
               </IonCard>
-
+            </IonList>
           </IonSlide>
 
         </IonSlides>

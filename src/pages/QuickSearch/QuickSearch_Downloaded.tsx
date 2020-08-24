@@ -17,7 +17,7 @@ const QuickSearch_Downloaded: React.FC = () => {
       <IonContent>
 
         <LiveSearchBar searchString="" placeholderText="Search for Magic Cards" category={LiveSearchCategory.Cards}/>
-
+      
       </IonContent>
 
       {/* Displays Tabs at the Bottom */}

@@ -18,6 +18,7 @@ const storageKey = "search"; // String that dictates the string that the search 
 export const emptySearch : SearchState = {
   cardName:   "Empty Card",
   imageLink:  "https://media.magic.wizards.com/image_legacy_migration/images/magic/daily/features/feat238a_blank1.jpg",
+  imageOnlyLink: "",
   manaCost:   "{0}",
   prices: {
     scryFallPricing_nonfoil:  "0",
@@ -76,6 +77,7 @@ export const emptySearch : SearchState = {
 export interface SearchState {
   cardName:   string
   imageLink:  string
+  imageOnlyLink: string
   manaCost:   string
   fullType:   string
   oracleText: string
