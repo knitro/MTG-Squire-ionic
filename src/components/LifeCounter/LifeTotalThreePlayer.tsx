@@ -1,87 +1,24 @@
 import React from 'react';
-
-import { IonGrid, IonRow, IonCol, IonButton, IonLabel } from "@ionic/react";
-import { updatePlayer, PlayersContextProvider, PlayersContextConsumer, Players } from "../../states/LifeCounterPlayerState";
-import { useState } from "react";
+import { IonGrid, IonRow, IonCol } from "@ionic/react";
+import FirstScreenButton from './Slide-1/FirstScreenButton';
 
 const LifeTotalThreePlayer = () => {
-    const [p1Life,setP1Life] = useState(0)
-    const [p2Life,setP2Life] = useState(0)
-    const [p3Life,setP3Life] = useState(0)
     return (
-      <PlayersContextProvider>
-      <PlayersContextConsumer>
-          {(context : Players) => (
-        <IonGrid class="playerGrid">
+      <IonGrid class="playerGrid">
         <IonRow class="threePlayerRowUpper">
           <IonCol class="threePlayerColUpper">
-            <IonButton class="threePlayerButton" expand="full"
-            color="player-one"
-            onClick={e => {
-              if(e.clientY >= ((window.innerHeight - 65)/6)){
-                updatePlayer(context.players,0,1);
-              } else {
-                updatePlayer(context.players,0,-1);
-              }
-              setP1Life(context.players[0] == null ? 0 : context.players[0].lifeTotal)
-            }}
-            >
-              <IonLabel class="text180">
-                {(
-                  setP1Life(context.players[0] == null ? 0 : context.players[0].lifeTotal),
-                  p1Life
-                )}
-              </IonLabel>
-            </IonButton>
+            <FirstScreenButton rotation={180} division={1/6} player={0}/>
           </IonCol>
         </IonRow>
         <IonRow class="threePlayerRowLower">
           <IonCol class="threePlayerColLower">
-            <IonButton class="threePlayerButton" expand="full"
-            color="player-two"
-            onClick={e => {
-              if(e.clientX >= (window.innerWidth/4)){
-                updatePlayer(context.players,1,1);
-              } else {
-                updatePlayer(context.players,1,-1);
-              }
-              setP2Life(context.players[1] == null ? 0 : context.players[1].lifeTotal)
-            }}
-            >
-              <IonLabel class="text90">
-                {(
-                  setP2Life(context.players[1] == null ? 0 : context.players[1].lifeTotal),
-                  p2Life
-                )}
-              </IonLabel>
-            </IonButton>
+            <FirstScreenButton rotation={90} division={0.25} player={1}/>
           </IonCol>
           <IonCol class="threePlayerColLower">
-            <IonButton class="threePlayerButton" expand="full"
-            color="player-three"
-            onClick={e => {
-              if(e.clientX >= (window.innerWidth * 3/4)){
-                updatePlayer(context.players,2,-1);
-              } else {
-                updatePlayer(context.players,2,1);
-              }
-              setP3Life(context.players[2] == null ? 0 : context.players[2].lifeTotal)
-            }}
-            >
-              <IonLabel class="text270">
-                {(
-                  setP3Life(context.players[2] == null ? 0 : context.players[2].lifeTotal),
-                  p3Life
-                )}
-              </IonLabel>
-            </IonButton>
+            <FirstScreenButton rotation={270} division={0.75} player={2}/>
           </IonCol>
         </IonRow>
       </IonGrid>
-        )}
-        </PlayersContextConsumer>
-        </PlayersContextProvider>
-          
     )
 }
 
