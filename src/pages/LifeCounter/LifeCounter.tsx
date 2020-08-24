@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { IonPage } from '@ionic/react';
-import './LifeCounter.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import LifeTotalOnePlayer from '../../components/LifeCounter/LifeTotalOnePlayer';
 import LifeTotalTwoPlayer from '../../components/LifeCounter/LifeTotalTwoPlayer';
@@ -24,8 +23,8 @@ const LifeCounter: React.FC = () => {
           <LifeTotalOnePlayer/>
         )}
       </PlayersContextConsumer>
-      <FooterTabs/>
       </PlayersContextProvider>
+      <FooterTabs/>
     </IonPage>
   );
 };

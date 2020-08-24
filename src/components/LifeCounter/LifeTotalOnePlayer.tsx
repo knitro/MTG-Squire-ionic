@@ -1,28 +1,24 @@
 import React from 'react';
+import './LifeCounter.css';
 import { IonGrid, IonRow, IonCol, IonSlides, IonSlide } from "@ionic/react";
-import SecondScreenButton from './Slide-2/SecondScreenButton';
-import FirstScreenButton from './Slide-1/FirstScreenButton';
+import SecondScreenButton from './Slides/SecondScreenButton';
+import FirstScreenButton from './Slides/FirstScreenButton';
+import { slideOptsHorizontal } from './Slides/SlidesHelper';
 
-const slideOpts = {
-  initialSlide: 0,
-  speed: 400
-};
 
 const LifeTotalOnePlayer = () => {
     return (
       <IonGrid class="playerGrid">
         <IonRow class="onePlayerRow">
           <IonCol class="onePlayerCol">
-
-          <IonSlides class="life-slides" pager={true} options={slideOpts}>
-            <IonSlide>
-              <FirstScreenButton rotation={0} division={0.5} player={0}/>
-            </IonSlide>
-          <IonSlide>
-            <SecondScreenButton rotation={0} division={0.5}/>
-          </IonSlide>
-          </IonSlides>                
-
+            <IonSlides class="life-slides-0" pager={true} options={slideOptsHorizontal}>
+              <IonSlide>
+                <FirstScreenButton rotation={0} division={0.5} player={0}/>
+              </IonSlide>
+              <IonSlide>
+                <SecondScreenButton rotation={0} division={0.5} player={0}/>
+              </IonSlide>
+            </IonSlides>
           </IonCol>
         </IonRow>
       </IonGrid>

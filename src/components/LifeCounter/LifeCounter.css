@@ -91,7 +91,30 @@
   }
 
 /* Slides */
-.life-slides {
+.life-slides-0 {
+    width: 100%;
+    height: 100%;
+}
+
+.life-slides-90 {
+    width: 100%;
+    height: 100%;
+}
+.life-slides-90 .swiper-pagination-bullets{
+    left:20px;
+    right:inherit;
+}
+
+.life-slides-180 {
+    width: 100%;
+    height: 100%;
+}
+.life-slides-180 .swiper-pagination-bullets{
+    top:20px;
+    bottom:inherit;
+}
+
+.life-slides-270 {
     width: 100%;
     height: 100%;
 }

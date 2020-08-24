@@ -19,8 +19,20 @@ export interface Players {
 }
 
 
-export function updatePlayer(players : Player[],player : number, change : number){
-    players[player].lifeTotal += change;
+export function updatePlayer(players : Player[],player : number, change : number, option : string){
+    if(option == 'lifeTotal'){
+        players[player].lifeTotal += change;
+    } else if(option == 'valueW'){
+        players[player].valueW += change;
+    } else if(option == 'valueU'){
+        players[player].valueU += change;
+    } else if(option == 'valueB'){
+        players[player].valueB += change;
+    } else if(option == 'valueR'){
+        players[player].valueR += change;
+    } else {
+        players[player].valueG += change;
+    }
     savePlayers(players)
 }
 
