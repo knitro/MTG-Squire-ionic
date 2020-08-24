@@ -55,12 +55,15 @@ export const emptySearch : SearchState = {
     rarity:   "Mythic",
     frame:    "2015",
     artist:   "Wizards of the Coast",
-    released: "Now"
+    released: "Now",
+    digital_only: false
   },
   rulings: [
-    "Ruling 1:",
-    "Ruling 2:"
-  ]
+    "Ruling 1: Sample Ruling made up",
+    "Ruling 2: Sample Ruling made up"
+  ],
+  otherPrints: [],
+  api_uri: "ERROR"
 };
 
 ////////////////////////
@@ -81,6 +84,8 @@ export interface SearchState {
   legality:   LegalityInformation
   misc:       MiscInformation 
   rulings:    string[]
+  otherPrints:SearchState[]
+  api_uri:    string
 }
 
 
@@ -138,6 +143,7 @@ export interface MiscInformation {
   frame:    string  //Frame style of the card
   artist:   string  //Artist
   released: string //Date of release
+  digital_only : boolean //Is the card a digital release only?
 }
 
 ////////////////////////
@@ -169,5 +175,33 @@ export async function getSearchState() : Promise<SearchState> {
     return (JSON.parse(storageReturn.value) as SearchState);
   } else { //Null Case
     return emptySearch;
+  }
+}
+
+export async function saveStorage(currentSearchState : String) : Promise<boolean> {
+
+  let valueToSave : string = JSON.stringify(currentSearchState);
+
+  const returnValue = await Storage.set({
+    key: "redirection",
+    value: valueToSave
+  }).then( () => {
+    return true;
+  }).catch(err => {
+    console.log(err);
+    return false;
+  });
+
+  return returnValue;
+}
+
+export async function getStorage() : Promise<string> {
+
+  const storageReturn = await Storage.get({key: "redirection"});
+
+  if (typeof storageReturn.value === 'string') {
+    return (JSON.parse(storageReturn.value) as string);
+  } else { //Null Case
+    return "";
   }
 }

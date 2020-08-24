@@ -42,6 +42,14 @@ class CardsDB extends Database {
     /*Variable Initialisation*/
     let url = this.percentEncode("https://api.scryfall.com/cards/search?order=released&q=" + currentSearch.cardName);
     
+    return await this.performSearchURL(url, false);
+  }
+
+  async performSearchURL(url : string, singleCard : boolean) : Promise<boolean> {
+
+    console.log("URL = " + url);
+
+    /*Variable Initialisation*/
     try {
 
       /*Get the API Call*/
@@ -49,71 +57,23 @@ class CardsDB extends Database {
         url: url,
         method: 'GET',
       }).then((response) => {
-
+        
         /*Grab the JSON Data*/
-        let output : ScryFallInformation[] = response.data.data;
-        let latestResult : ScryFallInformation = output[0];
-        return latestResult;
-
+        if (singleCard) {
+          let output : ScryFallInformation = response.data;
+          return output;
+        } else {
+          let output : ScryFallInformation[] = response.data.data;
+          let latestResult : ScryFallInformation = output[0];
+          return latestResult;
+        }
       }).catch(err => {
         console.log(err);
         return blankScryFallInformation;
       });
       
-      const cardRulings : string[] = await this.getCardRuling(axiosResult.rulings_uri)
-      const cardImageURL : string = "" 
-          + "https://api.scryfall.com/cards/" 
-          + axiosResult.set
-          + "/" + axiosResult.collector_number
-          + "?format=image&version=png";
-
-      console.log("cardImageURL = " + cardImageURL);
-
-      /*Generate the SearchState*/
-      let searchResult : SearchState = {
-        cardName:   axiosResult.name,
-        imageLink:  cardImageURL,
-        manaCost:   axiosResult.mana_cost,
-        prices: {
-          scryFallPricing_nonfoil:  axiosResult.prices.usd,
-          scryFallPricing_foil:     axiosResult.prices.usd_foil
-        },
-        fullType:   axiosResult.type_line,
-        oracleText: axiosResult.oracle_text,
-        set : {
-          setName: axiosResult.set_name,
-          setCode: axiosResult.set,
-          imageLink: ""
-        },
-        legality: {
-          standard:   axiosResult.legalities.standard,
-          future:     axiosResult.legalities.future,
-          historic:   axiosResult.legalities.historic,
-          pioneer:    axiosResult.legalities.pioneer,
-          modern:     axiosResult.legalities.modern,
-          legacy:     axiosResult.legalities.legacy,
-          pauper:     axiosResult.legalities.pauper,
-          vintage:    axiosResult.legalities.vintage,
-          penny:      axiosResult.legalities.penny,
-          commander:  axiosResult.legalities.commander,
-          brawl:      axiosResult.legalities.brawl,
-          duel:       axiosResult.legalities.duel,
-          oldschool:  axiosResult.legalities.oldschool
-        },
-        misc: {
-          reserved: axiosResult.reserved,
-          foil:     axiosResult.foil,
-          nonfoil:  axiosResult.nonfoil,
-          promo:    axiosResult.promo,
-          reprint:  axiosResult.reprint,
-          collector_number: axiosResult.collector_number,
-          rarity:   axiosResult.rarity,
-          frame:    axiosResult.frame,
-          artist:   axiosResult.artist,
-          released: axiosResult.released_at
-        },
-        rulings: cardRulings
-      };
+      const otherPrintings: SearchState[] = await this.getOtherPrintings(axiosResult.prints_search_uri)
+      const searchResult : SearchState = await this.generateSearchState(axiosResult, otherPrintings);
 
       const returnValue = await saveSearchState(searchResult);
       if (returnValue === true) {
@@ -151,7 +111,7 @@ class CardsDB extends Database {
       let stringArray : string[] = [];
       let output : ScryFallRulings[] = response.data.data;
       output.map((currentRuling: ScryFallRulings) => stringArray.push(currentRuling.comment));
-      stringArray.map((currentItem: string) => console.log(currentItem));
+      // stringArray.map((currentItem: string) => console.log(currentItem));
       return stringArray;
     }).catch(err => {
       console.log(err);
@@ -159,6 +119,104 @@ class CardsDB extends Database {
     });
     return returnArray;
     
+  }
+
+  /**
+   * Returns a Promise string[] of Other Printings.
+   * @param url The Scryfall URL that the Other Printings come from.
+   */
+  async getOtherPrintings(url : string) : Promise<SearchState[]> {
+    
+    console.log("Other Printings URL: " + url);
+    
+    let returnArray : SearchState[] = await axios({
+      url: url,
+      method: 'GET',
+    }).then((response) => {
+
+      /*Grab the JSON Data*/
+      let searchStateArray : SearchState[] = [];
+      let output : ScryFallInformation[] = response.data.data;
+
+      output.map(async (currentSearchState: ScryFallInformation) => searchStateArray.push(await this.generateSearchState(currentSearchState, [])));
+
+      return searchStateArray;
+    }).catch(err => {
+      console.log(err);
+      return [];
+    });
+    return returnArray;
+    
+  }
+
+  /**
+   * Generates a Search State from a ScryFallInformation interface (retrieved from Scryfall API call).
+   * @param axiosResult 
+   */
+  async generateSearchState(axiosResult : ScryFallInformation, otherPrints : SearchState[]) : Promise<SearchState> {
+    
+    /*Get Card Image*/
+    const cardImageURL : string = "" 
+        + "https://api.scryfall.com/cards/" 
+        + axiosResult.set
+        + "/" + axiosResult.collector_number
+        + "?format=image&version=png";
+
+    console.log("cardImageURL = " + cardImageURL);
+
+    /*Set Arbitrary Value to the Card Rulings*/
+    const cardRulings : string[] = await this.getCardRuling(axiosResult.rulings_uri);
+
+    /*Generate the SearchState*/
+    let searchResult : SearchState = {
+      cardName:   axiosResult.name,
+      imageLink:  cardImageURL,
+      manaCost:   axiosResult.mana_cost,
+      prices: {
+        scryFallPricing_nonfoil:  axiosResult.prices.usd,
+        scryFallPricing_foil:     axiosResult.prices.usd_foil
+      },
+      fullType:   axiosResult.type_line,
+      oracleText: axiosResult.oracle_text,
+      set : {
+        setName: axiosResult.set_name,
+        setCode: axiosResult.set,
+        imageLink: ""
+      },
+      legality: {
+        standard:   axiosResult.legalities.standard,
+        future:     axiosResult.legalities.future,
+        historic:   axiosResult.legalities.historic,
+        pioneer:    axiosResult.legalities.pioneer,
+        modern:     axiosResult.legalities.modern,
+        legacy:     axiosResult.legalities.legacy,
+        pauper:     axiosResult.legalities.pauper,
+        vintage:    axiosResult.legalities.vintage,
+        penny:      axiosResult.legalities.penny,
+        commander:  axiosResult.legalities.commander,
+        brawl:      axiosResult.legalities.brawl,
+        duel:       axiosResult.legalities.duel,
+        oldschool:  axiosResult.legalities.oldschool
+      },
+      misc: {
+        reserved: axiosResult.reserved,
+        foil:     axiosResult.foil,
+        nonfoil:  axiosResult.nonfoil,
+        promo:    axiosResult.promo,
+        reprint:  axiosResult.reprint,
+        collector_number: axiosResult.collector_number,
+        rarity:   axiosResult.rarity,
+        frame:    axiosResult.frame,
+        artist:   axiosResult.artist,
+        released: axiosResult.released_at,
+        digital_only: axiosResult.digital
+      },
+      rulings: cardRulings,
+      otherPrints: otherPrints,
+      api_uri: axiosResult.uri
+    };
+
+    return searchResult;
   }
 
 }

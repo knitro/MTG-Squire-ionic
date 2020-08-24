@@ -122,6 +122,9 @@ class App extends Component {
                   <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
                   <Route path="/settings" component={Settings} exact={true}/>
                   <Route path="/results-display" component={ResultDisplay} exact={true}/>
+                  {/* <Route path="/results-display/:set" component={ResultDisplay}/> */}
+                  {/* <Route path="/results-display-redirection" component={ResultDisplayRedirection} exact={true}/> */}
+                  {/* <Route path="/results-display-redirection/:set" component={ResultDisplayRedirection}/> */}
                   <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           
                 </IonRouterOutlet>
             </IonPage>

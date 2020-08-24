@@ -42,10 +42,23 @@ abstract class Database extends Component {
   abstract loadDatabase() : boolean;
 
   /**
-   * This method should perform the search and store the search result in the database
+   * This method should perform the search and store the search result in the database.
+   * @param currentSearchState - the currentSearchState that is being used to perform the search (quick and advanced)
    */
   abstract async performSearch(currentSearchState: SearchState) : Promise<boolean>;
 
+  /**
+   * This method should perform the search and store the search result in the database.
+   * @param url - the URL of the API call required 
+   * @param singleCard - determines whether the resultant search will be an array or a single card. DB calls via performSearch(SearchState) should be false, direct calls should have this as true.
+   */
+  abstract async performSearchURL(url : string, singleCard : boolean) : Promise<boolean>;
+
+  /**
+   * TEST
+   * @param url 
+   */
+  abstract async updateSearchStateWithURL(url : string) : Promise<boolean>;
   ////////////////////////
   /*"Implemented" Methods*/
   ////////////////////////

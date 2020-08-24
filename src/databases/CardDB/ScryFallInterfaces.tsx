@@ -27,6 +27,8 @@ export interface ScryFallInformation {
   released_at:  string
   rulings_uri:  string
   prints_search_uri: string
+  uri:          string
+  digital:      boolean
 }
 
 ////////////////////////
@@ -116,11 +118,13 @@ export var blankScryFallInformation : ScryFallInformation = {
   frame:        "Error",
   artist:       "Error",
   prices : {
-    usd:      "Error",
-    usd_foil: "Error",
-    tix:      "Error"
+    usd:        "Error",
+    usd_foil:   "Error",
+    tix:        "Error"
   },
   released_at:  "Error",
   rulings_uri:  "Error",
   prints_search_uri: "Error",
+  uri:          "Error",
+  digital:      false
 };
