@@ -25,7 +25,11 @@ import './theme/variables.css';
 /*Non-Default Imports*/
 import QuickSearch_Downloaded from './pages/QuickSearch/QuickSearch_Downloaded';
 import QuickSearch_RequireDownload from './pages/QuickSearch/QuickSearch_RequireDownload';
-import LifeCounterNewGame from './pages/LifeCounterNewGame/LifeCounterNewGame';
+import LifeCounterNewGame from './pages/LifeCounter/LifeCounterNewGame';
+import LifeCounterPlayerNumber from './pages/LifeCounter/LifeCounterSetPlayers';
+import LifeCounterSetLife from './pages/LifeCounter/LifeCounterSetLife';
+import LifeCounterConfirm from './pages/LifeCounter/LifeCounterConfirm';
+import LifeCounter from './pages/LifeCounter/LifeCounter';
 import Settings from './pages/Settings/Settings';
 import SideBar from './components/SideBar/SideBar'; 
 import Database from './databases/Database'; 
@@ -120,6 +124,10 @@ class App extends Component {
                     : QuickSearch_Downloaded} 
                     exact={true} />
                   <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
+                  <Route path="/life-counter/set-players" component={LifeCounterPlayerNumber} exact={true}/>
+                  <Route path="/life-counter/set-life" component={LifeCounterSetLife} exact={true}/>
+                  <Route path="/life-counter/confirm" component={LifeCounterConfirm} exact={true}/>
+                  <Route path="/life-counter/game" component={LifeCounter} exact={true}/>
                   <Route path="/settings" component={Settings} exact={true}/>
                   <Route path="/results-display" component={ResultsDisplay} exact={true}/>
                   {/* <Route path="/results-display/:set" component={ResultDisplay}/> */}
