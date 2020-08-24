@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { IonContent, IonPage, IonButton, IonText } from '@ionic/react';
+import React from 'react';
+import { IonContent, IonPage, IonButton } from '@ionic/react';
 import './QuickSearch.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
-import App, { DatabaseState } from '../../App';
-// import { useHistory } from 'react-router-dom';
+import App from '../../App';
 
 const QuickSearch_RequireDownload: React.FC = () => {
 

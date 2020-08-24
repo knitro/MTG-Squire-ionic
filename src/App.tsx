@@ -36,9 +36,7 @@ import Database from './databases/Database';
 import CardsDB from './databases/CardDB/CardsDB';
 import RulesDB from './databases/RulesDB/RulesDB';
 import { Plugins } from '@capacitor/core';
-import ResultDisplay from './pages/ResultDisplay/ResultDisplay';
-import { SQLite } from '@ionic-native/sqlite/ngx';
-import { SearchStateContextProvider } from './states/SearchState';
+import ResultsDisplay from './pages/ResultsDisplay/ResultsDisplay';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -60,10 +58,7 @@ class App extends Component {
   /**
    * Stores the databases, and the states of each one.
    */
-  static databases : DatabaseState[] = [
-    // { database: new CardsDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Card Database (Index 0)
-    // { database: new RulesDB(sqlLite), loaded: DatabaseLoad.NOT_LOADED }, //Rules Database (Index 1)
-  ];
+  static databases : DatabaseState[] = [];
 
   static updateDatabase(index : number, newState : DatabaseLoad) {
     let currentDatabase : DatabaseState = App.databases[index];
@@ -75,13 +70,13 @@ class App extends Component {
   /*Constructor*/
   ////////////////////////
 
-  constructor(sqlLite: SQLite) {
-    super(sqlLite);
+  constructor(props : any) {
+    super(props);
     this.checkLocalDatabases();
 
     App.databases = [
-      { database: new CardsDB(sqlLite), loaded: DatabaseLoad.LOADED }, //Card Database (Index 0)
-      { database: new RulesDB(sqlLite), loaded: DatabaseLoad.LOADED }, //Rules Database (Index 1)
+      { database: new CardsDB(null), loaded: DatabaseLoad.LOADED }, //Card Database (Index 0)
+      { database: new RulesDB(null), loaded: DatabaseLoad.LOADED }, //Rules Database (Index 1)
     ]
   }
 
@@ -118,14 +113,13 @@ class App extends Component {
 
     return (
       <IonReactRouter>
-        <SearchStateContextProvider>
         <IonApp>
           <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
             <SideBar/>  {/* The Acutal Sidebar */}
             <IonPage id="main"> {/* ID reference allowing for Sidebar Functionality */}         
                 <IonRouterOutlet>
                   <Route path="/quick-search" component={
-                    (App.databases[0].loaded == DatabaseLoad.NOT_LOADED) 
+                    (App.databases[0].loaded === DatabaseLoad.NOT_LOADED) 
                     ? QuickSearch_RequireDownload 
                     : QuickSearch_Downloaded} 
                     exact={true} />
@@ -135,13 +129,15 @@ class App extends Component {
                   <Route path="/life-counter/confirm" component={LifeCounterConfirm} exact={true}/>
                   <Route path="/life-counter/game" component={LifeCounter} exact={true}/>
                   <Route path="/settings" component={Settings} exact={true}/>
-                  <Route path="/results-display" component={ResultDisplay} exact={true}/>
+                  <Route path="/results-display" component={ResultsDisplay} exact={true}/>
+                  {/* <Route path="/results-display/:set" component={ResultDisplay}/> */}
+                  {/* <Route path="/results-display-redirection" component={ResultDisplayRedirection} exact={true}/> */}
+                  {/* <Route path="/results-display-redirection/:set" component={ResultDisplayRedirection}/> */}
                   <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           
                 </IonRouterOutlet>
             </IonPage>
           </IonSplitPane>
         </IonApp>
-        </SearchStateContextProvider>
       </IonReactRouter>
     );
   }
