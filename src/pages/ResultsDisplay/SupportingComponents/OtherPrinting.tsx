@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText } from '@ionic/react';
 import uuid from 'uuid';
 import { SearchState, getSearchState } from '../../../states/SearchState';
-import ResultDisplay from '../ResultDisplay';
+import ResultsDisplay from '../ResultsDisplay';
 import App from '../../../App';
 
 interface OtherPrintingProps {
   currentSearchState : SearchState
-  display : ResultDisplay
+  display : ResultsDisplay
   currentDisplay: number
   swiper : any
 }
@@ -16,7 +16,7 @@ const OtherPrinting = (props : OtherPrintingProps) => {
 
   /*Variable Initialisation*/
   let search : SearchState = props.currentSearchState;
-  let display : ResultDisplay = props.display;
+  let display : ResultsDisplay = props.display;
 
   /*Hook Initialisation*/
   const [showLoading, setShowLoading] = useState(false);

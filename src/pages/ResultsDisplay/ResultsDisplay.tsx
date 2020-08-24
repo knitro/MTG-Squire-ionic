@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IonContent, IonPage, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonRow, IonCol, IonText, IonSlides, IonSlide } from '@ionic/react';
-import './ResultDisplay.css';
+import './ResultsDisplay.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import ManaCost from '../../components/ManaCost/ManaCost';
@@ -27,7 +27,7 @@ interface ResultsDisplayState {
 
 interface ResultsDisplayComponentProps {
   state : ResultsDisplayState
-  main : ResultDisplay
+  main : ResultsDisplay
 };
 
 ////////////////////////
@@ -91,7 +91,7 @@ function convertBooleanToString(input : boolean) : string {
 /*Results Display Class*/
 ////////////////////////
 
-class ResultDisplay extends React.Component<{}, ResultsDisplayState> {
+class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
 
   ////////////////////////
   /*Fields*/
@@ -468,4 +468,4 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
 
 }
 
-export default ResultDisplay;
+export default ResultsDisplay;

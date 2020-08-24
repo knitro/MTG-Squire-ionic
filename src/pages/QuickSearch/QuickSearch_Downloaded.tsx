@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonPage, IonText } from '@ionic/react';
+import { IonContent, IonPage } from '@ionic/react';
 import './QuickSearch.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';

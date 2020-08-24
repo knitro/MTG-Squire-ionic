@@ -32,7 +32,7 @@ import Database from './databases/Database';
 import CardsDB from './databases/CardDB/CardsDB';
 import RulesDB from './databases/RulesDB/RulesDB';
 import { Plugins } from '@capacitor/core';
-import ResultDisplay from './pages/ResultDisplay/ResultDisplay';
+import ResultsDisplay from './pages/ResultsDisplay/ResultsDisplay';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -121,7 +121,7 @@ class App extends Component {
                     exact={true} />
                   <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
                   <Route path="/settings" component={Settings} exact={true}/>
-                  <Route path="/results-display" component={ResultDisplay} exact={true}/>
+                  <Route path="/results-display" component={ResultsDisplay} exact={true}/>
                   {/* <Route path="/results-display/:set" component={ResultDisplay}/> */}
                   {/* <Route path="/results-display-redirection" component={ResultDisplayRedirection} exact={true}/> */}
                   {/* <Route path="/results-display-redirection/:set" component={ResultDisplayRedirection}/> */}
