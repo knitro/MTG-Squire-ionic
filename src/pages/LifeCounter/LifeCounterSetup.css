@@ -27,32 +27,49 @@
 
 }
 
-.optionTextField{
-    /* outline-width: 2; */
-    width: 50%;
-    height: 100%;
-    font-size: x-large;
-    /* outline: black 2px; */
-    transform: translate(50%,8%);
-    background-color: #5260ff;
-}
-
-.optionButton{
-    /* outline-width: 2; */
-    width: 50%;
-    transform: translateX(50%);
-    height: 100%;
-    font-size: xxx-large;
-}
-
-.buttonRow{
-    height: 100%;
-}
-
 .newGameButton{
     /* outline-width: 2; */
     width: 70%;
     transform: translateX(20%);
     height: 30%;
     font-size: xxx-large;
+}
+
+.optionButton{
+    width: 50%;
+    transform: translateX(50%);
+    height: 100%;
+    font-size: xxx-large;
+}
+
+.optionTextField{
+    /* outline-width: 2; */
+    width: 50%;
+    height:50%;
+    font-size: x-large;
+    /* outline: black 2px; */
+    transform: translate(52%,8%);
+    background-color: #5260ff;
+}
+
+.optionTextButton{
+    /* outline-width: 2; */
+    width: 50%;
+    transform: translate(50%,10%);
+    height: 50%;
+    /* font-size: x-large; */
+}
+
+.buttonRow{
+    height: 15%;
+    transform: translateY(150%);
+}
+.buttonColText{
+    transform: translateY(8%);
+}
+.buttonCol{
+    transform: translateY(10%);
+}
+.confirmGrid{
+    transform: translateY(125%);
 }
