@@ -128,8 +128,6 @@ class CardsDB extends Database {
 
   async performSearchURL(url : string, singleCard : boolean) : Promise<boolean> {
 
-    console.log("URL = " + url);
-
     /*Variable Initialisation*/
     try {
 
@@ -194,7 +192,6 @@ class CardsDB extends Database {
       let stringArray : string[] = [];
       let output : ScryFallRulings[] = response.data.data;
       output.map((currentRuling: ScryFallRulings) => stringArray.push(currentRuling.comment));
-      // stringArray.map((currentItem: string) => console.log(currentItem));
       return stringArray;
     }).catch(err => {
       console.log(err);
@@ -209,8 +206,6 @@ class CardsDB extends Database {
    * @param url The Scryfall URL that the Other Printings come from.
    */
   async getOtherPrintings(url : string) : Promise<SearchState[]> {
-    
-    console.log("Other Printings URL: " + url);
     
     let returnArray : SearchState[] = await axios({
       url: url,
@@ -258,8 +253,6 @@ class CardsDB extends Database {
         + axiosResult.set
         + "/" + axiosResult.collector_number
         + "?format=image&version=art_crop";
-
-    // console.log("cardImageURL = " + cardImageURL);
 
     /*Generate the SearchState*/
     let searchResult : SearchState = {

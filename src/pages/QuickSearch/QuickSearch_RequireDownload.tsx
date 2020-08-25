@@ -32,7 +32,6 @@ const QuickSearch_RequireDownload: React.FC = () => {
             text-align="center"
             class="downloadDatabaseButton"
             onClick={e => {
-              console.log("Button Pressed: Download Database");
               currentDatabase.database.downloadDatabase();
               // history.push("/settings");
             }}

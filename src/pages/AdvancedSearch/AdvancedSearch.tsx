@@ -218,8 +218,6 @@ const AdvancedSearch: React.FC = () => {
             class="searchButton"
             onClick={e => {
 
-              console.log("Button Pressed: Performing Advanced Searching");
-
               /*Variable Initialisation*/
               let coloursInclude  : string[] = [];
               let coloursExclude  : string[] = [];
@@ -268,11 +266,9 @@ const AdvancedSearch: React.FC = () => {
                 if (didPerform) {
                   setShowLoading(false)
                   history.push("/search-results");
-                  console.log("Finished: Card Searching");
                 } else {
                   setShowLoading(false)
                   setShowAlert(true);
-                  console.log("Finished but Failed: Card Searching");
                 }
               });
             }}

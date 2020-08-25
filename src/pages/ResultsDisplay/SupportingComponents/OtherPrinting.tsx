@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText } from '@ionic/react';
+import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert } from '@ionic/react';
 import uuid from 'uuid';
 import { SearchState, getSearchState } from '../../../states/SearchState';
 import ResultsDisplay from '../ResultsDisplay';
@@ -19,6 +19,7 @@ const OtherPrinting = (props : OtherPrintingProps) => {
 
   /*Hook Initialisation*/
   const [showLoading, setShowLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   /*Return*/
   return (
@@ -33,6 +34,16 @@ const OtherPrinting = (props : OtherPrintingProps) => {
         duration={10000}
       />
       
+      <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          cssClass='failed'
+          header={'Error'}
+          subHeader={'Failed to Get Card Information'}
+          message={'Please check your internet connection and re-perform the search.'}
+          buttons={['Dismiss']}
+      />
+
       {/*IonCard Initialisation*/}
       <IonCard button={true} key={uuid.v4()}
         onClick={e => {
@@ -40,13 +51,11 @@ const OtherPrinting = (props : OtherPrintingProps) => {
           App.databases[0].database.performSearchURL(search.api_uri, true).then(async (didPerform) => {
             if (didPerform) {
               setShowLoading(false);
-              console.log("Finished: Card Searching");
               display.setState({currentSearchState: await getSearchState()});
               props.swiper.slideTo(1);
             } else {
               setShowLoading(false);
               // setShowAlert1(true);
-              console.log("Finished but Failed: Card Searching");
             }    
           });
         }}

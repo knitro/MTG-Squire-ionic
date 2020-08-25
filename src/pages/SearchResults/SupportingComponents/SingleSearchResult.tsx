@@ -49,12 +49,10 @@ const SingleSearchResult = (props : SingleSearchResult) => {
           App.databases[0].database.performSearchURL(search.api_uri, true).then(async (didPerform) => {
             if (didPerform) {
               setShowLoading(false);
-              console.log("Finished: Card Searching");
               history.push("/results-display");
             } else {
               setShowLoading(false);
               setShowAlert(true);
-              console.log("Finished but Failed: Card Searching");
             }    
           });
         }}

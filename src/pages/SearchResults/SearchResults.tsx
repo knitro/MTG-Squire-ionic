@@ -35,7 +35,6 @@ class SearchResults extends React.Component<{}, SearchResultsState> {
    * Updates the Components when async results.
    */
   async componentDidMount() {
-    console.log("Component Mounting");
     this.setState({currentSearchState: await getSearchRequest()});
   }
 
