@@ -1,11 +1,6 @@
-import React, { Component, useState } from 'react';
-import {  IonContent, IonSearchbar, IonButton, IonRouterOutlet } from "@ionic/react";
+import React from 'react';
 import './LiveSearchBar.css';
-import { useHistory, Route } from 'react-router-dom';
-import { IonReactRouter } from '@ionic/react-router';
-import ResultDisplay, { } from '../../pages/ResultDisplay/ResultDisplay';
-import { emptySearch, SearchState, SearchStateContextProvider, SearchStateContextConsumer } from '../../states/SearchState';
-import App from '../../App';
+import LiveSearchBarCards from './LiveSearchBarCards/LiveSearchBarCards';
 
 export enum LiveSearchCategory {
   Cards,
@@ -20,110 +15,35 @@ interface SearchBarProps {
   category : LiveSearchCategory;
 }
 
-class LiveSearchBar extends Component<SearchBarProps> {
-  
-  /*Fields*/
-  //Constructor Fields
-  searchString : string = ""; //Default
-  placeholderText : string = "Search"; //Default
-  category : LiveSearchCategory = LiveSearchCategory.Cards; //Default
-  
-  //Search Field
-  currentSearch: SearchState = emptySearch;
+const LiveSearchBar = (props : SearchBarProps) => {
 
-  /*Constructor*/
-  constructor(props : SearchBarProps) {
-    super(props);
-    this.searchString = props.searchString;
-    this.placeholderText = props.placeholderText;
-    this.category = props.category;
-  }
+  /*Variable Initialisation*/
+  let category : LiveSearchCategory = props.category;
 
-  /*Methods*/
-
-  /*Render*/
-  render() {
-
-    /*React Hook Initialisation*/
-    // const {searchProps, updateSearchProps} = useState(ResultDisplay.defaultProps as ResultsDisplayProps);
-
-    /*Other Variable Initialisation*/
-    //None
-
-    /*Rendering*/
+  /*Rendering*/
+  if (category === LiveSearchCategory.Cards) {
     return (
-      <IonContent>
-
-        {/* <IonReactRouter>
-          <IonRouterOutlet>
-            <Route path="/result-display" component={ResultDisplay} />
-          </IonRouterOutlet>
-        </IonReactRouter> */}
-
-        <IonSearchbar 
-            autocomplete="on" 
-            inputmode="text" 
-            type="text" 
-            placeholder={this.placeholderText}
-            value={this.searchString} 
-            onIonChange={
-              e => {
-                this.searchString = e.detail.value!;
-                this.currentSearch.cardName = this.searchString;
-              } 
-            } animated
-        />
-
-        <IonButton 
-            color="primary"
-            expand="block"
-            fill="outline"
-            shape="round"
-            size="large"
-            text-align="center"
-            class="searchButton"
-            onClick={e => {
-              console.log("Button Pressed: Search Database");
-              this.currentSearch.cardName = this.searchString;
-              App.databases[0].database.performSearch(this.currentSearch);
-            }}
-          >
-              {"Search"}
-          </IonButton>
-
-          <IonButton 
-            color="primary"
-            expand="block"
-            fill="outline"
-            shape="round"
-            size="large"
-            text-align="center"
-            class="searchButton"
-            href="/results-display"
-            onClick={e => {
-              console.log("Button Pressed: Search Database");
-            }}
-          >
-              {"Go to Result"}
-          </IonButton>
-
-          <SearchStateContextConsumer>
-          {(context : SearchState) => (
-            <IonButton onClick={e =>
-            {
-              console.log(context.cardName);
-              console.log(context.fullType);
-              console.log(context.imageLink);
-              console.log(context.manaCost);
-              console.log(context.oracleText);
-            }
-            }>Check DB Status</IonButton>
-          )}
-        </SearchStateContextConsumer>
-
-      </IonContent>
+      <LiveSearchBarCards searchString="" placeholderText="Search for Magic Cards" />
+    );
+  } else if (category === LiveSearchCategory.Rules) {
+    return (
+      <></>
+    );
+  } else if (category === LiveSearchCategory.SetEV) {
+    return (
+      <></>
+    );
+  } else if (category === LiveSearchCategory.Settings) {
+    return (
+      <></>
+    );
+  } else {
+    console.log("ERROR: This is not an implemented SearchBar category");
+    return (
+      <></>
     );
   }
-};
+  
+}
 
 export default LiveSearchBar;

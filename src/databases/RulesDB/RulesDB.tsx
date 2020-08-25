@@ -24,12 +24,12 @@ class RulesDB extends Database {
     return DatabaseLoad.NOT_LOADED;
   }
 
-  loadDatabaseFile(): boolean {
+  loadDatabase(): boolean {
     return false;
   }
 
-  performSearch(currentSearch : SearchState) : void {
-    return;
+  async performSearch(currentSearch : SearchState) : Promise<boolean> {
+    return true;
   }
 
   ////////////////////////

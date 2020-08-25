@@ -1,5 +1,15 @@
-.symbolImage {
+.normalSymbolImage {
   width: 15%;
+  display: flex;
+}
+
+.symbol_100 {
+  width: 80%;
+  display: flex;
+}
+
+.symbol_1000000 {
+  width: 77.5%;
   display: flex;
 }
 
