@@ -57,7 +57,7 @@ function getPrice(source : string, price : string, isFoil : boolean, isOnline : 
         } else {
           return (
             <IonCardContent>
-              {source + ": " + "Price Not Available"}
+              {source + ": Price Not Available"}
             </IonCardContent>
           )
         }
@@ -272,7 +272,7 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
               </IonCard>
               <>
                 {currentSearchState.otherPrints.map((renderSearchState : SearchState) =>
-                  <OtherPrinting key={uuid.v4()} currentSearchState={renderSearchState} display={main} currentDisplay={1} swiper={swiper}/>
+                  <OtherPrinting key={uuid.v4()} currentSearchState={renderSearchState} display={main} swiper={swiper}/>
                 )}
               </>
 
@@ -494,7 +494,6 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
 
       {/* Displays Tabs at the Bottom */}
       <FooterTabs/>
-      {/* <TestDatabase/> */}
 
     </IonPage>
   );

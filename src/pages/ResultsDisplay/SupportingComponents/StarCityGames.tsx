@@ -34,7 +34,6 @@ function createSCGLink(cardName : string, setCode : string, collector_number : s
 }
 
 function createNonFoilCard(currentSearchState : SearchState) {
-  console.log("currentSearchState.misc.nonfoil = " + currentSearchState.misc.nonfoil);
   if (currentSearchState.misc.nonfoil && !currentSearchState.misc.digital_only) {
     const currentLink : string = createSCGLink(currentSearchState.cardName, currentSearchState.set.setCode, currentSearchState.misc.collector_number, false);
     return createCard("Non-Foil", "StarCityGames", currentLink);
@@ -44,7 +43,6 @@ function createNonFoilCard(currentSearchState : SearchState) {
 }
 
 function createFoilCard(currentSearchState : SearchState) {
-
   if (currentSearchState.misc.foil && !currentSearchState.misc.digital_only)  {
     const currentLink : string = createSCGLink(currentSearchState.cardName, currentSearchState.set.setCode, currentSearchState.misc.collector_number, true);
     return createCard("Foil", "StarCityGames", currentLink);

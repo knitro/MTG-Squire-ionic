@@ -42,7 +42,6 @@ ion-card {
   text-align: left;
 }
 
-
 /* Class used for Single Page Slides. This fixes the swipe area issues */ 
 .fullScreenCard {
   display: flex;

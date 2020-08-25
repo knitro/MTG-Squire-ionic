@@ -10,7 +10,9 @@ import { Plugins } from '@capacitor/core';
 
 const { Storage } = Plugins;
 
-const storageKey = "search"; // String that dictates the string that the search is stored under in capacitor.
+const singleStorageKey = "single"; // String that dictates the string that the SearchState is stored under in capacitor.
+const multipleStorageKey = "multiple"; // String that dictates the string that the search request is stored under in capacitor.
+const historyStorageKey = "history"; // String that dictates the string that the history of searches is stored under in capacitor.
 
 /**
  * The Empty Search Constant: Used for "Blank" Representations of a SearchState.
@@ -135,29 +137,34 @@ export interface LegalityInformation {
  * Stores any Miscellaneous Information about the CArd
  */
 export interface MiscInformation {
-  reserved: boolean  //Is on the reserve list
-  foil:     boolean  //Does foil exist
-  nonfoil:  boolean  //Does non-foil exist
-  promo:    boolean  //Is it a promo variant
-  reprint:  boolean  //Is the card a reprint
-  collector_number: string //Collector number of this variant of the card
-  rarity:   string  //Rarity of the card
-  frame:    string  //Frame style of the card
-  artist:   string  //Artist
-  released: string //Date of release
-  digital_only : boolean //Is the card a digital release only?
+  reserved: boolean         //Is on the reserve list
+  foil:     boolean         //Does foil exist
+  nonfoil:  boolean         //Does non-foil exist
+  promo:    boolean         //Is it a promo variant
+  reprint:  boolean         //Is the card a reprint
+  collector_number: string  //Collector number of this variant of the card
+  rarity:   string          //Rarity of the card
+  frame:    string          //Frame style of the card
+  artist:   string          //Artist
+  released: string          //Date of release
+  digital_only : boolean    //Is the card a digital release only?
 }
 
 ////////////////////////
 /*Capacitor Storage*/
 ////////////////////////
 
+/**
+ * Saves a single Search State into storage.
+ * This is used for Quick Search etc. to have ResultsDisplay have something to display, as this is where it will be taken
+ * @param currentSearchState - the SearchState to save in storage
+ */
 export async function saveSearchState(currentSearchState : SearchState) : Promise<boolean> {
 
   let valueToSave : string = JSON.stringify(currentSearchState);
 
   const returnValue = await Storage.set({
-    key: storageKey,
+    key: singleStorageKey,
     value: valueToSave
   }).then( () => {
     return true;
@@ -169,9 +176,13 @@ export async function saveSearchState(currentSearchState : SearchState) : Promis
   return returnValue;
 }
 
+/**
+ * Retrieves a Search State in storage.
+ * This is used for ResultsDisplay to retrieve the previously saved data.
+ */
 export async function getSearchState() : Promise<SearchState> {
 
-  const storageReturn = await Storage.get({key: storageKey});
+  const storageReturn = await Storage.get({key: singleStorageKey});
 
   if (typeof storageReturn.value === 'string') {
     return (JSON.parse(storageReturn.value) as SearchState);
@@ -180,12 +191,17 @@ export async function getSearchState() : Promise<SearchState> {
   }
 }
 
-export async function saveStorage(currentSearchState : String) : Promise<boolean> {
+/**
+ * Saves an array of Search State into storage.
+ * This is used for Advanced Search to save what needs to be displayed in SearchResults.
+ * @param searchRequest - the Array of SearchStates to be saved in storage.
+ */
+export async function saveSearchRequest(searchRequest : SearchState[]) : Promise<boolean> {
 
-  let valueToSave : string = JSON.stringify(currentSearchState);
+  let valueToSave : string = JSON.stringify(searchRequest);
 
   const returnValue = await Storage.set({
-    key: "redirection",
+    key: multipleStorageKey,
     value: valueToSave
   }).then( () => {
     return true;
@@ -197,13 +213,17 @@ export async function saveStorage(currentSearchState : String) : Promise<boolean
   return returnValue;
 }
 
-export async function getStorage() : Promise<string> {
+/**
+ * Retrieves the SearchState Array in storage.
+ * This is used for SearchResults to retrieve the previously saved data.
+ */
+export async function getSearchRequest() : Promise<SearchState[]> {
 
-  const storageReturn = await Storage.get({key: "redirection"});
+  const storageReturn = await Storage.get({key: multipleStorageKey});
 
   if (typeof storageReturn.value === 'string') {
-    return (JSON.parse(storageReturn.value) as string);
+    return (JSON.parse(storageReturn.value) as SearchState[]);
   } else { //Null Case
-    return "";
+    return [emptySearch];
   }
 }

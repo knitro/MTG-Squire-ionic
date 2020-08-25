@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert } from '@ionic/react';
+import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert, IonImg } from '@ionic/react';
 import uuid from 'uuid';
-import { SearchState, getSearchState } from '../../../states/SearchState';
-import ResultsDisplay from '../ResultsDisplay';
+import { SearchState } from '../../../states/SearchState';
 import App from '../../../App';
+import { useHistory } from 'react-router';
 
-interface OtherPrintingProps {
+interface SingleSearchResult {
   currentSearchState : SearchState
-  display : ResultsDisplay
-  swiper : any
 }
 
-const OtherPrinting = (props : OtherPrintingProps) => {
+const SingleSearchResult = (props : SingleSearchResult) => {
 
   /*Variable Initialisation*/
   let search : SearchState = props.currentSearchState;
-  let display : ResultsDisplay = props.display;
+  const history = useHistory();
 
   /*Hook Initialisation*/
   const [showLoading, setShowLoading] = useState(false);
@@ -30,7 +28,7 @@ const OtherPrinting = (props : OtherPrintingProps) => {
         cssClass=''
         isOpen={showLoading}
         onDidDismiss={() => setShowLoading(false)}
-        message={'Switching Card Versions'}
+        message={'Getting Card Information'}
         duration={10000}
       />
       
@@ -42,7 +40,7 @@ const OtherPrinting = (props : OtherPrintingProps) => {
           subHeader={'Failed to Get Card Information'}
           message={'Please check your internet connection and re-perform the search.'}
           buttons={['Dismiss']}
-      />
+        />
 
       {/*IonCard Initialisation*/}
       <IonCard button={true} key={uuid.v4()}
@@ -51,22 +49,20 @@ const OtherPrinting = (props : OtherPrintingProps) => {
           App.databases[0].database.performSearchURL(search.api_uri, true).then(async (didPerform) => {
             if (didPerform) {
               setShowLoading(false);
-              display.setState({currentSearchState: await getSearchState()});
-              props.swiper.slideTo(1);
+              history.push("/results-display");
             } else {
               setShowLoading(false);
-              // setShowAlert1(true);
+              setShowAlert(true);
             }    
           });
         }}
       >
         <IonCardHeader>
-          <IonCardSubtitle>{search.set.setCode.toUpperCase()}</IonCardSubtitle>
-          <IonCardTitle>{search.set.setName}</IonCardTitle>
+          <IonCardSubtitle> {search.fullType}</IonCardSubtitle>
+          <IonCardTitle>{search.cardName}</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
-          {/* <IonImg src={renderSearchState.imageLink} class="cardImage" data-src={renderSearchState.imageLink}/> */}
-          <img src={search.imageLink} alt={search.imageLink}/>
+          <IonImg src={search.imageLink} class="cardImage" data-src={search.imageLink}/>
           <IonText>{"Release Date: "}{search.misc.released}</IonText>
         </IonCardContent>
       </IonCard>
@@ -76,5 +72,5 @@ const OtherPrinting = (props : OtherPrintingProps) => {
   );
 }
 
-export default OtherPrinting;
+export default SingleSearchResult;
 

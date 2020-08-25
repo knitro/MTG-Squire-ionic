@@ -4,6 +4,7 @@ import App, { DatabaseLoad } from '../App';
 import axios from 'axios';
 import { FilesystemDirectory } from '@capacitor/core';
 import { SearchState } from '../states/SearchState';
+import { ScryFallSearchTerms } from './CardDB/ScryFallInterfaces';
 
 abstract class Database extends Component {
 
@@ -53,6 +54,12 @@ abstract class Database extends Component {
    * @param singleCard - determines whether the resultant search will be an array or a single card. DB calls via performSearch(SearchState) should be false, direct calls should have this as true.
    */
   abstract async performSearchURL(url : string, singleCard : boolean) : Promise<boolean>;
+
+  /**
+   * This method should perform a search, and store all the search results into the database.
+   * @param searchTerms 
+   */
+  abstract async performAllSearch(searchTerms : ScryFallSearchTerms) : Promise<boolean>;
 
   ////////////////////////
   /*"Implemented" Methods*/

@@ -2,8 +2,9 @@
 //https://scryfall.com/docs/api/cards
 
 ////////////////////////
-/*Main Interface*/
+/*Main Interfaces*/
 ////////////////////////
+
 export interface ScryFallInformation {
 
   name:         string
@@ -29,6 +30,15 @@ export interface ScryFallInformation {
   prints_search_uri: string
   uri:          string
   digital:      boolean
+}
+
+export interface ScryFallSearchTerms {
+  mainSearch:     string
+  coloursInclude: string[] //Valid Inputs: {W, U, B, R, G}
+  coloursExclude: string[] //Valid Inputs: {W, U, B, R, G}
+  cardTypes:      string[]
+  cardText:       string[]
+  //Add More as Advanced Search becomes more fully fleshed out
 }
 
 ////////////////////////

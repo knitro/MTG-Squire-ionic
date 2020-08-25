@@ -37,6 +37,8 @@ import CardsDB from './databases/CardDB/CardsDB';
 import RulesDB from './databases/RulesDB/RulesDB';
 import { Plugins } from '@capacitor/core';
 import ResultsDisplay from './pages/ResultsDisplay/ResultsDisplay';
+import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
+import SearchResults from './pages/SearchResults/SearchResults';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -118,21 +120,23 @@ class App extends Component {
             <SideBar/>  {/* The Acutal Sidebar */}
             <IonPage id="main"> {/* ID reference allowing for Sidebar Functionality */}         
                 <IonRouterOutlet>
+
                   <Route path="/quick-search" component={
                     (App.databases[0].loaded === DatabaseLoad.NOT_LOADED) 
                     ? QuickSearch_RequireDownload 
                     : QuickSearch_Downloaded} 
                     exact={true} />
+                  <Route path="/advanced-search" component={AdvancedSearch} exact={true}/>
+                  <Route path="/search-results" component={SearchResults} exact={true}/>
+                  <Route path="/results-display" component={ResultsDisplay} exact={true}/>
+
                   <Route path="/life-counter/new-game" component={LifeCounterNewGame} exact={true} />
                   <Route path="/life-counter/set-players" component={LifeCounterPlayerNumber} exact={true}/>
                   <Route path="/life-counter/set-life" component={LifeCounterSetLife} exact={true}/>
                   <Route path="/life-counter/confirm" component={LifeCounterConfirm} exact={true}/>
                   <Route path="/life-counter/game" component={LifeCounter} exact={true}/>
                   <Route path="/settings" component={Settings} exact={true}/>
-                  <Route path="/results-display" component={ResultsDisplay} exact={true}/>
-                  {/* <Route path="/results-display/:set" component={ResultDisplay}/> */}
-                  {/* <Route path="/results-display-redirection" component={ResultDisplayRedirection} exact={true}/> */}
-                  {/* <Route path="/results-display-redirection/:set" component={ResultDisplayRedirection}/> */}
+                  
                   <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           
                 </IonRouterOutlet>
             </IonPage>
