@@ -3,7 +3,7 @@ import './LifeCounterSlide2.css';
 import { IonGrid, IonRow, IonCol, IonButton, IonLabel, } from "@ionic/react";
 import { updatePlayer, PlayersContextProvider, PlayersContextConsumer, Players } from "../../../states/LifeCounterPlayerState";
 import { useState } from "react";
-import { ButtonProps, getTextClass, getColour } from './SlidesHelper';
+import { ButtonProps, getTextClass, getColour, getSubName } from './SlidesHelper';
 import SubScreenButton from './SubScreenButton';
 
 
@@ -21,6 +21,7 @@ const SecondScreenButtonHorizontal = (props : ButtonProps) => {
     const player = props.player;
     const rotation = props.rotation;
     const division = props.division;
+    const reverseOrder = (rotation == 180);
     return (
       
       <PlayersContextProvider>
@@ -33,19 +34,22 @@ const SecondScreenButtonHorizontal = (props : ButtonProps) => {
         <IonGrid class="slide2Grid">
           <IonRow class="slide2RowHorizontal">
             <IonCol class="slide2ColHorizontal">
-              <SubScreenButton rotation={rotation} division={division} player={player} option={'valueW'}/>
+              <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(0,reverseOrder)}/>
             </IonCol>
             <IonCol class="slide2ColHorizontal">
-              <SubScreenButton rotation={rotation} division={division} player={player} option={'valueU'}/>
+              <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(1,reverseOrder)}/>
             </IonCol>
             <IonCol class="slide2ColHorizontal">
-              <SubScreenButton rotation={rotation} division={division} player={player} option={'valueB'}/>
+              <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(2,reverseOrder)}/>
             </IonCol>
             <IonCol class="slide2ColHorizontal">
-              <SubScreenButton rotation={rotation} division={division} player={player} option={'valueR'}/>
+              <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(3,reverseOrder)}/>
             </IonCol>
             <IonCol class="slide2ColHorizontal">
-              <SubScreenButton rotation={rotation} division={division} player={player} option={'valueG'}/>
+              <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(4,reverseOrder)}/>
+            </IonCol>
+            <IonCol class="slide2ColHorizontal">
+              <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(5,reverseOrder)}/>
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -63,6 +67,7 @@ const SecondScreenButtonVertical = (props : ButtonProps) => {
   const player = props.player;
   const rotation = props.rotation;
   const division = props.division;
+  const reverseOrder = (rotation == 270);
   return (
     <IonButton class="playerButton" expand="full" 
     color={getColour(player)}
@@ -70,27 +75,32 @@ const SecondScreenButtonVertical = (props : ButtonProps) => {
       <IonGrid class="slide2Grid">
         <IonRow class="slide2RowVertical">
           <IonCol class="slide2ColVertical">
-            <SubScreenButton rotation={rotation} division={division} player={player} option={'valueW'}/>
+            <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(0,reverseOrder)}/>
           </IonCol>
         </IonRow>
         <IonRow class="slide2RowVertical">
           <IonCol class="slide2ColVertical">
-          <SubScreenButton rotation={rotation} division={division} player={player} option={'valueU'}/>
+          <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(1,reverseOrder)}/>
           </IonCol>
         </IonRow>
         <IonRow class="slide2RowVertical">
           <IonCol class="slide2ColVertical">
-            <SubScreenButton rotation={rotation} division={division} player={player} option={'valueB'}/>
+            <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(2,reverseOrder)}/>
           </IonCol>
         </IonRow>
         <IonRow class="slide2RowVertical">
           <IonCol class="slide2ColVertical">
-            <SubScreenButton rotation={rotation} division={division} player={player} option={'valueR'}/>
+            <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(3,reverseOrder)}/>
           </IonCol>
         </IonRow>
         <IonRow class="slide2RowVertical">
           <IonCol class="slide2ColVertical">
-          <SubScreenButton rotation={rotation} division={division} player={player} option={'valueG'}/>
+            <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(4,reverseOrder)}/>
+          </IonCol>
+        </IonRow>
+        <IonRow class="slide2RowVertical">
+          <IonCol class="slide2ColVertical">
+          <SubScreenButton rotation={rotation} division={division} player={player} option={getSubName(5,reverseOrder)}/>
           </IonCol>
         </IonRow>
       </IonGrid>

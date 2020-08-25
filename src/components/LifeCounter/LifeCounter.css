@@ -24,7 +24,21 @@
     transform: rotate(-90deg);
     font-size: xxx-large;
 }
-
+.subtext0{
+    font-size: xx-large;
+}
+.subtext90{
+    transform: rotate(90deg);
+    font-size: xx-large;
+}
+.subtext180{
+    transform: rotate(180deg);
+    font-size: xx-large;
+}
+.subtext270{
+    transform: rotate(-90deg);
+    font-size: xx-large;
+}
 /* 4 players */
 .fourPlayerRow{
     width: 100%;
@@ -75,6 +89,12 @@
     --ion-color-new-yellow: #FFD300;
     --ion-color-new-green: #0E6B0E;
     --ion-color-new-blue: #001f3d;
+    --ion-color-mtg-w: #FFFBD5;
+    --ion-color-mtg-u: #ABE1FA;
+    --ion-color-mtg-b: #91788f;
+    --ion-color-mtg-r: #F9AC90;
+    --ion-color-mtg-g: #9CD4B0;
+    --ion-color-mtg-c: #CDC3C1;
   }
 
   .ion-color-player-one {
@@ -88,6 +108,25 @@
   }
   .ion-color-player-three {
     --ion-color-base: var(--ion-color-new-green);
+  }
+
+  .ion-color-colour-w {
+    --ion-color-base: var(--ion-color-mtg-w);
+  }
+  .ion-color-colour-u {
+    --ion-color-base: var(--ion-color-mtg-u);
+  }
+  .ion-color-colour-b {
+    --ion-color-base: var(--ion-color-mtg-b);
+  }
+  .ion-color-colour-r {
+    --ion-color-base: var(--ion-color-mtg-r);
+  }
+  .ion-color-colour-g {
+    --ion-color-base: var(--ion-color-mtg-g);
+  }
+  .ion-color-colour-c {
+    --ion-color-base: var(--ion-color-mtg-c);
   }
 
 /* Slides */

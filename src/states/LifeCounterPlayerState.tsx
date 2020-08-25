@@ -12,6 +12,7 @@ export interface Player{
     valueB : number;
     valueR : number;
     valueG : number;
+    valueC : number;
 }
 
 export interface Players {
@@ -30,8 +31,10 @@ export function updatePlayer(players : Player[],player : number, change : number
         players[player].valueB += change;
     } else if(option == 'valueR'){
         players[player].valueR += change;
-    } else {
+    } else if(option == 'valueG') {
         players[player].valueG += change;
+    } else {
+        players[player].valueC += change;
     }
     savePlayers(players)
 }
@@ -41,11 +44,12 @@ export function createPlayers(g : Game){
     for (let index = 0; index < g.numberPlayers; index++) {
         p.push({
             lifeTotal : g.lifeTotal,
-            valueW : 1,
-            valueU : 2,
-            valueB : 3,
-            valueR : 4,
-            valueG : 5
+            valueW : 0,
+            valueU : 0,
+            valueB : 0,
+            valueR : 0,
+            valueG : 0,
+            valueC : 0,
         });        
     }
     savePlayers(p)
@@ -68,7 +72,6 @@ function PlayersContextProvider(props: { children: React.ReactNode; }) {
         Promise.resolve(Storage.get({key: 'players'}).then(
             (result) => {
                 if (typeof result.value === 'string') {
-                    // console.log(result.value);
                     setInitialPlayers(JSON.parse(result.value) as Player[]);
                 }
             },

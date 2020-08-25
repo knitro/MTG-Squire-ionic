@@ -12,7 +12,6 @@ export interface SubButtonProps {
   option : string;
 }
 
-
 export const slideOptsHorizontal = {
   initialSlide: 0,
   direction: 'horizontal',
@@ -23,6 +22,7 @@ export const slideOptsVertical = {
   initialSlide: 0,
   direction: 'vertical',
   speed: 400,
+
 };
 
 export function getColour(p : number){
@@ -36,15 +36,30 @@ export function getColour(p : number){
     return "player-four"
 }
 
-export function getTextClass(r : number){
+export function getSubColour(c : string){
+  if(c == 'valueW')
+    return "colour-w"
+  else if(c == 'valueU')
+    return "colour-u"
+  else if(c == 'valueB')
+    return "colour-b"
+  else if(c == 'valueR')
+    return "colour-r"
+  else if(c == 'valueG')
+    return "colour-g"
+  else
+    return "colour-c"
+}
+
+export function getTextClass(r : number,isSub : boolean){
   if(r == 0)
-    return "text0"
+    return isSub ? "subtext0" : "text0"
   else if(r==90)
-    return "text90"
+    return isSub ? "subtext90" :"text90"
   else if(r==180)
-    return "text180"
+    return isSub ? "subtext180" :"text180"
   else 
-    return "text270"
+    return isSub ? "subtext270" : "text270"
 }
 
 export function getImageClass(r : number){
@@ -58,19 +73,6 @@ export function getImageClass(r : number){
     return "slideImage-270"
 }
 
-export function getFile(option : string){
-  if(option == 'valueW'){
-    return 'assets/img/W.png';
-  } else if (option == 'valueU') {
-    return 'assets/img/U.png';
-  } else if (option == 'valueB') {
-    return 'assets/img/B.png';
-  } else if (option == 'valueR') {
-    return 'assets/img/R.png';
-  } else {
-    return 'assets/img/G.png';
-  }
-}
 
 export function getChange(rotation : number, division : number, pressValue : number){
   if(rotation == 0 || rotation == 180){
@@ -103,7 +105,28 @@ export function getSubValue(players : Players, p : number, option : string){
     return players.players[p].valueR;
   } else if (option == 'valueG'){
     return players.players[p].valueG;
+  } else if (option == 'valueC'){
+    return players.players[p].valueC;
   } else {
     return players.players[p].lifeTotal;
   }
+}
+
+export function getSubName(num : number, isReverse : boolean){
+  if(isReverse){
+    num = (5 - num);
+  }
+
+  if(num == 0)
+    return 'valueW'
+  else if(num == 1)
+    return 'valueU'
+  else if(num == 2)
+    return 'valueB'
+  else if(num == 3)
+    return 'valueR'
+  else if(num == 4)
+    return 'valueG'
+  else 
+    return 'valueC'
 }

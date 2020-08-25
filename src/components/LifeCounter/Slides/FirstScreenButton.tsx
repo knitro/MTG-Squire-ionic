@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IonGrid, IonRow, IonCol, IonButton, IonLabel, IonSlides, IonSlide } from "@ionic/react";
+import { IonButton, IonLabel } from "@ionic/react";
 import { updatePlayer, PlayersContextProvider, PlayersContextConsumer, Players } from "../../../states/LifeCounterPlayerState";
 import { useState } from "react";
 import { ButtonProps, getColour, getChange, getTextClass } from './SlidesHelper';
@@ -23,7 +23,7 @@ const FirstScreenButton = (props : ButtonProps) => {
               setLife(context.players[player] == null ? 0 : context.players[player].lifeTotal)
                 }}
                 >
-                  <IonLabel class={getTextClass(rotation)}>
+                  <IonLabel class={getTextClass(rotation,false)}>
                     {(
                       setLife(context.players[player] == null ? 0 : context.players[player].lifeTotal),
                       life
