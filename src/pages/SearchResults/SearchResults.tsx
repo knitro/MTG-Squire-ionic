@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { IonText, IonPage, IonContent, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
+import React from 'react';
+import { IonPage, IonContent, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
 import { SearchState, emptySearch, getSearchRequest } from '../../states/SearchState';
 import Header from '../../components/Header/Header';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';

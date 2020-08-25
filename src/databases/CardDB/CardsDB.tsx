@@ -62,7 +62,7 @@ class CardsDB extends Database {
 
     //Add Exclusion of Colours
     if (searchTerms.coloursExclude.length !== 0) {
-      let coloursExcludeString = "+c:";
+      let coloursExcludeString = "+-c:";
       searchTerms.coloursExclude.map((currentColour) => coloursExcludeString += currentColour.toLowerCase());
       compiledSearchTerm += coloursExcludeString;
     }
@@ -99,19 +99,23 @@ class CardsDB extends Database {
           return output;
       }).catch(err => {
         console.log(err);
-        return [blankScryFallInformation];
+        return [];
       });
 
+      //Turn the ScryFallInformation[] into a SearchState[]
       let searchResults: SearchState[] = axiosResult.map((currentSearchState) => {
         return this.generateSearchState(currentSearchState, [], []);
       }) 
 
+      //Return Results
       const returnValue = await saveSearchRequest(searchResults);
       if (returnValue === true) {
-        console.log("Searching Returned True");
-        return true;
+        if (searchResults.length !== 0) {
+          return true;
+        } else {
+          return false;
+        }
       } else {
-        console.log("Searching Returned False");
         return false;
       }
 
@@ -149,15 +153,17 @@ class CardsDB extends Database {
         return blankScryFallInformation;
       });
       
+      if (axiosResult === blankScryFallInformation) {
+        return false;
+      }
+
       const otherPrintings: SearchState[] = await this.getOtherPrintings(axiosResult.prints_search_uri)
       const searchResult : SearchState = await this.generateSearchStateWithRulings(axiosResult, otherPrintings);
 
       const returnValue = await saveSearchState(searchResult);
       if (returnValue === true) {
-        console.log("Searching Returned True");
         return true;
       } else {
-        console.log("Searching Returned False");
         return false;
       }
 

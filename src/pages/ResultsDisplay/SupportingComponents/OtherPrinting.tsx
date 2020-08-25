@@ -29,7 +29,7 @@ const OtherPrinting = (props : OtherPrintingProps) => {
         cssClass=''
         isOpen={showLoading}
         onDidDismiss={() => setShowLoading(false)}
-        message={'Please wait...'}
+        message={'Switching Card Versions'}
         duration={10000}
       />
       
