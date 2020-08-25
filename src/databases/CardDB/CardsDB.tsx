@@ -1,8 +1,8 @@
 import Database from '../Database';
 import { DatabaseLoad } from '../../App';
-import { SearchState, saveSearchState } from '../../states/SearchState';
+import { SearchState, saveSearchState, saveSearchRequest } from '../../states/SearchState';
 import axios from 'axios';
-import { ScryFallInformation, blankScryFallInformation, ScryFallRulings } from './ScryFallInterfaces';
+import { ScryFallInformation, blankScryFallInformation, ScryFallRulings, ScryFallSearchTerms } from './ScryFallInterfaces';
 
 class CardsDB extends Database {
 
@@ -45,6 +45,83 @@ class CardsDB extends Database {
     return await this.performSearchURL(url, false);
   }
 
+  async performAllSearch(searchTerms : ScryFallSearchTerms) : Promise<boolean> {
+
+    /*Variable Initialisation*/
+    let compiledSearchTerm : string = "";
+
+    //Add Main Search Term
+    compiledSearchTerm += (searchTerms.mainSearch.toLowerCase());
+
+    //Add Inclusion of Colours
+    if (searchTerms.coloursInclude.length !== 0) {
+      let coloursIncludeString = "+c:";
+      searchTerms.coloursInclude.map((currentColour) => coloursIncludeString += currentColour.toLowerCase());
+      compiledSearchTerm += coloursIncludeString;
+    }
+
+    //Add Exclusion of Colours
+    if (searchTerms.coloursExclude.length !== 0) {
+      let coloursExcludeString = "+c:";
+      searchTerms.coloursExclude.map((currentColour) => coloursExcludeString += currentColour.toLowerCase());
+      compiledSearchTerm += coloursExcludeString;
+    }
+    
+
+    //Add Card Types
+    if (searchTerms.cardTypes.length !== 0) {
+      let cardTypesString = "";
+      searchTerms.cardTypes.map((currentType) => cardTypesString += "+t:" + currentType.toLowerCase() + " ");
+      cardTypesString = cardTypesString.trim();
+      compiledSearchTerm += cardTypesString;
+    }
+    
+    //Add Card Text
+    if (searchTerms.cardText.length !== 0) {
+      let cardText = "";
+      searchTerms.cardText.map((currentText) => cardText += "o:" + currentText.toLowerCase() + " ");
+      cardText = cardText.trim();
+      compiledSearchTerm += cardText;
+    }
+
+    //Get the Final URL
+    let url = this.percentEncode("https://api.scryfall.com/cards/search?order=released&q=" + compiledSearchTerm);
+    
+    /*Perform API Call*/
+    try {
+
+      const axiosResult : ScryFallInformation[] = await axios({
+        url: url,
+        method: 'GET',
+      }).then((response) => {
+          //Grab JSON Data
+          let output : ScryFallInformation[] = response.data.data;
+          return output;
+      }).catch(err => {
+        console.log(err);
+        return [blankScryFallInformation];
+      });
+
+      let searchResults: SearchState[] = axiosResult.map((currentSearchState) => {
+        return this.generateSearchState(currentSearchState, [], []);
+      }) 
+
+      const returnValue = await saveSearchRequest(searchResults);
+      if (returnValue === true) {
+        console.log("Searching Returned True");
+        return true;
+      } else {
+        console.log("Searching Returned False");
+        return false;
+      }
+
+    } catch (err) {
+
+      console.log(err);
+      return false
+    }
+  }
+
   async performSearchURL(url : string, singleCard : boolean) : Promise<boolean> {
 
     console.log("URL = " + url);
@@ -73,7 +150,7 @@ class CardsDB extends Database {
       });
       
       const otherPrintings: SearchState[] = await this.getOtherPrintings(axiosResult.prints_search_uri)
-      const searchResult : SearchState = await this.generateSearchState(axiosResult, otherPrintings);
+      const searchResult : SearchState = await this.generateSearchStateWithRulings(axiosResult, otherPrintings);
 
       const returnValue = await saveSearchState(searchResult);
       if (returnValue === true) {
@@ -138,7 +215,7 @@ class CardsDB extends Database {
       let searchStateArray : SearchState[] = [];
       let output : ScryFallInformation[] = response.data.data;
 
-      output.map(async (currentSearchState: ScryFallInformation) => searchStateArray.push(await this.generateSearchState(currentSearchState, [])));
+      output.map(async (currentSearchState: ScryFallInformation) => searchStateArray.push(await this.generateSearchStateWithRulings(currentSearchState, [])));
 
       return searchStateArray;
     }).catch(err => {
@@ -153,7 +230,15 @@ class CardsDB extends Database {
    * Generates a Search State from a ScryFallInformation interface (retrieved from Scryfall API call).
    * @param axiosResult 
    */
-  async generateSearchState(axiosResult : ScryFallInformation, otherPrints : SearchState[]) : Promise<SearchState> {
+  async generateSearchStateWithRulings(axiosResult : ScryFallInformation, otherPrints : SearchState[]) : Promise<SearchState> {
+    
+    /*Set Arbitrary Value to the Card Rulings*/
+    const cardRulings : string[] = await this.getCardRuling(axiosResult.rulings_uri);
+
+    return this.generateSearchState(axiosResult, otherPrints, cardRulings);
+  }
+
+  generateSearchState(axiosResult : ScryFallInformation, otherPrints : SearchState[], cardRulings : string[]) : SearchState {
     
     /*Get Card Images*/
     const cardImageURL : string = "" 
@@ -169,9 +254,6 @@ class CardsDB extends Database {
         + "?format=image&version=art_crop";
 
     // console.log("cardImageURL = " + cardImageURL);
-
-    /*Set Arbitrary Value to the Card Rulings*/
-    const cardRulings : string[] = await this.getCardRuling(axiosResult.rulings_uri);
 
     /*Generate the SearchState*/
     let searchResult : SearchState = {

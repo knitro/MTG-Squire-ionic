@@ -41,12 +41,12 @@ const LiveSearchBarCards = (props : SearchBarProps_Cards) => {
         }
         animated={true}
       />
-
+      
       <IonButton 
         color="primary"
         expand="block"
-        fill="outline"
-        shape="round"
+        fill="solid"
+        // shape="round"
         size="large"
         text-align="center"
         class="searchButton"
