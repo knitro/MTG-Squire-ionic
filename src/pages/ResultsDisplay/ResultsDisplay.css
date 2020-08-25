@@ -52,7 +52,3 @@ ion-card {
   min-width: 95% !important;
   max-width: 95%;
 }
-
-.swiper-wrapper {
-  width: min-content!important;
-}

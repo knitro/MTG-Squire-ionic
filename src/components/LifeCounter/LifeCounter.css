@@ -1,0 +1,159 @@
+.playerGrid{
+    width: 100%;
+    height: 100%;
+}
+.playerButton{
+    width: 100%;
+    height: 100%;
+}
+
+/* Text */
+.text0{
+    /* transform: rotate(-90deg); */
+    font-size: xxx-large;
+}
+.text90{
+    transform: rotate(90deg);
+    font-size: xxx-large;
+}
+.text180{
+    transform: rotate(180deg);
+    font-size: xxx-large;
+}
+.text270{
+    transform: rotate(-90deg);
+    font-size: xxx-large;
+}
+.subtext0{
+    font-size: xx-large;
+}
+.subtext90{
+    transform: rotate(90deg);
+    font-size: xx-large;
+}
+.subtext180{
+    transform: rotate(180deg);
+    font-size: xx-large;
+}
+.subtext270{
+    transform: rotate(-90deg);
+    font-size: xx-large;
+}
+/* 4 players */
+.fourPlayerRow{
+    width: 100%;
+    height: 50%;
+}
+.fourPlayerCol{
+    width: 50%;
+    height: 100%;
+}
+/* 3 players */
+.threePlayerRowUpper{
+    width: 100%;
+    height: 33%;
+}
+.threePlayerColUpper{
+    width: 100%;
+    height: 100%;
+}
+.threePlayerRowLower{
+    width: 100%;
+    height: 66%;
+}
+.threePlayerColLower{
+    width: 50%;
+    height: 100%;
+}
+/* 2 players */
+.twoPlayerRow{
+    width: 100%;
+    height: 50%;
+}
+.twoPlayerCol{
+    width: 100%;
+    height: 100%;
+}
+/* 1 player */
+.onePlayerRow{
+    width: 100%;
+    height: 100%;
+}
+.onePlayerCol{
+    width: 100%;
+    height: 100%;
+}
+/* Colours */
+:root {
+    --ion-color-new-red: #FF0000;
+    --ion-color-new-yellow: #FFD300;
+    --ion-color-new-green: #0E6B0E;
+    --ion-color-new-blue: #001f3d;
+    --ion-color-mtg-w: #FFFBD5;
+    --ion-color-mtg-u: #ABE1FA;
+    --ion-color-mtg-b: #91788f;
+    --ion-color-mtg-r: #F9AC90;
+    --ion-color-mtg-g: #9CD4B0;
+    --ion-color-mtg-c: #CDC3C1;
+  }
+
+  .ion-color-player-one {
+    --ion-color-base: var(--ion-color-new-red);
+  }
+  .ion-color-player-two {
+    --ion-color-base: var(--ion-color-new-blue);
+  }
+  .ion-color-player-four {
+    --ion-color-base: var(--ion-color-new-yellow);
+  }
+  .ion-color-player-three {
+    --ion-color-base: var(--ion-color-new-green);
+  }
+
+  .ion-color-colour-w {
+    --ion-color-base: var(--ion-color-mtg-w);
+  }
+  .ion-color-colour-u {
+    --ion-color-base: var(--ion-color-mtg-u);
+  }
+  .ion-color-colour-b {
+    --ion-color-base: var(--ion-color-mtg-b);
+  }
+  .ion-color-colour-r {
+    --ion-color-base: var(--ion-color-mtg-r);
+  }
+  .ion-color-colour-g {
+    --ion-color-base: var(--ion-color-mtg-g);
+  }
+  .ion-color-colour-c {
+    --ion-color-base: var(--ion-color-mtg-c);
+  }
+
+/* Slides */
+.life-slides-0 {
+    width: 100%;
+    height: 100%;
+}
+
+.life-slides-90 {
+    width: 100%;
+    height: 100%;
+}
+.life-slides-90 .swiper-pagination-bullets{
+    left:20px;
+    right:inherit;
+}
+
+.life-slides-180 {
+    width: 100%;
+    height: 100%;
+}
+.life-slides-180 .swiper-pagination-bullets{
+    top:20px;
+    bottom:inherit;
+}
+
+.life-slides-270 {
+    width: 100%;
+    height: 100%;
+}

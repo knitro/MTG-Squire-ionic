@@ -6,6 +6,8 @@ import Header from '../../components/Header/Header';
 import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../states/LifeCounterSetupState';
 
 const LifeCounterSetLife: React.FC = () => {
+  var customLife : number = 0;
+
   return (
 
     <IonPage>
@@ -35,10 +37,9 @@ const LifeCounterSetLife: React.FC = () => {
 
         <IonTitle class="lifeTitle">Starting Life Total</IonTitle>
 
-        <IonCard class="buttonCard">
         <GameContextConsumer>
           {(context : Game) => (
-        <IonGrid class="buttonGrid">
+        <>
           <IonRow class="buttonRow">
             <IonCol>
               <IonButton href="/life-counter/confirm" class="optionButton" color="tertiary"
@@ -60,7 +61,7 @@ const LifeCounterSetLife: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow class="buttonRow">
-            <IonCol>
+            <IonCol class="buttonCol">
               <IonButton href="/life-counter/confirm" class="optionButton" color="tertiary"
               onClick={e => {
                 context != null ?
@@ -69,17 +70,28 @@ const LifeCounterSetLife: React.FC = () => {
               }}
               >40</IonButton>
             </IonCol>
-            <IonCol>
-              <IonInput class="optionTextField" color="light" placeholder="Custom"/>
-              {/* TODO check output */}
+            <IonCol class="buttonColText">
+              {/* <IonRow> */}
+              <IonInput class="optionTextField" color="light" placeholder="Custom" type="number"
+              onIonChange={e => (customLife = Number(e.detail.value!), console.log(customLife))
+              }/>
+              <IonButton href="/life-counter/confirm" class="optionTextButton" color="tertiary"
+              onClick={e => {
+                (
+                // (customLife = NaN : customLife == 10 ? console.log(customLife)),
+                context != null ?
+                saveGame({lifeTotal: customLife, numberPlayers : context.numberPlayers}) :
+                saveGame({lifeTotal: customLife, numberPlayers : 4})
+                )
+              }}
+              >Use custom</IonButton>
               {/* <IonButton class="optionTextButton" color="tertiary">Use custom</IonButton> */}
+
             </IonCol>
           </IonRow>
-        </IonGrid>
+        </>
         )}
         </GameContextConsumer>
-        {/* <IonButton class="nextButton" size="large">Next</IonButton> */}
-        </IonCard>
 
       </IonContent>
 
