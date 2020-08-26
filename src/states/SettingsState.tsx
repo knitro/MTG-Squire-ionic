@@ -14,7 +14,7 @@ const storageKey : string = "settings";
 
 export const defaultSettings : Settings =
   {
-    maxSearch : 1,
+    maxSearch : 200,
     searchStored : 20,
     diceStored : 20,
   };

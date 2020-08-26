@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IonContent, IonPage, IonLabel, IonList, IonCard, IonGrid, IonRow, IonCol, IonInput, IonButton } from '@ionic/react';
 import './Settings.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';

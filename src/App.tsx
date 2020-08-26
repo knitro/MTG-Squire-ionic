@@ -43,6 +43,7 @@ import Rules from './pages/Rules/Rules';
 import TradeCards from './pages/TradeCards/TradeCards';
 import QuickSearchDownloaded from './pages/QuickSearch/QuickSearchDownloaded';
 import Settings from './pages/Settings/Settings';
+import Help from './pages/Help/Help';
 
 export interface DatabaseState {
   database : DataManager;
@@ -108,7 +109,8 @@ class App extends Component {
                   <Route path="/life-counter/confirm" component={LifeCounterConfirm} exact={true}/>
                   <Route path="/life-counter/game" component={LifeCounter} exact={true}/>
                   <Route path="/settings" component={Settings} exact={true}/>
-                  
+                  <Route path="/help" component={Help} exact={true}/>
+
                   {/*Both of Our Pages*/}
                   <Route path="/dice" component={Dice} exact={true}/>
 
