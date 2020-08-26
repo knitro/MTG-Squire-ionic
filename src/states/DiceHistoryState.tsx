@@ -3,6 +3,7 @@
 ////////////////////////
 
 import { Plugins } from '@capacitor/core';
+import { getSettings, Settings } from './SettingsState';
 
 ////////////////////////
 /*Local Initialisation*/
@@ -10,8 +11,7 @@ import { Plugins } from '@capacitor/core';
 
 const { Storage } = Plugins;
 
-const historyStorageKey   : string = "diceHistory";   // String that dictates the string that the history of dice rolls is stored under in capacitor.
-const maxHistoryCount     : number = 20;
+const historyStorageKey    : string = "diceHistory";   // String that dictates the string that the history of dice rolls is stored under in capacitor.
 
 ////////////////////////
 /*DiceHistoryState*/
@@ -39,7 +39,11 @@ export async function saveDiceHistory(currentDiceHistoryState : DiceHistoryState
 
   /*Get the Current Dice History and make sure it meets Maximum Counts*/
   let diceHistory : DiceHistoryState[] = await getDiceHistory();
-  while (diceHistory.length >= maxHistoryCount) {
+  let settings : Settings = await getSettings();
+
+  let maxHistoryCount : number = settings.diceStored;
+
+    while (diceHistory.length >= maxHistoryCount) {
     diceHistory.shift();
   }
   
