@@ -3,24 +3,20 @@ import { IonContent, IonPage, IonList, IonText, IonCheckbox, IonCard, IonCardHea
 import './AdvancedSearch.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import { ScryFallSearchTerms } from '../../databases/CardDB/ScryFallInterfaces';
 import App from '../../App';
 import { useHistory } from 'react-router';
+import { AdvancedSearchTerms } from '../../dataManagers/DataMangerInterfaces';
 
 const AdvancedSearch: React.FC = () => {
 
   /*Variable Initialisation*/
-  // let mainSearchTerm : string = "";
-  // let cardTypesValue : string = "";
-  // let cardTextValue : string = "";
+  const history = useHistory();
 
+  /*Hook Initialisation*/
   const [mainSearchTerm, setMainSearchTerm] = useState<string>("");
   const [cardTypesValue, setCardTypesValue] = useState<string>("");
   const [cardTextValue, setCardTextValue] = useState<string>("");
 
-  const history = useHistory();
-
-  /*Hook Initialisation*/
   const [includeWhite, setIncludeWhite] = useState(false);
   const [includeBlue, setIncludeBlue] = useState(false);
   const [includeBlack, setIncludeBlack] = useState(false);
@@ -38,6 +34,7 @@ const AdvancedSearch: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
 
+ 
   /*Return*/
   return (
 
@@ -253,7 +250,7 @@ const AdvancedSearch: React.FC = () => {
               }
               
               /*Create the Search Term*/
-              let searchTerms : ScryFallSearchTerms = {
+              let searchTerms : AdvancedSearchTerms = {
                 mainSearch:     mainSearchTerm,
                 coloursInclude: coloursInclude,
                 coloursExclude: coloursExclude,
@@ -262,7 +259,7 @@ const AdvancedSearch: React.FC = () => {
               }
 
               setShowLoading(true)
-              App.databases[0].database.performAllSearch(searchTerms).then((didPerform) => {
+              App.dataManager.performAllSearch(searchTerms).then((didPerform) => {
                 if (didPerform) {
                   setShowLoading(false)
                   history.push("/search-results");

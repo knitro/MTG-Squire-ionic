@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert } from '@ionic/react';
 import uuid from 'uuid';
-import { SearchState, getSearchState } from '../../../states/SearchState';
+import { SearchState, getSearchState, emptySearch } from '../../../states/SearchState';
 import ResultsDisplay from '../ResultsDisplay';
 import App from '../../../App';
 
@@ -48,14 +48,19 @@ const OtherPrinting = (props : OtherPrintingProps) => {
       <IonCard button={true} key={uuid.v4()}
         onClick={e => {
           setShowLoading(true)
-          App.databases[0].database.performSearchURL(search.api_uri, true).then(async (didPerform) => {
+          
+          //Create Blank Search, and add the api url
+          let searchToPerform : SearchState = emptySearch;
+          searchToPerform.api_uri = search.api_uri;
+
+          App.dataManager.performSearch(searchToPerform).then(async (didPerform) => {
             if (didPerform) {
               setShowLoading(false);
               display.setState({currentSearchState: await getSearchState()});
               props.swiper.slideTo(1);
             } else {
               setShowLoading(false);
-              // setShowAlert1(true);
+              setShowAlert(true);
             }    
           });
         }}

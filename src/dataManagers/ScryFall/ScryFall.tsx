@@ -1,52 +1,63 @@
-import Database from '../Database';
-import { DatabaseLoad } from '../../App';
+import DataManager, { DatabaseLoad } from '../DataManager';
 import { SearchState, saveSearchState, saveSearchRequest } from '../../states/SearchState';
 import axios from 'axios';
-import { ScryFallInformation, blankScryFallInformation, ScryFallRulings, ScryFallSearchTerms } from './ScryFallInterfaces';
+import { ScryFallInformation, blankScryFallInformation, ScryFallRulings } from './ScryFallInterfaces';
 import { saveSearchHistory } from '../../states/SearchHistoryState';
+import { AdvancedSearchTerms } from '../DataMangerInterfaces';
 
-class CardsDB extends Database {
+class ScryFall extends DataManager {
 
   ////////////////////////
   /*Fields*/
   ////////////////////////
 
-  /*Constant Links*/
-  private fileName          : string = "AllPrintings.sqlite";
-  private fileDownloadLink  : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite";
-  private sha256            : string = "AllPrintings.sqlite.sha256";
-  private sha256Link        : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite.sha256";
-  private directory         : string = ""; //To be Filled in if this work is extended upon
+  /*None*/
 
   ////////////////////////
   /*Constructor*/
   ////////////////////////
+
+  constructor(props: any) {
+    super(props);
+    this.loaded = DatabaseLoad.LOADED; //"Preloaded" since ScryFall is an API, not a local storage db
+  }
 
   ////////////////////////
   /*Implemented Methods*/
   ////////////////////////
   
   downloadDatabase() : void {
-    this.downloadingDatabase(this.fileDownloadLink, this.fileName, 0);
+    return;
   }
 
   verifyDatabase() : DatabaseLoad {
-    return this.verifyingDatabase(this.sha256Link, this.sha256);
+    return DatabaseLoad.LOADED;
   }
 
   loadDatabase(): boolean {
-    return this.loadingDatabase(this.fileName, this.directory);
+    return true
   }
 
   async performSearch(currentSearch : SearchState) : Promise<boolean> {
 
-    /*Variable Initialisation*/
-    let url = this.percentEncode("https://api.scryfall.com/cards/search?order=released&q=" + currentSearch.cardName);
-    
-    return await this.performSearchURL(url, false);
+    /*Check what type of Search it is*/
+
+    //If CardName has content, then create the direct URL and perform the search from it
+    if  ("".localeCompare(currentSearch.cardName) !== 0) {
+      let url = this.percentEncode("https://api.scryfall.com/cards/search?order=released&q=" + currentSearch.cardName);
+      return await this.performSearchURL(url, false);
+    }
+    //If the URL has content, then grab the URL and perform a direct search
+    else if ("".localeCompare(currentSearch.api_uri) !== 0) {
+      return await this.performSearchURL(currentSearch.api_uri, true);
+    }
+    //Else Condition ==> Return False as now there is no implemented way of interpreting the data
+    else {
+      return false;
+    }
   }
 
-  async performAllSearch(searchTerms : ScryFallSearchTerms) : Promise<boolean> {
+  async performAllSearch(searchTerms : AdvancedSearchTerms) : Promise<boolean> {
 
     /*Variable Initialisation*/
     let compiledSearchTerm : string = "";
@@ -136,6 +147,15 @@ class CardsDB extends Database {
     }
   }
 
+  ////////////////////////
+  /*Helper Methods*/
+  ////////////////////////
+
+  /**
+   * This method should perform the search and store the search result in the database.
+   * @param url - the URL of the API call required 
+   * @param singleCard - determines whether the resultant search will be an array or a single card. CardName searches should have this set to false, direct api url links should have this set to true.
+   */
   async performSearchURL(url : string, singleCard : boolean) : Promise<boolean> {
 
     /*Variable Initialisation*/
@@ -190,72 +210,6 @@ class CardsDB extends Database {
       return false
     }
     
-  }
-
-  ////////////////////////
-  /*Helper Methods*/
-  ////////////////////////
-
-  /**
-   * Returns a Promise string[] of Rulings.
-   * @param url The Scryfall URL that the rulings come from.
-   */
-  async getCardRuling(url : string) : Promise<string[]> {
-
-    let returnArray : string[] = await axios({
-      url: url,
-      method: 'GET',
-    }).then((response) => {
-
-      /*Grab the JSON Data*/
-      let stringArray : string[] = [];
-      let output : ScryFallRulings[] = response.data.data;
-      output.map((currentRuling: ScryFallRulings) => stringArray.push(currentRuling.comment));
-      return stringArray;
-    }).catch(err => {
-      console.log(err);
-      return [];
-    });
-    return returnArray;
-    
-  }
-
-  /**
-   * Returns a Promise string[] of Other Printings.
-   * @param url The Scryfall URL that the Other Printings come from.
-   */
-  async getOtherPrintings(url : string) : Promise<SearchState[]> {
-    
-    let returnArray : SearchState[] = await axios({
-      url: url,
-      method: 'GET',
-    }).then((response) => {
-
-      /*Grab the JSON Data*/
-      let searchStateArray : SearchState[] = [];
-      let output : ScryFallInformation[] = response.data.data;
-
-      output.map(async (currentSearchState: ScryFallInformation) => searchStateArray.push(await this.generateSearchStateWithRulings(currentSearchState, [])));
-
-      return searchStateArray;
-    }).catch(err => {
-      console.log(err);
-      return [];
-    });
-    return returnArray;
-    
-  }
-
-  /**
-   * Generates a Search State from a ScryFallInformation interface (retrieved from Scryfall API call).
-   * @param axiosResult 
-   */
-  async generateSearchStateWithRulings(axiosResult : ScryFallInformation, otherPrints : SearchState[]) : Promise<SearchState> {
-    
-    /*Set Arbitrary Value to the Card Rulings*/
-    const cardRulings : string[] = await this.getCardRuling(axiosResult.rulings_uri);
-
-    return this.generateSearchState(axiosResult, otherPrints, cardRulings);
   }
 
   generateSearchState(axiosResult : ScryFallInformation, otherPrints : SearchState[], cardRulings : string[]) : SearchState {
@@ -326,7 +280,69 @@ class CardsDB extends Database {
     return searchResult;
   }
 
+  /**
+   * Returns a Promise string[] of Rulings.
+   * @param url The Scryfall URL that the rulings come from.
+   */
+  async getCardRuling(url : string) : Promise<string[]> {
+
+    let returnArray : string[] = await axios({
+      url: url,
+      method: 'GET',
+    }).then((response) => {
+
+      /*Grab the JSON Data*/
+      let stringArray : string[] = [];
+      let output : ScryFallRulings[] = response.data.data;
+      output.map((currentRuling: ScryFallRulings) => stringArray.push(currentRuling.comment));
+      return stringArray;
+    }).catch(err => {
+      console.log(err);
+      return [];
+    });
+    return returnArray;
+    
+  }
+
+  /**
+   * Returns a Promise string[] of Other Printings.
+   * @param url The Scryfall URL that the Other Printings come from.
+   */
+  async getOtherPrintings(url : string) : Promise<SearchState[]> {
+    
+    let returnArray : SearchState[] = await axios({
+      url: url,
+      method: 'GET',
+    }).then((response) => {
+
+      /*Grab the JSON Data*/
+      let searchStateArray : SearchState[] = [];
+      let output : ScryFallInformation[] = response.data.data;
+
+      output.map(async (currentSearchState: ScryFallInformation) => searchStateArray.push(await this.generateSearchStateWithRulings(currentSearchState, [])));
+
+      return searchStateArray;
+    }).catch(err => {
+      console.log(err);
+      return [];
+    });
+    return returnArray;
+    
+  }
+
+  /**
+   * Generates a Search State from a ScryFallInformation interface (retrieved from Scryfall API call).
+   * @param axiosResult 
+   */
+  async generateSearchStateWithRulings(axiosResult : ScryFallInformation, otherPrints : SearchState[]) : Promise<SearchState> {
+    
+    /*Set Arbitrary Value to the Card Rulings*/
+    const cardRulings : string[] = await this.getCardRuling(axiosResult.rulings_uri);
+
+    return this.generateSearchState(axiosResult, otherPrints, cardRulings);
+  }
+
 }
   
 
-export default CardsDB;
+export default ScryFall;

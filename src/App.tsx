@@ -30,9 +30,8 @@ import LifeCounterSetLife from './pages/LifeCounter/LifeCounterSetLife';
 import LifeCounterConfirm from './pages/LifeCounter/LifeCounterConfirm';
 import LifeCounter from './pages/LifeCounter/LifeCounter';
 import SideBar from './components/SideBar/SideBar'; 
-import Database from './databases/Database'; 
-import CardsDB from './databases/CardDB/CardsDB';
-import RulesDB from './databases/RulesDB/RulesDB';
+import DataManager, { DatabaseLoad } from './dataManagers/DataManager'; 
+import ScryFall from './dataManagers/ScryFall/ScryFall';
 import { Plugins } from '@capacitor/core';
 import ResultsDisplay from './pages/ResultsDisplay/ResultsDisplay';
 import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
@@ -44,14 +43,8 @@ import Rules from './pages/Rules/Rules';
 import TradeCards from './pages/TradeCards/TradeCards';
 import QuickSearchDownloaded from './pages/QuickSearch/QuickSearchDownloaded';
 
-export enum DatabaseLoad {
-  NOT_LOADED,
-  LOADED,
-  OLD_DATA
-}
-
 export interface DatabaseState {
-  database : Database;
+  database : DataManager;
   loaded : DatabaseLoad; 
 }
 
@@ -61,16 +54,7 @@ class App extends Component {
   /*Fields*/
   ////////////////////////
 
-  /**
-   * Stores the databases, and the states of each one.
-   */
-  static databases : DatabaseState[] = [];
-
-  static updateDatabase(index : number, newState : DatabaseLoad) {
-    let currentDatabase : DatabaseState = App.databases[index];
-    currentDatabase.loaded = newState;
-    console.log("Database State Updated to " + DatabaseLoad);
-  }
+  static dataManager : DataManager;
   
   ////////////////////////
   /*Constructor*/
@@ -78,28 +62,8 @@ class App extends Component {
 
   constructor(props : any) {
     super(props);
-    this.checkLocalDatabases();
 
-    App.databases = [
-      { database: new CardsDB(null), loaded: DatabaseLoad.LOADED }, //Card Database (Index 0)
-      { database: new RulesDB(null), loaded: DatabaseLoad.LOADED }, //Rules Database (Index 1)
-    ]
-  }
-
-  ////////////////////////
-  /*Methods*/
-  ////////////////////////
-
-  /**
-   * Checks the Local Databases by "verifying" each one.
-   * This is done by calling the verifyDatabase method contained in the Abstract Class Database.
-   */
-  checkLocalDatabases() {
-    App.databases.forEach(currentDatabaseState => {
-      let currentDatabaseLoadState = currentDatabaseState.database.verifyDatabase();
-      currentDatabaseState.loaded = currentDatabaseLoadState;
-      
-    });
+    App.dataManager = new ScryFall(null); //null param is for "props" requirement
   }
 
   ////////////////////////
@@ -127,7 +91,7 @@ class App extends Component {
 
                   {/*Calvin's Pages*/}
                   <Route path="/quick-search" component={
-                    (App.databases[0].loaded === DatabaseLoad.NOT_LOADED) 
+                    (App.dataManager.loaded === DatabaseLoad.NOT_LOADED) 
                     ? QuickSearchRequireDownload 
                     : QuickSearchDownloaded} 
                     exact={true} />
@@ -143,11 +107,13 @@ class App extends Component {
                   <Route path="/life-counter/confirm" component={LifeCounterConfirm} exact={true}/>
                   <Route path="/life-counter/game" component={LifeCounter} exact={true}/>
                   
+                  {/*Both of Our Pages*/}
+                  <Route path="/dice" component={Dice} exact={true}/>
+
                   {/*Filler Pages*/}
                   <Route path="/trade-cards" component={TradeCards} exact={true}/>
                   <Route path="/rules/overview" component={Rules} exact={true}/>
                   <Route path="/set-ev/overview" component={SetEVs} exact={true}/>
-                  <Route path="/dice" component={Dice} exact={true}/>
                   
                   {/*Blank Reroute*/}
                   <Route path="/" render={() => <Redirect to="/quick-search" />} exact={true} />                           

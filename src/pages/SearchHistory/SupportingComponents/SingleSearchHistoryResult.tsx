@@ -4,7 +4,8 @@ import uuid from 'uuid';
 import App from '../../../App';
 import { useHistory } from 'react-router';
 import { SearchHistoryState } from '../../../states/SearchHistoryState';
-import { ScryFallSearchTerms, scryFallSearchTermsToString } from '../../../databases/CardDB/ScryFallInterfaces';
+import { SearchState, emptySearch } from '../../../states/SearchState';
+import { AdvancedSearchTerms, advancedSearchTermsToString } from '../../../dataManagers/DataMangerInterfaces';
 
 interface SingleSearchHistoryResultProps {
   currentSearchHistoryState : SearchHistoryState
@@ -19,8 +20,8 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
   if ("Quick Search".localeCompare(search.typeOfSearch) === 0) {
     displayString = search.searchTerm;
   } else if ("Advanced Search".localeCompare(search.typeOfSearch) === 0) {
-    let searchTerms = JSON.parse(search.searchTerm) as ScryFallSearchTerms;
-    displayString = scryFallSearchTermsToString(searchTerms);
+    let searchTerms = JSON.parse(search.searchTerm) as AdvancedSearchTerms;
+    displayString = advancedSearchTermsToString(searchTerms);
   } else {
     displayString = "ERROR";
   }
@@ -59,7 +60,11 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
 
           if ("Quick Search".localeCompare(search.typeOfSearch) === 0) {
 
-            App.databases[0].database.performSearchURL(search.url, true).then(async (didPerform) => {
+          //Create Blank Search, and add the api url
+          let searchToPerform : SearchState = emptySearch;
+          searchToPerform.api_uri = search.url;
+
+          App.dataManager.performSearch(searchToPerform).then(async (didPerform) => {
               if (didPerform) {
                 setShowLoading(false);
                 history.push("/results-display");
@@ -71,9 +76,9 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
 
           } else if ("Advanced Search".localeCompare(search.typeOfSearch) === 0) {
 
-            let searchTerms = JSON.parse(search.searchTerm) as ScryFallSearchTerms;
+            let searchTerms = JSON.parse(search.searchTerm) as AdvancedSearchTerms;
 
-            App.databases[0].database.performAllSearch(searchTerms).then(async (didPerform) => {
+            App.dataManager.performAllSearch(searchTerms).then(async (didPerform) => {
               if (didPerform) {
                 setShowLoading(false);
                 history.push("/search-results");

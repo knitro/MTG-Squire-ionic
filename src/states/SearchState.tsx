@@ -17,55 +17,52 @@ const multipleStorageKey  : string = "multiple";  // String that dictates the st
  * The Empty Search Constant: Used for "Blank" Representations of a SearchState.
  */
 export const emptySearch : SearchState = {
-  cardName:   "Empty Card",
-  imageLink:  "https://media.magic.wizards.com/image_legacy_migration/images/magic/daily/features/feat238a_blank1.jpg",
+  cardName:   "",
+  imageLink:  "",
   imageOnlyLink: "",
-  manaCost:   "{0}",
+  manaCost:   "",
   prices: {
-    scryFallPricing_nonfoil:  "0",
-    scryFallPricing_foil:     "0"
+    scryFallPricing_nonfoil:  "",
+    scryFallPricing_foil:     ""
   },
-  fullType:   "Full Type Here",
-  oracleText: "Oracle Text Here",
+  fullType:   "",
+  oracleText: "",
   set : {
-    setName:    "Unknown Set",
-    setCode:    "???",
-    imageLink:  "Blank" 
+    setName:    "",
+    setCode:    "",
+    imageLink:  "" 
   },
   legality: {
-    standard:   "Banned",
-    future:     "Banned",
-    historic:   "Banned",
-    pioneer:    "Banned",
-    modern:     "Banned",
-    legacy:     "Banned",
-    pauper:     "Banned",
-    vintage:    "Restricted",
-    penny:      "Banned",
-    commander:  "Banned",
-    brawl:      "Banned",
-    duel:       "Banned",
-    oldschool:  "Banned"
+    standard:   "",
+    future:     "",
+    historic:   "",
+    pioneer:    "",
+    modern:     "",
+    legacy:     "",
+    pauper:     "",
+    vintage:    "",
+    penny:      "",
+    commander:  "",
+    brawl:      "",
+    duel:       "",
+    oldschool:  ""
   },
   misc: {
-    reserved: true,
+    reserved: false,
     foil:     false,
     nonfoil:  false,
     promo:    false,
     reprint:  false,
-    collector_number: "000",
-    rarity:   "Mythic",
-    frame:    "2015",
-    artist:   "Wizards of the Coast",
-    released: "Now",
+    collector_number: "",
+    rarity:   "",
+    frame:    "",
+    artist:   "",
+    released: "",
     digital_only: false
   },
-  rulings: [
-    "Ruling 1: Sample Ruling made up",
-    "Ruling 2: Sample Ruling made up"
-  ],
+  rulings: [],
   otherPrints: [],
-  api_uri: "ERROR"
+  api_uri: ""
 };
 
 ////////////////////////
