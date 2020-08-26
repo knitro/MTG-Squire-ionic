@@ -3,15 +3,14 @@
 ////////////////////////
 
 import { Plugins } from '@capacitor/core';
+import { getSettings } from './SettingsState';
 
 ////////////////////////
 /*Local Initialisation*/
 ////////////////////////
 
 const { Storage } = Plugins;
-
 const historyStorageKey   : string = "searchHistory";   // String that dictates the string that the history of searches is stored under in capacitor.
-const maxHistoryCount     : number = 20;
 
 ////////////////////////
 /*SearchHistoryState*/
@@ -39,6 +38,8 @@ export interface SearchHistoryState {
 export async function saveSearchHistory(currentSearchHistoryState : SearchHistoryState) : Promise<boolean> {
 
   /*Get the Current Search History and make sure it meets Maximum Counts*/
+  let maxHistoryCount : number = (await getSettings()).searchStored;
+
   let searchHistory : SearchHistoryState[] = await getSearchHistory();
   while (searchHistory.length >= maxHistoryCount) {
     searchHistory.shift();
