@@ -1,4 +1,4 @@
-import { Players } from "../../../states/LifeCounterPlayerState";
+import { Players } from "../../../../states/LifeCounterPlayerState";
 
 export interface ButtonProps {
   rotation : number;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IonButton, IonLabel } from "@ionic/react";
-import { updatePlayer, PlayersContextProvider, PlayersContextConsumer, Players } from "../../../states/LifeCounterPlayerState";
+import { updatePlayer, PlayersContextProvider, PlayersContextConsumer, Players } from "../../../../states/LifeCounterPlayerState";
 import { useState } from "react";
 import { getChange, getTextClass, SubButtonProps, getSubValue, getSubColour } from './SlidesHelper';
 

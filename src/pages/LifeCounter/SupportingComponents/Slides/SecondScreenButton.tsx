@@ -1,7 +1,7 @@
 import React from 'react';
 import './LifeCounterSlide2.css';
 import { IonGrid, IonRow, IonCol, IonButton } from "@ionic/react";
-import { PlayersContextProvider, PlayersContextConsumer, Players } from "../../../states/LifeCounterPlayerState";
+import { PlayersContextProvider, PlayersContextConsumer, Players } from "../../../../states/LifeCounterPlayerState";
 import { ButtonProps, getColour, getSubName } from './SlidesHelper';
 import SubScreenButton from './SubScreenButton';
 
