@@ -1,14 +1,83 @@
 import React, { useState } from 'react';
-import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonButton, IonInput, IonLabel, IonList, IonCard } from '@ionic/react';
+import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonButton, IonInput, IonLabel, IonList, IonCard, IonText, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent } from '@ionic/react';
 import './Dice.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import { rollCustom, flipCoin, rollD6, rollD20 } from './DiceHelper';
+import { rollCustom, flipCoin, rollD6, rollD20 } from './Logic/DiceHelper';
+import { DiceHistoryState, getDiceHistory, clearDiceHistory } from '../../states/DiceHistoryState';
+import uuid from 'uuid';
 
-const Dice: React.FC = () => {
-  const [die,setDie] = useState('Roll a Dice');
-  const [dieType,setDieType] = useState('');
-  const [custom,setCustom] = useState(1);
+export interface DiceState {
+  currentDiceHistoryState: DiceHistoryState[]
+};
+
+interface DiceComponentProps {
+  state : DiceState
+  main : Dice
+};
+
+class Dice extends React.Component<{}, DiceState> {
+
+  ////////////////////////
+  /*Constructor*/
+  ////////////////////////
+
+  constructor(props : any) {
+    super(props);
+    this.state = {
+      currentDiceHistoryState: [],
+    }
+  }
+
+  ////////////////////////
+  /*Methods*/
+  ////////////////////////
+
+  /**
+   * Updates the Components when async results.
+   */
+  async componentDidMount() {
+    this.setState({currentDiceHistoryState: await getDiceHistory()});
+  }
+
+  updateDiceHistory() {
+    getDiceHistory().then(e => {
+
+      this.setState({currentDiceHistoryState : e});
+    });
+  }
+
+  clearDiceHistory() {
+    clearDiceHistory().then(e => {
+      this.setState({currentDiceHistoryState : []});
+    });
+  }
+
+  ////////////////////////
+  /*Render*/
+  ////////////////////////
+
+  render() {
+    return (
+      <DiceComponent state={this.state} main={this}/>
+    );
+  }
+
+}
+
+
+const DiceComponent = (props : DiceComponentProps) => {
+
+  /*Variable Initialisation*/
+  let diceHistory : DiceHistoryState[] = props.state.currentDiceHistoryState;
+  let diceClass : Dice = props.main;
+
+  /*Hook Initialisation*/
+  const [die, setDie]         = useState('Roll a Dice');
+  const [dieType, setDieType] = useState('');
+  const [custom, setCustom]   = useState(1);
+
+  /*Return*/
   return (
     
     <IonPage>
@@ -19,6 +88,8 @@ const Dice: React.FC = () => {
       <IonContent>
 
         <IonList>
+
+          {/*Ion Card 1: Dice Display*/}
           <IonCard>
             <IonLabel class="diceOutputText">
               {die}
@@ -28,49 +99,59 @@ const Dice: React.FC = () => {
             </IonLabel>
           </IonCard>
 
+          {/*Ion Card 2: Dice Buttons*/}
           <IonCard>
             <IonGrid>
               <IonRow>
+                
+                {/*Coin Button*/}
                 <IonCol>
                   <IonButton class="diceButton"
-                    onClick={e => 
-                      (
-                        setDie(flipCoin()),
-                        setDieType('Coin')
-                      )
+                    onClick={e => {
+                      setDie(flipCoin());
+                      setDieType('Coin');
+                      diceClass.updateDiceHistory();
+                    }
                   }>
                     <IonLabel class="diceButtonText">
                       Coin
                     </IonLabel>
                   </IonButton>
                 </IonCol>
+                
+                {/*6 Sided Die Button*/}
                 <IonCol>
                   <IonButton class="diceButton"
-                    onClick={e =>
-                      (
-                        setDie(rollD6().toString()),
-                        setDieType('6 Sided Die')
-                      )
+                    onClick={e => {
+                      setDie(rollD6().toString());
+                      setDieType('6 Sided Die');
+                      diceClass.updateDiceHistory();
+                    }
                   }>
                     <IonLabel class="diceButtonText">
                       D6
                     </IonLabel>
                   </IonButton>
                 </IonCol>
+                
+                {/*20 Sided Die Button*/}
                 <IonCol>
                   <IonButton class="diceButton"
-                    onClick={e =>
-                      (
-                        setDie(rollD20().toString()),
-                        setDieType('20 Sided Die')
-                      )
+                    onClick={e => {
+                      setDie(rollD20().toString());
+                      setDieType('20 Sided Die');
+                      diceClass.updateDiceHistory();
+                    }
                   }>
                     <IonLabel class="diceButtonText">
                       D20
                     </IonLabel>
                   </IonButton>
                 </IonCol>
+
               </IonRow>
+              
+              {/*Custom Die Button*/}
               <IonRow>
                 <IonCol>
                   <IonInput
@@ -82,27 +163,57 @@ const Dice: React.FC = () => {
                 <IonCol>
                   <IonButton
                   onClick={e => {
-                    var customDie = rollCustom(custom);
-                    if(customDie < 1){
-                      setDie('Please use a positive integer');
-                      setDieType('Custom value given: '+ custom);
-                    } else {
-                      setDie(customDie.toString())
-                      setDieType('Custom ('+ custom +' Sided) Die')
-                    }
+                    setDie(rollCustom(custom));
+                    setDieType('Custom ('+ custom +' Sided) Die');
+                    diceClass.updateDiceHistory();
                   }}>
                     custom
                   </IonButton>
                 </IonCol>
               </IonRow>
+
             </IonGrid>
           </IonCard>
-
-          <IonCard>
-            <IonLabel>
-              History:
-            </IonLabel>
+          
+          {/* IonCard 3: Dice History Header*/}
+          <IonCard color="secondary">
+            <IonCardHeader>
+              <IonCardSubtitle>{"Dice History"}</IonCardSubtitle>
+              <IonCardTitle>{"Showing your previous " + diceHistory.length + " Rolls:"}</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+              <IonButton onClick={
+                (e) => {
+                  diceClass.clearDiceHistory();
+                }
+              }>
+                {"Clear Dice History"}
+              </IonButton>
+            </IonCardContent>
           </IonCard>
+          
+          {/* IonCards 4+: Dice History*/}
+          <div>
+            {[...diceHistory].reverse().map((currentPreviousRoll : DiceHistoryState) =>
+              <IonCard key={uuid.v4()}>
+                <IonGrid class="diceHistoryGrid">
+                  <IonRow class="diceHistoryRow">
+                    <IonCol class="diceHistoryCol">
+                      <IonText class="diceHistoryValueText">{currentPreviousRoll.dieValue}</IonText>
+                    </IonCol>
+                    {/* <IonCol class="diceHistoryCol"> */}
+                    <IonCol>
+                      <IonText class="diceHistoryTypeText">{currentPreviousRoll.dieType}</IonText>                      
+                    </IonCol> 
+                  </IonRow>
+                </IonGrid>
+
+
+
+              </IonCard>
+            )}
+          </div>
+
         </IonList>
 
       </IonContent>

@@ -74,7 +74,7 @@ const SearchHistoryComponent = (props : SearchHistoryComponentProps) => {
           </IonCard>
 
           <div>
-            {previousSearches.map((currentPreviousSearch : SearchHistoryState) =>
+            {[...previousSearches].reverse().map((currentPreviousSearch : SearchHistoryState) =>
               <SingleSearchHistoryResult key={uuid.v4()} currentSearchHistoryState={currentPreviousSearch}/>
             )}
           </div>
