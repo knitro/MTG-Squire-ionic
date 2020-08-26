@@ -3,6 +3,7 @@ import { DatabaseLoad } from '../../App';
 import { SearchState, saveSearchState, saveSearchRequest } from '../../states/SearchState';
 import axios from 'axios';
 import { ScryFallInformation, blankScryFallInformation, ScryFallRulings, ScryFallSearchTerms } from './ScryFallInterfaces';
+import { saveSearchHistory } from '../../states/SearchHistoryState';
 
 class CardsDB extends Database {
 
@@ -11,11 +12,11 @@ class CardsDB extends Database {
   ////////////////////////
 
   /*Constant Links*/
-  private fileName : string = "AllPrintings.sqlite";
-  private fileDownloadLink : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite";
-  private sha256 : string = "AllPrintings.sqlite.sha256";
-  private sha256Link : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite.sha256";
-  private directory : string = ""; //To be Filled in if this work is extended upon
+  private fileName          : string = "AllPrintings.sqlite";
+  private fileDownloadLink  : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite";
+  private sha256            : string = "AllPrintings.sqlite.sha256";
+  private sha256Link        : string = "https://mtgjson.com/api/v5/AllPrintings.sqlite.sha256";
+  private directory         : string = ""; //To be Filled in if this work is extended upon
 
   ////////////////////////
   /*Constructor*/
@@ -86,7 +87,7 @@ class CardsDB extends Database {
 
     //Get the Final URL
     let url = this.percentEncode("https://api.scryfall.com/cards/search?order=released&q=" + compiledSearchTerm);
-    
+
     /*Perform API Call*/
     try {
 
@@ -111,7 +112,16 @@ class CardsDB extends Database {
       const returnValue = await saveSearchRequest(searchResults);
       if (returnValue === true) {
         if (searchResults.length !== 0) {
+
+          //Save History for Successful Search
+          const currentSearchHistory = {
+            typeOfSearch: "Advanced Search",
+            searchTerm: JSON.stringify(searchTerms),
+            url: url
+          }
+          saveSearchHistory(currentSearchHistory);
           return true;
+
         } else {
           return false;
         }
@@ -160,7 +170,16 @@ class CardsDB extends Database {
 
       const returnValue = await saveSearchState(searchResult);
       if (returnValue === true) {
+
+        //Save History for Successful Search
+        const currentSearchHistory = {
+          typeOfSearch: "Quick Search",
+          searchTerm: axiosResult.name,
+          url: url
+        }
+        saveSearchHistory(currentSearchHistory);
         return true;
+
       } else {
         return false;
       }

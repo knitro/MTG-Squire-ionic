@@ -1,21 +1,21 @@
 import React from 'react';
 import { IonContent, IonPage } from '@ionic/react';
-import './Settings.css';
+import './Dice.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import WorkInProgress from '../../components/WorkInProgress/WorkInProgress';
 
-const Settings: React.FC = () => {
+const Dice: React.FC = () => {
   return (
     
     <IonPage>
 
       {/* Displays the Header */}
-      <Header headerLabel="Settings"/>
+      <Header headerLabel="Dice"/>
 
       <IonContent>
 
-        <WorkInProgress name={"Settings"}/>
+        <WorkInProgress name={"Dice"}/>
 
       </IonContent>
 
@@ -26,4 +26,4 @@ const Settings: React.FC = () => {
   );
 };
 
-export default Settings;
+export default Dice;

@@ -10,9 +10,8 @@ import { Plugins } from '@capacitor/core';
 
 const { Storage } = Plugins;
 
-const singleStorageKey = "single"; // String that dictates the string that the SearchState is stored under in capacitor.
-const multipleStorageKey = "multiple"; // String that dictates the string that the search request is stored under in capacitor.
-const historyStorageKey = "history"; // String that dictates the string that the history of searches is stored under in capacitor.
+const singleStorageKey    : string = "single";    // String that dictates the string that the SearchState is stored under in capacitor.
+const multipleStorageKey  : string = "multiple";  // String that dictates the string that the search request is stored under in capacitor.
 
 /**
  * The Empty Search Constant: Used for "Blank" Representations of a SearchState.
@@ -115,7 +114,7 @@ export interface SetInformation {
 }
 
 /**
- * Stores the information of the card's legality in all WoTc recognised formats
+ * Stores the information of the card's legality in all WOTC recognised formats
  */
 export interface LegalityInformation {
   standard:   string
@@ -151,7 +150,7 @@ export interface MiscInformation {
 }
 
 ////////////////////////
-/*Capacitor Storage*/
+/*Capacitor Storage for Single Storage*/
 ////////////////////////
 
 /**
@@ -191,6 +190,10 @@ export async function getSearchState() : Promise<SearchState> {
   }
 }
 
+////////////////////////
+/*Capacitor Storage for Multiple Storage*/
+////////////////////////
+
 /**
  * Saves an array of Search State into storage.
  * This is used for Advanced Search to save what needs to be displayed in SearchResults.
@@ -224,6 +227,6 @@ export async function getSearchRequest() : Promise<SearchState[]> {
   if (typeof storageReturn.value === 'string') {
     return (JSON.parse(storageReturn.value) as SearchState[]);
   } else { //Null Case
-    return [emptySearch];
+    return [];
   }
 }

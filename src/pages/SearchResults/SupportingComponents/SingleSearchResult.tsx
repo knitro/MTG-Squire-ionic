@@ -5,11 +5,11 @@ import { SearchState } from '../../../states/SearchState';
 import App from '../../../App';
 import { useHistory } from 'react-router';
 
-interface SingleSearchResult {
+interface SingleSearchResultProps {
   currentSearchState : SearchState
 }
 
-const SingleSearchResult = (props : SingleSearchResult) => {
+const SingleSearchResult = (props : SingleSearchResultProps) => {
 
   /*Variable Initialisation*/
   let search : SearchState = props.currentSearchState;

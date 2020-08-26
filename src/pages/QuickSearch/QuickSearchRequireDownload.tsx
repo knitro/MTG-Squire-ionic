@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
 import App from '../../App';
 
-const QuickSearch_RequireDownload: React.FC = () => {
+const QuickSearchRequireDownload: React.FC = () => {
 
   const currentDatabase = App.databases[0];
   // const history = useHistory();
@@ -49,4 +49,4 @@ const QuickSearch_RequireDownload: React.FC = () => {
   );
 };
 
-export default QuickSearch_RequireDownload;
+export default QuickSearchRequireDownload;
