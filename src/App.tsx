@@ -23,14 +23,12 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 /*Non-Default Imports*/
-import QuickSearch_Downloaded from './pages/QuickSearch/QuickSearch_Downloaded';
-import QuickSearch_RequireDownload from './pages/QuickSearch/QuickSearch_RequireDownload';
+import QuickSearchRequireDownload from './pages/QuickSearch/QuickSearchRequireDownload';
 import LifeCounterNewGame from './pages/LifeCounter/LifeCounterNewGame';
 import LifeCounterPlayerNumber from './pages/LifeCounter/LifeCounterSetPlayers';
 import LifeCounterSetLife from './pages/LifeCounter/LifeCounterSetLife';
 import LifeCounterConfirm from './pages/LifeCounter/LifeCounterConfirm';
 import LifeCounter from './pages/LifeCounter/LifeCounter';
-import Settings from './pages/Settings/Settings';
 import SideBar from './components/SideBar/SideBar'; 
 import Database from './databases/Database'; 
 import CardsDB from './databases/CardDB/CardsDB';
@@ -44,6 +42,7 @@ import Dice from './pages/Dice/Dice';
 import SetEVs from './pages/SetEVs/SetEVs';
 import Rules from './pages/Rules/Rules';
 import TradeCards from './pages/TradeCards/TradeCards';
+import QuickSearchDownloaded from './pages/QuickSearch/QuickSearchDownloaded';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -129,8 +128,8 @@ class App extends Component {
                   {/*Calvin's Pages*/}
                   <Route path="/quick-search" component={
                     (App.databases[0].loaded === DatabaseLoad.NOT_LOADED) 
-                    ? QuickSearch_RequireDownload 
-                    : QuickSearch_Downloaded} 
+                    ? QuickSearchRequireDownload 
+                    : QuickSearchDownloaded} 
                     exact={true} />
                   <Route path="/advanced-search" component={AdvancedSearch} exact={true}/>
                   <Route path="/search-results" component={SearchResults} exact={true}/>

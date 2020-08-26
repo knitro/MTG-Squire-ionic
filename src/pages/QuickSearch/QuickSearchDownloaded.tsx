@@ -5,7 +5,7 @@ import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
 
-const QuickSearch_Downloaded: React.FC = () => {
+const QuickSearchDownloaded: React.FC = () => {
 
   return (
 
@@ -28,4 +28,4 @@ const QuickSearch_Downloaded: React.FC = () => {
   );
 };
 
-export default QuickSearch_Downloaded;
+export default QuickSearchDownloaded;
