@@ -3,11 +3,9 @@ import { IonContent, IonPage, IonLabel, IonList, IonCard, IonGrid, IonRow, IonCo
 import './Settings.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
+import { updateSettings } from "./SettingsHelper";
 
 const Settings: React.FC = () => {
-  const [searchStored, setSearchStored] = useState(1);
-  const [diceStored, setDiceStored] = useState(1);
-  const [maxSearch, setMaxSearch] = useState(1);
 
   return (
     
@@ -28,8 +26,7 @@ const Settings: React.FC = () => {
                   <IonInput
                     placeholder="New value" type="number"
                     onIonChange={e => {
-                        setSearchStored(1);
-                        // setSearchStored(e.detail.value!);
+                      updateSettings('searchStored',Number(e.detail.value!));
                     }}/>  
                 </IonCol>
                 <IonCol>
@@ -48,9 +45,7 @@ const Settings: React.FC = () => {
                   <IonInput
                     placeholder="New value" type="number"
                     onIonChange={e => {
-                        setSearchStored(1);
-                        console.log(e.detail.value!);
-                        // setSearchStored(e.detail.value!);
+                      updateSettings('maxSearch',Number(e.detail.value!));
                     }}/>  
                 </IonCol>
                 <IonCol>
@@ -63,6 +58,20 @@ const Settings: React.FC = () => {
             <IonLabel>
               {"Number of previous dice rolls stored:"} 
             </IonLabel>
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonInput
+                    placeholder="New value" type="number"
+                    onIonChange={e => {
+                      updateSettings('diceStored',Number(e.detail.value!));
+                    }}/>  
+                </IonCol>
+                <IonCol>
+                  <IonButton>{"Save"}</IonButton>                  
+                </IonCol>
+              </IonRow>
+            </IonGrid>
           </IonCard>
         </IonList>
 

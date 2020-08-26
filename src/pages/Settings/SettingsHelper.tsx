@@ -1,6 +1,6 @@
 import { getSettings, Settings, saveSettings } from "../../states/SettingsState";
 
-export async function createSettings(setting : string, value : number){
+export async function updateSettings(setting : string, value : number){
   var settings : Settings = await getSettings();
 
   if ('maxSearch'.localeCompare(setting) === 0){
@@ -10,6 +10,6 @@ export async function createSettings(setting : string, value : number){
   } else if ('diceStored'.localeCompare(setting) === 0) {
     settings.diceStored = value;
   }
-
+  console.log(settings);
   saveSettings(settings);
 }

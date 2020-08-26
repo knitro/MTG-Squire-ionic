@@ -13,11 +13,6 @@ const Header: React.FC<{headerLabel : string}> = (props) => {
           <IonMenuButton autoHide={false}/>
         </IonButtons>
         
-        {/* PlaceHolder "Further Option Button"*/}
-        <IonButtons slot="primary">
-          <IonIcon icon={ellipsisVertical} size="large"/>
-        </IonButtons>
-
         <IonTitle size="large">{props.headerLabel}</IonTitle>
 
       </IonToolbar>

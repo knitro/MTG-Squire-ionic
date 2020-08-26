@@ -14,7 +14,7 @@ const storageKey : string = "settings";
 
 export const defaultSettings : Settings =
   {
-    maxSearch : 0,
+    maxSearch : 1,
     searchStored : 20,
     diceStored : 20,
   };
@@ -45,7 +45,7 @@ export interface Settings{
 export async function saveSettings(s : Settings) : Promise<boolean> {
   /*Save the Settings into Capacitor Storage*/
   const returnValue = await Storage.set({
-    key: 'players',
+    key: storageKey,
     value: JSON.stringify(s)
   }).then( () => {
     return true;

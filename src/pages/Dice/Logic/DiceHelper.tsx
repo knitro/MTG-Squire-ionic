@@ -5,7 +5,7 @@ import { DiceHistoryState, saveDiceHistory } from "../../../states/DiceHistorySt
  * Giving random output of 2 possible values
  * @return string value of 'Heads' or 'Tails'
  */
-export function flipCoin() : string {
+export function flipCoin(maxHistoryNumber : number) : string {
 
   let result : string = (roll(2) > 1) ? 'Heads' : 'Tails';
   const diceResult : DiceHistoryState = {
@@ -13,7 +13,7 @@ export function flipCoin() : string {
     dieValue: result
   };
   
-  saveDiceHistory(diceResult);
+  saveDiceHistory(diceResult, maxHistoryNumber);
     
   return result;
 }
@@ -23,7 +23,7 @@ export function flipCoin() : string {
  * Gives random output possible of that die
  * @return number output of the die
  */
-export function rollD6() : number {
+export function rollD6(maxHistoryNumber : number) : number {
 
   let result : number = roll(6);
   let resultString : string = result.toString();
@@ -32,7 +32,7 @@ export function rollD6() : number {
     dieValue: resultString
   };
   
-  saveDiceHistory(diceResult);
+  saveDiceHistory(diceResult, maxHistoryNumber);
 
   return result;
 }
@@ -42,7 +42,7 @@ export function rollD6() : number {
  * Gives random output possible of that die
  * @return number output of the die
  */
-export function rollD20() {
+export function rollD20(maxHistoryNumber : number) {
 
   let result : number = roll(20);
   let resultString : string = result.toString();
@@ -51,7 +51,7 @@ export function rollD20() {
     dieValue: resultString
   };
   
-  saveDiceHistory(diceResult);
+  saveDiceHistory(diceResult, maxHistoryNumber);
   
   return result;
 }
@@ -63,7 +63,7 @@ export function rollD20() {
  * @param die number of sides on custom die
  * @return string output of the die or text if bad input
  */
-export function rollCustom(die : number) : string {
+export function rollCustom(die : number, maxHistoryNumber : number) : string {
   die = Math.ceil(die);
   if(die < 1){
     return 'please use a positive die value'
@@ -76,7 +76,7 @@ export function rollCustom(die : number) : string {
     dieValue: resultString
   };
   
-  saveDiceHistory(diceResult);
+  saveDiceHistory(diceResult, maxHistoryNumber);
   return resultString;
 }
 
