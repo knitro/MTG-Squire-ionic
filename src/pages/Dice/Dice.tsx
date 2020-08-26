@@ -6,9 +6,11 @@ import Header from '../../components/Header/Header';
 import { rollCustom, flipCoin, rollD6, rollD20 } from './Logic/DiceHelper';
 import { DiceHistoryState, getDiceHistory, clearDiceHistory } from '../../states/DiceHistoryState';
 import uuid from 'uuid';
+import { getSettings } from '../../states/SettingsState';
 
 export interface DiceState {
-  currentDiceHistoryState: DiceHistoryState[]
+  currentDiceHistoryState: DiceHistoryState[];
+  maxHistoryNumber : number;
 };
 
 interface DiceComponentProps {
@@ -18,6 +20,8 @@ interface DiceComponentProps {
 
 class Dice extends React.Component<{}, DiceState> {
 
+  maxHistoryNumber : number;
+
   ////////////////////////
   /*Constructor*/
   ////////////////////////
@@ -26,7 +30,9 @@ class Dice extends React.Component<{}, DiceState> {
     super(props);
     this.state = {
       currentDiceHistoryState: [],
+      maxHistoryNumber: 0,
     }
+    this.maxHistoryNumber = 0;
   }
 
   ////////////////////////
@@ -37,19 +43,26 @@ class Dice extends React.Component<{}, DiceState> {
    * Updates the Components when async results.
    */
   async componentDidMount() {
-    this.setState({currentDiceHistoryState: await getDiceHistory()});
+
+    let retrievedMaxHistoryNumber : number = (await getSettings()).diceStored;
+
+    this.setState({
+      currentDiceHistoryState: await getDiceHistory(),
+      maxHistoryNumber: retrievedMaxHistoryNumber
+    });
+    this.maxHistoryNumber = retrievedMaxHistoryNumber;
   }
 
   updateDiceHistory() {
     getDiceHistory().then(e => {
 
-      this.setState({currentDiceHistoryState : e});
+      this.setState({currentDiceHistoryState : e, maxHistoryNumber: this.maxHistoryNumber});
     });
   }
 
   clearDiceHistory() {
     clearDiceHistory().then(e => {
-      this.setState({currentDiceHistoryState : []});
+      this.setState({currentDiceHistoryState : [], maxHistoryNumber: this.maxHistoryNumber});
     });
   }
 
@@ -71,6 +84,7 @@ const DiceComponent = (props : DiceComponentProps) => {
   /*Variable Initialisation*/
   let diceHistory : DiceHistoryState[] = props.state.currentDiceHistoryState;
   let diceClass : Dice = props.main;
+  let maxHistoryNumber : number = props.state.maxHistoryNumber;
 
   /*Hook Initialisation*/
   const [die, setDie]         = useState('Roll a Dice');
@@ -108,7 +122,7 @@ const DiceComponent = (props : DiceComponentProps) => {
                 <IonCol>
                   <IonButton class="diceButton"
                     onClick={e => {
-                      setDie(flipCoin());
+                      setDie(flipCoin(maxHistoryNumber));
                       setDieType('Coin');
                       diceClass.updateDiceHistory();
                     }
@@ -123,7 +137,7 @@ const DiceComponent = (props : DiceComponentProps) => {
                 <IonCol>
                   <IonButton class="diceButton"
                     onClick={e => {
-                      setDie(rollD6().toString());
+                      setDie(rollD6(maxHistoryNumber).toString());
                       setDieType('6 Sided Die');
                       diceClass.updateDiceHistory();
                     }
@@ -138,7 +152,7 @@ const DiceComponent = (props : DiceComponentProps) => {
                 <IonCol>
                   <IonButton class="diceButton"
                     onClick={e => {
-                      setDie(rollD20().toString());
+                      setDie(rollD20(maxHistoryNumber).toString());
                       setDieType('20 Sided Die');
                       diceClass.updateDiceHistory();
                     }
@@ -163,7 +177,7 @@ const DiceComponent = (props : DiceComponentProps) => {
                 <IonCol>
                   <IonButton
                   onClick={e => {
-                    setDie(rollCustom(custom));
+                    setDie(rollCustom(custom, maxHistoryNumber));
                     setDieType('Custom ('+ custom +' Sided) Die');
                     diceClass.updateDiceHistory();
                   }}>

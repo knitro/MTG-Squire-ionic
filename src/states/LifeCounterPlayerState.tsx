@@ -21,17 +21,17 @@ export interface Players {
 
 
 export function updatePlayer(players : Player[],player : number, change : number, option : string){
-    if(option === 'lifeTotal'){
+    if('lifeTotal'.localeCompare(option) === 0){
         players[player].lifeTotal += change;
-    } else if(option === 'valueW'){
+    } else if('valueW'.localeCompare(option) === 0){
         players[player].valueW += change;
-    } else if(option === 'valueU'){
+    } else if('valueU'.localeCompare(option) === 0){
         players[player].valueU += change;
-    } else if(option === 'valueB'){
+    } else if('valueB'.localeCompare(option) === 0){
         players[player].valueB += change;
-    } else if(option === 'valueR'){
+    } else if('valueR'.localeCompare(option) === 0){
         players[player].valueR += change;
-    } else if(option === 'valueG') {
+    } else if('valueG'.localeCompare(option) === 0) {
         players[player].valueG += change;
     } else {
         players[player].valueC += change;
