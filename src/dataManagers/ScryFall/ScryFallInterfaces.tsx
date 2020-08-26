@@ -32,15 +32,6 @@ export interface ScryFallInformation {
   digital:      boolean
 }
 
-export interface ScryFallSearchTerms {
-  mainSearch:     string
-  coloursInclude: string[] //Valid Inputs: {W, U, B, R, G}
-  coloursExclude: string[] //Valid Inputs: {W, U, B, R, G}
-  cardTypes:      string[]
-  cardText:       string[]
-  //Add More as Advanced Search becomes more fully fleshed out
-}
-
 ////////////////////////
 /*Supporting Interfaces*/
 ////////////////////////
@@ -138,19 +129,3 @@ export var blankScryFallInformation : ScryFallInformation = {
   uri:          "Error",
   digital:      false
 };
-
-////////////////////////
-/*Interface Functions*/
-////////////////////////
-
-export function scryFallSearchTermsToString(currentInterface: ScryFallSearchTerms) : string {
-  let returnString = "";
-
-  returnString += "Main Search Term: " + currentInterface.mainSearch + "\n";
-  returnString += "Colours Included: " + currentInterface.coloursInclude.map((s : string) => {return s.toUpperCase()}) + "\n";
-  returnString += "Colours Excluded: " + currentInterface.coloursExclude.map((s : string) => {return s.toUpperCase()}) + "\n";
-  returnString += "Card Types: " + currentInterface.cardTypes.map((s : string) => {return s.toUpperCase()}) + "\n";
-  returnString += "Card Text: " + currentInterface.cardText.map((s : string) => {return s.toUpperCase()}) + "\n";
-
-  return returnString;
-}

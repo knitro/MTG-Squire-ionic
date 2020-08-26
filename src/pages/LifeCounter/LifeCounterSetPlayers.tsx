@@ -36,7 +36,7 @@ const LifeCounterSetPlayers: React.FC = () => {
         <IonTitle class="lifeTitle">Number of Players</IonTitle>
         <GameContextConsumer>
           {(context : Game) => (
-        <>
+        <div>
           <IonRow class="buttonRow">
             <IonCol>
               <IonButton href="/life-counter/set-life" class="optionButton" color="tertiary"
@@ -77,7 +77,7 @@ const LifeCounterSetPlayers: React.FC = () => {
               >4</IonButton>
             </IonCol>
           </IonRow>
-        </>
+        </div>
           )}
         </GameContextConsumer>
 

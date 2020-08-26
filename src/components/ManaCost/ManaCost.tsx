@@ -17,7 +17,6 @@ export interface symbolToImageInterface {
   dir : string
 }
 
-// class ManaCost extends Component<{cost : ManaCostProps}> {
 class ManaCost extends Component<{cost : string}> {
 
   ////////////////////////
@@ -156,13 +155,12 @@ class ManaCost extends Component<{cost : string}> {
     /*Adjust for Weird Symbol Image Scaling*/
     if (symbol === "1000000") {
       symbolType = "symbol_1000000";
-    } else if (symbol === "100"){
+    } else if (symbol === "100") {
       symbolType = "symbol_100";
     }
-    
-
+  
     return (
-      <IonImg key={uuid.v4()} src={currentDirectory} class={symbolType} / >
+      <IonImg key={uuid.v4()} src={currentDirectory} class={symbolType}/>
     );
   }
 

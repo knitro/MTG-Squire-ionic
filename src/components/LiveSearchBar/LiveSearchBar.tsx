@@ -27,20 +27,20 @@ const LiveSearchBar = (props : SearchBarProps) => {
     );
   } else if (category === LiveSearchCategory.Rules) {
     return (
-      <></>
+      <div></div>
     );
   } else if (category === LiveSearchCategory.SetEV) {
     return (
-      <></>
+      <div></div>
     );
   } else if (category === LiveSearchCategory.Settings) {
     return (
-      <></>
+      <div></div>
     );
   } else {
     console.log("ERROR: This is not an implemented SearchBar category");
     return (
-      <></>
+      <div></div>
     );
   }
   

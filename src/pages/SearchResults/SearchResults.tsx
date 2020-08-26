@@ -70,11 +70,11 @@ const SearchResultsComponent = (props : SearchResultsComponentProps) => {
             </IonCardHeader>
           </IonCard>
 
-          <>
+          <div>
             {props.state.currentSearchState.map((renderSearchState : SearchState) =>
               <SingleSearchResult key={uuid.v4()} currentSearchState={renderSearchState}/>
             )}
-          </>
+          </div>
 
         </IonList>
       </IonContent>

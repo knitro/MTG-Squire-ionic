@@ -8,7 +8,7 @@ import App from '../../App';
 
 const QuickSearchRequireDownload: React.FC = () => {
 
-  const currentDatabase = App.databases[0];
+  const currentDataManager = App.dataManager;
   // const history = useHistory();
 
   return (
@@ -32,7 +32,7 @@ const QuickSearchRequireDownload: React.FC = () => {
             text-align="center"
             class="downloadDatabaseButton"
             onClick={e => {
-              currentDatabase.database.downloadDatabase();
+              currentDataManager.downloadDatabase();
               // history.push("/settings");
             }}
           >

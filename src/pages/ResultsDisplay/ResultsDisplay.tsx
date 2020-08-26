@@ -67,7 +67,7 @@ function getPrice(source : string, price : string, isFoil : boolean, isOnline : 
   
   /*Fail Return*/
   return (
-    <></>
+    <div></div>
   );
 }
 
@@ -270,11 +270,11 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
                   <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
                 </IonCardHeader>
               </IonCard>
-              <>
+              <div>
                 {currentSearchState.otherPrints.map((renderSearchState : SearchState) =>
                   <OtherPrinting key={uuid.v4()} currentSearchState={renderSearchState} display={main} swiper={swiper}/>
                 )}
-              </>
+              </div>
 
             </IonList>
           </IonSlide>
@@ -306,13 +306,13 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
                 <IonCardHeader>
                   <IonCardTitle>{"Oracle Text"}</IonCardTitle>
                 </IonCardHeader>
-                <>
+                <div>
                   {currentSearchState.oracleText.split("\n").map((currentItem: string) => 
                     <IonCardContent key={uuid.v4()}>
                       {currentItem}
                     </IonCardContent>
                   )}
-                </>
+                </div>
               </IonCard>
 
               {/* IonCard 3:  Additional Rulings*/}
@@ -320,13 +320,13 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
                 <IonCardHeader>
                   <IonCardTitle>{"Additional Rulings"}</IonCardTitle>
                 </IonCardHeader>
-                <>
+                <div>
                     {additionalRulings.map((currentItem: string) => 
                       <IonCardContent key={uuid.v4()}>
                         {currentItem}
                       </IonCardContent>
                     )}
-                </>
+                </div>
               </IonCard>
 
             </IonList>
@@ -355,10 +355,10 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
                   <IonCardHeader>
                     <IonCardTitle>{"ScryFall Prices"}</IonCardTitle>
                   </IonCardHeader>
-                  <>
+                  <div>
                     {getPrice("Scryfall USD", currentSearchState.prices.scryFallPricing_nonfoil, false, false, currentSearchState.misc)}
                     {getPrice("Scryfall USD", currentSearchState.prices.scryFallPricing_foil, true, false, currentSearchState.misc)}
-                  </>
+                  </div>
                 </IonCard>
                 
                 {/* IonCards 3:  Prices and Purchase Link Header*/}
@@ -399,14 +399,14 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
                 <IonCardHeader>
                   <IonCardTitle>{"Legalities"}</IonCardTitle>
                 </IonCardHeader>
-                <>
+                <div>
                     {legalitiesFormatted.map((currentItem: legality) => 
                       <IonCardContent key={uuid.v4()}>
                         <IonText class="category-label">{currentItem.label}</IonText>
                         <IonText class="category-value" color={currentItem.colour}>{currentItem.legality}</IonText>
                       </IonCardContent>
                     )}
-                </>
+                </div>
               </IonCard>
             </IonList>
           </IonSlide>

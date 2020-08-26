@@ -1,12 +1,32 @@
 import { Component } from 'react';
-import App, { DatabaseLoad } from '../App';
 
 import axios from 'axios';
 import { FilesystemDirectory } from '@capacitor/core';
 import { SearchState } from '../states/SearchState';
-import { ScryFallSearchTerms } from './CardDB/ScryFallInterfaces';
+import { ScryFallSearchTerms } from './ScryFall/ScryFallInterfaces';
 
-abstract class Database extends Component {
+export enum DatabaseLoad {
+  NOT_LOADED,
+  LOADED,
+  OLD_DATA
+}
+
+abstract class DataManager extends Component {
+
+  ////////////////////////
+  /*Fields*/
+  ////////////////////////
+
+  loaded : DatabaseLoad; //Determines what state the database is in (see DatabaseLoad Interface)
+
+  ////////////////////////
+  /*Constructor*/
+  ////////////////////////
+
+  constructor(props : any) {
+    super(props);
+    this.loaded = DatabaseLoad.NOT_LOADED;
+  }
 
   ////////////////////////
   /*Abstract Methods*/
@@ -14,16 +34,19 @@ abstract class Database extends Component {
 
   /**
    * This method should download the database and call/return the return value from downloadingDatabase(string, string).
+   * The exception to this is if the database is an API, in which this method will do nothing.
    */
   abstract downloadDatabase() : void;
 
   /**
    * This method should verify the database and call/return the return value from verifyingDatabase(string, string).
+   * The exception to this is if the database is an API, in which this method will return DatabaseLoad.LOADED.
    */
   abstract verifyDatabase() : DatabaseLoad;
 
   /**
    * This method should load the database file and call/return the return value from loadingDatabaseFile(string, string).
+   * The exception to this is if the database is an API, in which this method will return true.
    */
   abstract loadDatabase() : boolean;
 
@@ -32,13 +55,6 @@ abstract class Database extends Component {
    * @param currentSearchState - the currentSearchState that is being used to perform the search (quick and advanced)
    */
   abstract async performSearch(currentSearchState: SearchState) : Promise<boolean>;
-
-  /**
-   * This method should perform the search and store the search result in the database.
-   * @param url - the URL of the API call required 
-   * @param singleCard - determines whether the resultant search will be an array or a single card. DB calls via performSearch(SearchState) should be false, direct calls should have this as true.
-   */
-  abstract async performSearchURL(url : string, singleCard : boolean) : Promise<boolean>;
 
   /**
    * This method should perform a search, and store all the search results into the database.
@@ -58,7 +74,7 @@ abstract class Database extends Component {
    * @param fileName - the file name that the database will be saved under
    * @param databaseIndex - the Index of the database as per App.tsx
    */
-  protected async downloadingDatabase(url : string, fileName : string, databaseIndex : number) {
+  protected async downloadingDatabase(url : string, fileName : string) {
 
     console.log("Started: downloadingDatabase() ");
 
@@ -71,7 +87,7 @@ abstract class Database extends Component {
     }).then((response) => {
       console.log("Started: Downloading Database " + fileName + " from " + url);
       FileDownload(response.data, FilesystemDirectory.Data + "/" + fileName);
-      App.updateDatabase(databaseIndex, DatabaseLoad.LOADED);
+      this.loaded = DatabaseLoad.LOADED;
       console.log("Finished: Downloading Database " + fileName + " from " + url);
     });
 
@@ -92,6 +108,11 @@ abstract class Database extends Component {
     return DatabaseLoad.LOADED;
   }
 
+  /**
+   * 
+   * @param fileName 
+   * @param directory 
+   */
   protected loadingDatabase(fileName : string, directory: string) : boolean {
     //Code Exists to allow for Extension of the System
     return true;
@@ -113,4 +134,4 @@ abstract class Database extends Component {
 }
   
 
-export default Database;
+export default DataManager;
