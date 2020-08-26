@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonPage, IonTitle, IonButton, IonRow, IonCol, IonGrid, IonInput, IonCard } from '@ionic/react';
+import { IonContent, IonPage, IonTitle, IonButton, IonRow, IonCol, IonInput } from '@ionic/react';
 import './LifeCounterSetup.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
@@ -73,7 +73,7 @@ const LifeCounterSetLife: React.FC = () => {
             <IonCol class="buttonColText">
               {/* <IonRow> */}
               <IonInput class="optionTextField" color="light" placeholder="Custom" type="number"
-              onIonChange={e => (customLife = Number(e.detail.value!), console.log(customLife))
+              onIonChange={e => (customLife = Number(e.detail.value!))
               }/>
               <IonButton href="/life-counter/confirm" class="optionTextButton" color="tertiary"
               onClick={e => {

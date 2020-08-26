@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonPage, IonContent, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
-import { SearchState, emptySearch, getSearchRequest } from '../../states/SearchState';
+import { SearchState, getSearchRequest } from '../../states/SearchState';
 import Header from '../../components/Header/Header';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import SingleSearchResult from './SupportingComponents/SingleSearchResult';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonPage, IonTitle, IonButton, IonRow, IonCol, IonGrid, IonCard } from '@ionic/react';
+import { IonContent, IonPage, IonTitle, IonButton, IonRow, IonCol } from '@ionic/react';
 import './LifeCounterSetup.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';

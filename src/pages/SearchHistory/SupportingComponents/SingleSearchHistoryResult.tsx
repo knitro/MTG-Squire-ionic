@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert, IonImg } from '@ionic/react';
+import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonAlert } from '@ionic/react';
 import uuid from 'uuid';
-import { SearchState } from '../../../states/SearchState';
 import App from '../../../App';
 import { useHistory } from 'react-router';
 import { SearchHistoryState } from '../../../states/SearchHistoryState';
@@ -17,9 +16,9 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
   let search : SearchHistoryState = props.currentSearchHistoryState;
   const history = useHistory();
   let displayString = "";
-  if ("Quick Search".localeCompare(search.typeOfSearch) == 0) {
+  if ("Quick Search".localeCompare(search.typeOfSearch) === 0) {
     displayString = search.searchTerm;
-  } else if ("Advanced Search".localeCompare(search.typeOfSearch) == 0) {
+  } else if ("Advanced Search".localeCompare(search.typeOfSearch) === 0) {
     let searchTerms = JSON.parse(search.searchTerm) as ScryFallSearchTerms;
     displayString = scryFallSearchTermsToString(searchTerms);
   } else {
@@ -58,7 +57,7 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
         onClick={e => {
           setShowLoading(true)
 
-          if ("Quick Search".localeCompare(search.typeOfSearch) == 0) {
+          if ("Quick Search".localeCompare(search.typeOfSearch) === 0) {
 
             App.databases[0].database.performSearchURL(search.url, true).then(async (didPerform) => {
               if (didPerform) {
@@ -70,7 +69,7 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
               }    
             });
 
-          } else if ("Advanced Search".localeCompare(search.typeOfSearch) == 0) {
+          } else if ("Advanced Search".localeCompare(search.typeOfSearch) === 0) {
 
             let searchTerms = JSON.parse(search.searchTerm) as ScryFallSearchTerms;
 

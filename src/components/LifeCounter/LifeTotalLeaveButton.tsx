@@ -9,9 +9,9 @@ const LifeTotalLeaveButton = () => {
       <PlayersContextProvider>
       <PlayersContextConsumer>
         {(context : Players) => (
-          (context.players.length == 1) ? // if 1 player
+          (context.players.length === 1) ? // if 1 player
             <LifeTotalLeaveButtonOnePlayer/>
-          : (context.players.length == 3) ? //if 3 players
+          : (context.players.length === 3) ? //if 3 players
             <LifeTotalLeaveButtonThreePlayer/>
           :  // if 2 OR 4 players
             <LifeTotalLeaveButtonTwoPlayer/>

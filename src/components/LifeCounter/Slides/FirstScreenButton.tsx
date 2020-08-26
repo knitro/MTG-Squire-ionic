@@ -18,7 +18,7 @@ const FirstScreenButton = (props : ButtonProps) => {
             <IonButton class="playerButton" expand="full"
             color={getColour(player)}
             onClick={e => {
-              var pressValue = (rotation == 0 || rotation == 180) ? e.clientY : e.clientX;
+              var pressValue = (rotation === 0 || rotation === 180) ? e.clientY : e.clientX;
               updatePlayer(context.players,player,getChange(rotation,division,pressValue),'lifeTotal');
               setLife(context.players[player] == null ? 0 : context.players[player].lifeTotal)
                 }}
