@@ -22,7 +22,7 @@ const SingleSearchResult = (props : SingleSearchResultProps) => {
   /*Return*/
   return (
     
-    <>
+    <div>
       {/*IonLoading Initialisation*/}
       <IonLoading
         cssClass=''
@@ -68,7 +68,7 @@ const SingleSearchResult = (props : SingleSearchResultProps) => {
       </IonCard>
 
     
-    </>
+    </div>
   );
 }
 

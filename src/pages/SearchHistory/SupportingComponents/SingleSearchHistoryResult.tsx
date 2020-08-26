@@ -32,7 +32,7 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
   /*Return*/
   return (
     
-    <>
+    <div>
       {/*IonLoading Initialisation*/}
       <IonLoading
         cssClass=''
@@ -97,7 +97,7 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
       </IonCard>
 
     
-    </>
+    </div>
   );
 }
 

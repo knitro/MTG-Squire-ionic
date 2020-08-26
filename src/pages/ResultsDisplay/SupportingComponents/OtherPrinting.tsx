@@ -24,7 +24,7 @@ const OtherPrinting = (props : OtherPrintingProps) => {
   /*Return*/
   return (
     
-    <>
+    <div>
       {/*IonLoading Initialisation*/}
       <IonLoading
         cssClass=''
@@ -72,7 +72,7 @@ const OtherPrinting = (props : OtherPrintingProps) => {
       </IonCard>
 
     
-    </>
+    </div>
   );
 }
 

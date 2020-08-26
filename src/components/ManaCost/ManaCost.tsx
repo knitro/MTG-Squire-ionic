@@ -126,9 +126,9 @@ class ManaCost extends Component<{cost : string}> {
     let splitString : string[] = removedString.split("}{");
 
     return (
-      <>
+      <div>
         { splitString.map((currentSplit: string) => this.determineSymbol(currentSplit)) }
-      </>
+      </div>
     );
   }
 
