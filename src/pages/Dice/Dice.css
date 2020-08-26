@@ -1,0 +1,15 @@
+.diceButton{
+    width: 100%;
+    height: 100%;
+}
+.diceButtonText{
+    font-size: x-large;
+}
+.diceOutputText{
+    font-size: xxx-large;
+    text-align:center;
+}
+.diceOutputSubText{
+    font-size: x-large;
+    text-align:center;
+}
