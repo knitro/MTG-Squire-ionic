@@ -2,7 +2,7 @@ import React from 'react';
 import './LifeTotalLeaveButton.css';
 import { IonFab, IonFabButton, IonIcon } from '@ionic/react';
 import { arrowUndoCircle } from 'ionicons/icons';
-import { PlayersContextProvider, PlayersContextConsumer, Players } from '../../states/LifeCounterPlayerState';
+import { PlayersContextProvider, PlayersContextConsumer, Players } from '../../../states/LifeCounterPlayerState';
 
 const LifeTotalLeaveButton = () => {
     return (

@@ -1,11 +1,11 @@
 import React from 'react';
 import { IonPage } from '@ionic/react';
-import LifeTotalOnePlayer from '../../components/LifeCounter/LifeTotalOnePlayer';
-import LifeTotalTwoPlayer from '../../components/LifeCounter/LifeTotalTwoPlayer';
-import LifeTotalThreePlayer from '../../components/LifeCounter/LifeTotalThreePlayer';
-import LifeTotalFourPlayer from '../../components/LifeCounter/LifeTotalFourPlayer';
+import LifeTotalOnePlayer from './SupportingComponents/LifeTotalOnePlayer';
+import LifeTotalTwoPlayer from './SupportingComponents/LifeTotalTwoPlayer';
+import LifeTotalThreePlayer from './SupportingComponents/LifeTotalThreePlayer';
+import LifeTotalFourPlayer from './SupportingComponents/LifeTotalFourPlayer';
+import LifeTotalLeaveButton from './SupportingComponents/LifeTotalLeaveButton';
 import { PlayersContextConsumer, Players, PlayersContextProvider } from '../../states/LifeCounterPlayerState';
-import LifeTotalLeaveButton from '../../components/LifeCounter/LifeTotalLeaveButton';
 
 const LifeCounter: React.FC = () => {
   return (
