@@ -1,21 +1,21 @@
 import React from 'react';
 import { IonContent, IonPage } from '@ionic/react';
-import './Settings.css';
+import './SearchHistory.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import WorkInProgress from '../../components/WorkInProgress/WorkInProgress';
 
-const Settings: React.FC = () => {
+const SearchHistory: React.FC = () => {
   return (
     
     <IonPage>
 
       {/* Displays the Header */}
-      <Header headerLabel="Settings"/>
+      <Header headerLabel="SearchHistory"/>
 
       <IonContent>
 
-        <WorkInProgress name={"Settings"}/>
+        <WorkInProgress name={"SearchHistory"}/>
 
       </IonContent>
 
@@ -26,4 +26,4 @@ const Settings: React.FC = () => {
   );
 };
 
-export default Settings;
+export default SearchHistory;
