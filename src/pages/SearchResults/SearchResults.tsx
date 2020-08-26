@@ -23,7 +23,7 @@ class SearchResults extends React.Component<{}, SearchResultsState> {
   constructor(props : any) {
     super(props);
     this.state = {
-      currentSearchState: [emptySearch],
+      currentSearchState: [],
     }
   }
 

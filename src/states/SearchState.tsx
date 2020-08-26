@@ -12,9 +12,6 @@ const { Storage } = Plugins;
 
 const singleStorageKey    : string = "single";    // String that dictates the string that the SearchState is stored under in capacitor.
 const multipleStorageKey  : string = "multiple";  // String that dictates the string that the search request is stored under in capacitor.
-const historyStorageKey   : string = "history";   // String that dictates the string that the history of searches is stored under in capacitor.
-const maxHistoryCount     : number = 20;
-
 
 /**
  * The Empty Search Constant: Used for "Blank" Representations of a SearchState.
@@ -229,58 +226,6 @@ export async function getSearchRequest() : Promise<SearchState[]> {
 
   if (typeof storageReturn.value === 'string') {
     return (JSON.parse(storageReturn.value) as SearchState[]);
-  } else { //Null Case
-    return [];
-  }
-}
-
-////////////////////////
-/*Capacitor Storage for History Storage*/
-////////////////////////
-
-/**
- * Saves an array of Search State into storage.
- * This is used for Advanced Search to save what needs to be displayed in SearchResults.
- * @param searchRequest - the Array of SearchStates to be saved in storage.
- */
-export async function saveSearchHistory(searchURLString : string) : Promise<boolean> {
-
-  /*Get the Current Search History and make sure it meets Maximum Counts*/
-  let searchHistory : string[] = await getSearchHistory();
-  while (searchHistory.length >= maxHistoryCount) {
-    searchHistory.shift();
-  }
-  
-  /*Add New Search URL Link*/
-  searchHistory.push(searchURLString);
-
-  /*JSONStringify the Updated Search History Array*/
-  let valueToSave : string = JSON.stringify(searchHistory);
-
-  /*Save the Search History into Capacitor Storage*/
-  const returnValue = await Storage.set({
-    key: historyStorageKey,
-    value: valueToSave
-  }).then( () => {
-    return true;
-  }).catch(err => {
-    console.log(err);
-    return false;
-  });
-
-  return returnValue;
-}
-
-/**
- * Retrieves the SearchState Array in storage.
- * This is used for SearchResults to retrieve the previously saved data.
- */
-export async function getSearchHistory() : Promise<string[]> {
-
-  const storageReturn = await Storage.get({key: historyStorageKey});
-
-  if (typeof storageReturn.value === 'string') {
-    return (JSON.parse(storageReturn.value) as string[]);
   } else { //Null Case
     return [];
   }
