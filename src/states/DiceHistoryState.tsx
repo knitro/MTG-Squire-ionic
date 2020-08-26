@@ -77,3 +77,26 @@ export async function getDiceHistory() : Promise<DiceHistoryState[]> {
     return [];
   }
 }
+
+
+/**
+ * Clears the Dice History stored on storage.
+ */
+export async function clearDiceHistory() :  Promise<boolean> {
+
+  /*JSONStringify the Updated Dice History Array*/
+  let valueToSave : string = JSON.stringify([]);
+
+  /*Save the Dice History into Capacitor Storage*/
+  const returnValue = await Storage.set({
+    key: historyStorageKey,
+    value: valueToSave
+  }).then( () => {
+    return true;
+  }).catch(err => {
+    console.log(err);
+    return false;
+  });
+
+  return returnValue;
+}

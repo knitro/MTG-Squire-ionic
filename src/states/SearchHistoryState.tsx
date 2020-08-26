@@ -10,7 +10,7 @@ import { Plugins } from '@capacitor/core';
 
 const { Storage } = Plugins;
 
-const historyStorageKey   : string = "history";   // String that dictates the string that the history of searches is stored under in capacitor.
+const historyStorageKey   : string = "searchHistory";   // String that dictates the string that the history of searches is stored under in capacitor.
 const maxHistoryCount     : number = 20;
 
 ////////////////////////

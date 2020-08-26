@@ -9,21 +9,6 @@ import { ScryFallSearchTerms } from './CardDB/ScryFallInterfaces';
 abstract class Database extends Component {
 
   ////////////////////////
-  /*Fields*/
-  ////////////////////////
-
-  /*None*/
-
-  ////////////////////////
-  /*Constructor*/
-  ////////////////////////
-
-  constructor(props : any) {
-    super(props);
-    console.log("Constructed Database Instance");
-  }
-
-  ////////////////////////
   /*Abstract Methods*/
   ////////////////////////
 

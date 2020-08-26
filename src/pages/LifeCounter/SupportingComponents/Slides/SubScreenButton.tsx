@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IonButton, IonLabel } from "@ionic/react";
-import { updatePlayer, PlayersContextProvider, PlayersContextConsumer, Players } from "../../../states/LifeCounterPlayerState";
+import { updatePlayer, PlayersContextProvider, PlayersContextConsumer, Players } from "../../../../states/LifeCounterPlayerState";
 import { useState } from "react";
 import { getChange, getTextClass, SubButtonProps, getSubValue, getSubColour } from './SlidesHelper';
 
@@ -21,7 +21,7 @@ const SubScreenButton = (props : SubButtonProps ) => {
             <IonButton class="slide2Button" 
             color={getSubColour(option)}
             onClick={e => {
-              var pressValue = (rotation == 0 || rotation == 180) ? e.clientY : e.clientX;
+              var pressValue = (rotation === 0 || rotation === 180) ? e.clientY : e.clientX;
               updatePlayer(context.players,player,getChange(rotation,division,pressValue),option);
               setLife(getSubValue(context,player,option))
             }}

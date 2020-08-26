@@ -1,15 +1,14 @@
 import React from 'react';
 import './LifeCounterSlide2.css';
-import { IonGrid, IonRow, IonCol, IonButton, IonLabel, } from "@ionic/react";
-import { updatePlayer, PlayersContextProvider, PlayersContextConsumer, Players } from "../../../states/LifeCounterPlayerState";
-import { useState } from "react";
-import { ButtonProps, getTextClass, getColour, getSubName } from './SlidesHelper';
+import { IonGrid, IonRow, IonCol, IonButton } from "@ionic/react";
+import { PlayersContextProvider, PlayersContextConsumer, Players } from "../../../../states/LifeCounterPlayerState";
+import { ButtonProps, getColour, getSubName } from './SlidesHelper';
 import SubScreenButton from './SubScreenButton';
 
 
 const SecondScreenButton= (props : ButtonProps) => {
   return (
-    (props.rotation == 0 || props.rotation == 180) 
+    (props.rotation === 0 || props.rotation === 180) 
     ? 
       <SecondScreenButtonHorizontal rotation={props.rotation} division={props.division} player={props.player}/>
     : 
@@ -21,7 +20,7 @@ const SecondScreenButtonHorizontal = (props : ButtonProps) => {
     const player = props.player;
     const rotation = props.rotation;
     const division = props.division;
-    const reverseOrder = (rotation == 180);
+    const reverseOrder = (rotation === 180);
     return (
       
       <PlayersContextProvider>
@@ -67,7 +66,7 @@ const SecondScreenButtonVertical = (props : ButtonProps) => {
   const player = props.player;
   const rotation = props.rotation;
   const division = props.division;
-  const reverseOrder = (rotation == 270);
+  const reverseOrder = (rotation === 270);
   return (
     <IonButton class="playerButton" expand="full" 
     color={getColour(player)}
