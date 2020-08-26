@@ -4,7 +4,6 @@ export interface ButtonProps {
   rotation : number;
   division : number;
   player : number;
-  startingLife : number;
 }
 export interface SubButtonProps {
   rotation : number;
