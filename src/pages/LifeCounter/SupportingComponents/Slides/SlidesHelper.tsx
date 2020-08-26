@@ -4,6 +4,7 @@ export interface ButtonProps {
   rotation : number;
   division : number;
   player : number;
+  startingLife : number;
 }
 export interface SubButtonProps {
   rotation : number;
@@ -37,15 +38,15 @@ export function getColour(p : number){
 }
 
 export function getSubColour(c : string){
-  if(c === 'valueW')
+  if('valueW'.localeCompare(c) === 0)
     return "colour-w"
-  else if(c === 'valueU')
+  else if('valueU'.localeCompare(c) === 0)
     return "colour-u"
-  else if(c === 'valueB')
+  else if('valueB'.localeCompare(c) === 0)
     return "colour-b"
-  else if(c === 'valueR')
+  else if('valueR'.localeCompare(c) === 0)
     return "colour-r"
-  else if(c === 'valueG')
+  else if('valueG'.localeCompare(c) === 0)
     return "colour-g"
   else
     return "colour-c"
@@ -93,19 +94,19 @@ export function getChange(rotation : number, division : number, pressValue : num
 }
 
 export function getSubValue(players : Players, p : number, option : string){
-  if(players.players[p] === null){
-    return 0
-  } else if (option === 'valueW'){
+  if (players.players[p] == null){
+    return 0;
+  } else if ('valueW'.localeCompare(option) === 0){
     return players.players[p].valueW;
-  } else if (option === 'valueU'){
+  } else if ('valueU'.localeCompare(option) === 0){
     return players.players[p].valueU;
-  } else if (option === 'valueB'){
+  } else if ('valueB'.localeCompare(option) === 0){
     return players.players[p].valueB;
-  } else if (option === 'valueR'){
+  } else if ('valueR'.localeCompare(option) === 0){
     return players.players[p].valueR;
-  } else if (option === 'valueG'){
+  } else if ('valueG'.localeCompare(option) === 0){
     return players.players[p].valueG;
-  } else if (option === 'valueC'){
+  } else if ('valueC'.localeCompare(option) === 0){
     return players.players[p].valueC;
   } else {
     return players.players[p].lifeTotal;
