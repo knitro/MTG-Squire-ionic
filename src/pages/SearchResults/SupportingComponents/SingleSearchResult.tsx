@@ -51,6 +51,8 @@ const SingleSearchResult = (props : SingleSearchResultProps) => {
           let searchToPerform : SearchState = emptySearch;
           searchToPerform.api_uri = search.api_uri;
           
+          console.log(searchToPerform.api_uri);
+
           App.dataManager.performSearch(searchToPerform).then(async (didPerform) => {
             if (didPerform) {
               setShowLoading(false);

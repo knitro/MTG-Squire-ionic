@@ -9,7 +9,6 @@ import { getSettings } from '../../states/SettingsState';
 
 export interface SearchResultsState {
   currentSearchState: SearchState[]
-  maxNumberOfResults: number
 };
 
 interface SearchResultsComponentProps {
@@ -19,12 +18,6 @@ interface SearchResultsComponentProps {
 class SearchResults extends React.Component<{}, SearchResultsState> {
 
   ////////////////////////
-  /*Fields*/
-  ////////////////////////
-
-  maxNumberOfResults : number;
-
-  ////////////////////////
   /*Constructor*/
   ////////////////////////
 
@@ -32,9 +25,7 @@ class SearchResults extends React.Component<{}, SearchResultsState> {
     super(props);
     this.state = {
       currentSearchState: [],
-      maxNumberOfResults: 0
     }
-    this.maxNumberOfResults = Number.POSITIVE_INFINITY;
   }
 
   ////////////////////////
@@ -47,7 +38,6 @@ class SearchResults extends React.Component<{}, SearchResultsState> {
   async componentDidMount() {
     this.setState({
       currentSearchState: await getSearchRequest(),
-      maxNumberOfResults: (await getSettings()).maxSearch
     });
   }
 
@@ -70,11 +60,6 @@ class SearchResults extends React.Component<{}, SearchResultsState> {
 const SearchResultsComponent = (props : SearchResultsComponentProps) => {
 
   let searchArray = props.state.currentSearchState;
-
-  while (searchArray.length > props.state.maxNumberOfResults) {
-    searchArray.slice();
-  }
-  
 
   return (
     <IonPage>
