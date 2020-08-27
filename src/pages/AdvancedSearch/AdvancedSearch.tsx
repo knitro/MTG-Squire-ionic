@@ -246,7 +246,9 @@ const AdvancedSearch: React.FC = () => {
 
               //cardText Initialisation
               if ("".localeCompare(cardTextValue) !== 0) {
-                cardText.push(cardTextValue); //Currently does not support multiple cardText, database is ready to allow however
+                cardTextValue.split(" ").map((currentCardText) => {
+                  return cardText.push(currentCardText);
+                });
               }
               
               /*Create the Search Term*/
@@ -276,7 +278,7 @@ const AdvancedSearch: React.FC = () => {
         <IonLoading
           cssClass='ionLoading'
           isOpen={showLoading}
-          onDidDismiss={() => setShowLoading(false)}
+          // onDidDismiss={() => setShowLoading(false)}
           message={'Searching...'}
           duration={10000}
         />
@@ -286,8 +288,8 @@ const AdvancedSearch: React.FC = () => {
           onDidDismiss={() => setShowAlert(false)}
           cssClass='failed'
           header={'ERROR'}
-          subHeader={'Subtitle'}
-          message={'This is an alert message.'}
+          subHeader={'No Cards matching your criteria could be found!'}
+          message={'This is likely due to your search parameters being too restrictive. Try having less restrictions.'}
           buttons={['OK']}
         />
 

@@ -45,11 +45,11 @@ class ScryFall extends DataManager {
     //If CardName has content, then create the direct URL and perform the search from it
     if  ("".localeCompare(currentSearch.cardName) !== 0) {
       let url = this.percentEncode("https://api.scryfall.com/cards/search?order=released&q=" + currentSearch.cardName);
-      return await this.performSearchURL(url, false);
+      return await this.performSearchURL(url);
     }
     //If the URL has content, then grab the URL and perform a direct search
     else if ("".localeCompare(currentSearch.api_uri) !== 0) {
-      return await this.performSearchURL(currentSearch.api_uri, true);
+      return await this.performSearchURL(currentSearch.api_uri);
     }
     //Else Condition ==> Return False as now there is no implemented way of interpreting the data
     else {
@@ -91,7 +91,7 @@ class ScryFall extends DataManager {
     //Add Card Text
     if (searchTerms.cardText.length !== 0) {
       let cardText = "";
-      searchTerms.cardText.map((currentText) => cardText += "o:" + currentText.toLowerCase() + " ");
+      searchTerms.cardText.map((currentText) => cardText += "+o:" + currentText.toLowerCase() + " ");
       cardText = cardText.trim();
       compiledSearchTerm += cardText;
     }
@@ -156,7 +156,7 @@ class ScryFall extends DataManager {
    * @param url - the URL of the API call required 
    * @param singleCard - determines whether the resultant search will be an array or a single card. CardName searches should have this set to false, direct api url links should have this set to true.
    */
-  async performSearchURL(url : string, singleCard : boolean) : Promise<boolean> {
+  async performSearchURL(url : string) : Promise<boolean> {
 
     /*Variable Initialisation*/
     try {
@@ -168,7 +168,7 @@ class ScryFall extends DataManager {
       }).then((response) => {
         
         /*Grab the JSON Data*/
-        if (singleCard) {
+        if (typeof response.data.data === 'undefined') {
           let output : ScryFallInformation = response.data;
           return output;
         } else {
