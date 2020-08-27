@@ -77,7 +77,7 @@ export function getImageClass(r : number){
 export function getChange(rotation : number, division : number, pressValue : number){
   if(rotation === 0 || rotation === 180){
     //division over y axis
-    if( pressValue >= ((window.innerHeight - 65) * division) ){
+    if( pressValue >= ((window.innerHeight) * division) ){
       return (rotation === 0 ? -1 : 1);
     } else {
       return (rotation === 0 ? 1 : -1);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IonHeader, IonToolbar, IonTitle, IonMenu, IonContent, IonList, IonItem, IonMenuToggle, IonIcon, IonText } from "@ionic/react";
-import { searchOutline, search, cube, heartOutline, swapHorizontal, server, cash, chevronBackCircle, cogOutline, copy } from 'ionicons/icons';
+import { searchOutline, search, cube, heartOutline, swapHorizontal, server, cash, chevronBackCircle, cogOutline, copy, alertCircle } from 'ionicons/icons';
 import uuid from 'uuid';
 
 ////////////////////////
@@ -30,7 +30,8 @@ class SideBar extends Component {
     {label: "Rules", path: "/rules/overview", iconName: server},
     {label: "Set EVs", path: "/set-ev/overview", iconName: cash},
     {label: "Search History", path: "/search-history", iconName: chevronBackCircle},
-    {label: "Settings", path: "/settings", iconName: cogOutline}
+    {label: "Settings", path: "/settings", iconName: cogOutline},
+    {label: "Help", path: "/help", iconName: alertCircle}
   ];
 
   ////////////////////////

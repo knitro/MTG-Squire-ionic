@@ -1,10 +1,27 @@
+////////////////////////
+/*Imports*/
+////////////////////////
+
 import React from 'react';
 import { createContext, useState, useEffect } from 'react';
 import { Plugins } from '@capacitor/core';
 import { Game } from './LifeCounterSetupState';
+
+////////////////////////
+/*Local Initialisation*/
+////////////////////////
+
 const { Storage } = Plugins;
 
+const storageKey : string = "players";   // String that dictates the storage identifier in the capacitor.
 
+////////////////////////
+/*Interfaces*/
+////////////////////////
+
+/**
+ * Interface for counters for a single player
+ */
 export interface Player{
     lifeTotal : number;
     valueW : number;
@@ -15,23 +32,36 @@ export interface Player{
     valueC : number;
 }
 
+/**
+ * Interface for multiple players
+ */
 export interface Players {
     players : Player[]
 }
 
+////////////////////////
+/*Functions*/
+////////////////////////
 
-export function updatePlayer(players : Player[],player : number, change : number, option : string){
-    if('lifeTotal'.localeCompare(option) === 0){
+/**
+ * Function to save an update based on a single player and counter change
+ * @param players inferface with all information of players to store
+ * @param player player which has the value changing
+ * @param change amount which is changing (+/- 1)
+ * @param option which counter is changing
+ */
+export function updatePlayer(players : Player[], player : number, change : number, option : string) {
+    if ('lifeTotal'.localeCompare(option) === 0) {
         players[player].lifeTotal += change;
-    } else if('valueW'.localeCompare(option) === 0){
+    } else if ('valueW'.localeCompare(option) === 0) {
         players[player].valueW += change;
-    } else if('valueU'.localeCompare(option) === 0){
+    } else if ('valueU'.localeCompare(option) === 0) {
         players[player].valueU += change;
-    } else if('valueB'.localeCompare(option) === 0){
+    } else if ('valueB'.localeCompare(option) === 0) {
         players[player].valueB += change;
-    } else if('valueR'.localeCompare(option) === 0){
+    } else if ('valueR'.localeCompare(option) === 0) {
         players[player].valueR += change;
-    } else if('valueG'.localeCompare(option) === 0) {
+    } else if ('valueG'.localeCompare(option) === 0) {
         players[player].valueG += change;
     } else {
         players[player].valueC += change;
@@ -39,7 +69,11 @@ export function updatePlayer(players : Player[],player : number, change : number
     savePlayers(players)
 }
 
-export function createPlayers(g : Game){
+/**
+ * Sets up and storages player interface based on game settings
+ * @param g game settings to start game with
+ */
+export function createPlayers(g : Game) {
     let p : Player[] = [];
     for (let index = 0; index < g.numberPlayers; index++) {
         p.push({
@@ -55,21 +89,33 @@ export function createPlayers(g : Game){
     savePlayers(p)
 }
 
+////////////////////////
+/*Capacitor Storage   */
+////////////////////////
+
+/**
+ * Stores to player information to capacitor storage
+ * @param players array of player values to store
+ */
 export async function savePlayers(players : Player[]) {
     await Storage.set({
-        key: 'players',
+        key: storageKey,
         value: JSON.stringify(players)
     });
 }
 
+
 let PlayersContext = createContext({} as Players);
 
+/**
+ * Context provider to get player information from capacitor storage
+ */
 function PlayersContextProvider(props: { children: React.ReactNode; }) {
     
     const [initialPlayers, setInitialPlayers] = useState([] as Player[]);
 
     useEffect(() => {
-        Promise.resolve(Storage.get({key: 'players'}).then(
+        Promise.resolve(Storage.get({key: storageKey}).then(
             (result) => {
                 if (typeof result.value === 'string') {
                     setInitialPlayers(JSON.parse(result.value) as Player[]);

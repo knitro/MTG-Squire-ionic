@@ -5,7 +5,6 @@ import Header from '../../components/Header/Header';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import SingleSearchResult from './SupportingComponents/SingleSearchResult';
 import uuid from 'uuid';
-import { getSettings } from '../../states/SettingsState';
 
 export interface SearchResultsState {
   currentSearchState: SearchState[]
