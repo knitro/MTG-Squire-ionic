@@ -30,7 +30,7 @@ const LifeCounterSetLife: React.FC = () => {
           </IonCol>
           <IonCol>
             <IonButton class="lifeNavigationButtons" color="light" expand="full" href="/life-counter/confirm">
-              Confirmation
+              Confirm
             </IonButton>
           </IonCol>
         </IonRow>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonPage, IonLabel, IonList, IonCard, IonGrid, IonRow, IonCol, IonInput, IonButton, IonSelectOption, IonSelect } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonCard, IonGrid, IonRow, IonCol, IonInput, IonButton, IonSelectOption, IonSelect, IonTitle } from '@ionic/react';
 import './Settings.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
@@ -17,9 +17,9 @@ const Settings: React.FC = () => {
 
         <IonList>
           <IonCard>
-            <IonLabel>
+            <IonTitle class="settingsText">
               {"Number of previous searches stored:"} 
-            </IonLabel>
+            </IonTitle>
             <IonGrid>
               <IonRow>
                 <IonCol>
@@ -35,29 +35,10 @@ const Settings: React.FC = () => {
               </IonRow>
             </IonGrid>
           </IonCard>
-          {/* <IonCard>
-            <IonLabel>
-              {"Maximum number of search results displayed:"} 
-            </IonLabel>
-            <IonGrid>
-              <IonRow>
-                <IonCol>
-                  <IonInput
-                    placeholder="New value" type="number"
-                    onIonChange={e => {
-                      updateSettings('maxSearch',Number(e.detail.value!));
-                    }}/>  
-                </IonCol>
-                <IonCol>
-                  <IonButton>{"Save"}</IonButton>                  
-                </IonCol>
-              </IonRow>
-            </IonGrid>
-          </IonCard> */}
           <IonCard>
-            <IonLabel>
+            <IonTitle class="settingsText">
               {"Number of previous dice rolls stored:"} 
-            </IonLabel>
+            </IonTitle>
             <IonGrid>
               <IonRow>
                 <IonCol>
@@ -74,9 +55,9 @@ const Settings: React.FC = () => {
             </IonGrid>
           </IonCard>
           <IonCard>
-            <IonLabel>
+            <IonTitle class="settingsText">
               {"Change Alternate Currency:"}
-            </IonLabel>
+            </IonTitle>
             <IonSelect value="USD" 
             placeholder="Change Alternate Currency" 
             onIonChange={e => updateSettingCurrency(e.detail.value)}

@@ -31,13 +31,16 @@ const Help: React.FC = () => {
           />
           <HelpCard
             title = "Advanced Search"
-            text = "TODO"
+            text = "The Advanced Search page allows you to input multiple variables to find a list of multiple possible cards which meet the given specifications."
             buttonHref = "/advanced-search"
             buttonText = "go to advanced search"
           />
           <HelpCard
             title = "Card Pages"
-            text = "TODO"
+            text = {"When a card is found from either search method, it is displayed on its unique card page. "
+              +"The main screen displays the card itself, along with its oracle text and additional rulings. "
+              +"This page also has side screens which can be found by swipe to the sides. "
+              +"These side screens include other useful information such as other printings, pricings and format legalities."}
             buttonHref = ""
             buttonText = ""
           />
@@ -49,7 +52,11 @@ const Help: React.FC = () => {
           />
           <HelpCard
             title = "Life Counter"
-            text = "TODO (both set up and page)"
+            text = {"The Life Counter pages allow you to display life for up to four players! "
+              + "During set up, you are given options to set the number of players and starting life totals of the players. "
+              + "The Life Counters are displayed as large buttons which can be pressed (high or low) to add or remove from the life counter. "
+              + "Each individual life counter can be swiped to the side to display extra counters which can be used to mana, commander damage or other possible player based counters which may be requried. "
+              + "Life Counter information is stored until you start another game so you can leave the section of the application without worry."}
             buttonHref = "/life-counter/new-game"
             buttonText = "go to life counter"
           />
