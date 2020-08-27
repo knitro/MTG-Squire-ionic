@@ -35,7 +35,7 @@ const Settings: React.FC = () => {
               </IonRow>
             </IonGrid>
           </IonCard>
-          <IonCard>
+          {/* <IonCard>
             <IonLabel>
               {"Maximum number of search results displayed:"} 
             </IonLabel>
@@ -53,7 +53,7 @@ const Settings: React.FC = () => {
                 </IonCol>
               </IonRow>
             </IonGrid>
-          </IonCard>
+          </IonCard> */}
           <IonCard>
             <IonLabel>
               {"Number of previous dice rolls stored:"} 
