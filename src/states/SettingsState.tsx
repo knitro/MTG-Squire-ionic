@@ -18,6 +18,7 @@ export const defaultSettings : Settings =
     diceStored : 20,
     currency : "NZD",
   };
+  
 ////////////////////////
 /*Settings*/
 ////////////////////////

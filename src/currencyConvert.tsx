@@ -1,14 +1,50 @@
+////////////////////////
+/*Imports*/
+////////////////////////
+
 import axios from 'axios';
 import { saveCurrency, getCurrencyStorage } from './states/CurrencyState';
 import { getSettings, Settings } from './states/SettingsState';
 
+////////////////////////
+/*Local Initialisation*/
+////////////////////////
 
+/**
+ * Default value for currency information
+ * Gives empty values
+ */
+export const emptyCurrencyInformation : CurrencyInformation = {
+  base: "",
+  date: "",
+  rates: 
+    {
+      CAD: 0, HKD: 0, ISK: 0, PHP: 0, DKK: 0, HUF: 0,
+      CZK: 0, GBP: 0, RON: 0, SEK: 0, IDR: 0, INR: 0,
+      BRL: 0, RUB: 0, HRK: 0, JPY: 0, THB: 0, CHF: 0,
+      EUR: 0, MYR: 0, BGN: 0, TRY: 0, CNY: 0, NOK: 0,
+      NZD: 0, ZAR: 0, USD: 0, MXN: 0, SGD: 0, AUD: 0,
+      ILS: 0, KRW: 0, PLN: 0
+    }
+};
+
+////////////////////////
+/*Interfaces*/
+////////////////////////
+
+/**
+ * Interface for currency information 
+ * Also used to store from api
+ */
 export interface CurrencyInformation {
     rates: Currencies;
     base:  string;
     date:  string;
-}
+} 
 
+/**
+ * Sub interface for CurrencyInformation rates section
+ */
 interface Currencies {
     CAD: number;
     HKD: number;
@@ -45,19 +81,10 @@ interface Currencies {
     PLN: number;
 }
 
-export const emptyCurrencyInformation : CurrencyInformation = {
-  base: "",
-  date: "",
-  rates: 
-    {
-      CAD: 0, HKD: 0, ISK: 0, PHP: 0, DKK: 0, HUF: 0,
-      CZK: 0, GBP: 0, RON: 0, SEK: 0, IDR: 0, INR: 0,
-      BRL: 0, RUB: 0, HRK: 0, JPY: 0, THB: 0, CHF: 0,
-      EUR: 0, MYR: 0, BGN: 0, TRY: 0, CNY: 0, NOK: 0,
-      NZD: 0, ZAR: 0, USD: 0, MXN: 0, SGD: 0, AUD: 0,
-      ILS: 0, KRW: 0, PLN: 0
-    }
-};
+
+////////////////////////
+/*Functions*/
+////////////////////////
 
 /**
  * Gets a currency value from the function
@@ -66,7 +93,7 @@ export const emptyCurrencyInformation : CurrencyInformation = {
  * @param type want string of currency type
  * @param currencies storage class of currency
  */
-function getCurrencyValue(type : string, currencies : CurrencyInformation){
+function getCurrencyValue(type : string, currencies : CurrencyInformation) {
   if ("CAD".localeCompare(type))
     return currencies.rates.CAD;
   else if ("HKD".localeCompare(type))
@@ -137,6 +164,9 @@ function getCurrencyValue(type : string, currencies : CurrencyInformation){
     return 0;
 }
 
+/**
+ * Gets current date as string
+ */
 function getCurrentDate() : string {
   let date = new Date();
   let dateString = "" + date.getUTCFullYear() + "-" + (date.getUTCMonth()+1) + "-" + date.getUTCDate();
@@ -144,6 +174,10 @@ function getCurrentDate() : string {
   return dateString;
 }
 
+/**
+ * Gets current currency multiplier from USD to chosen currency
+ * Will recall API if no local stored or stored is old
+ */
 export async function getCurrency() : Promise<number> {
 
   let date : string = getCurrentDate();
@@ -163,11 +197,13 @@ export async function getCurrency() : Promise<number> {
   return getCurrencyValue(currencySetting,currency);
 }
 
-
-export async function getCurrencyAPI() : Promise<boolean>{
-  // https://exchangeratesapi.io/
-  // GET https://api.exchangeratesapi.io/latest?base=USD HTTP/1.1
-
+/**
+ * Gets current currency multiplier from USD to chosen currency
+ * Will recall API if no local stored or stored is old
+ * API: https://exchangeratesapi.io/
+ * @return returns boolean of API call success
+ */
+export async function getCurrencyAPI() : Promise<boolean> {
   const url : string = "https://api.exchangeratesapi.io/latest?base=USD"; 
   try {
     const axiosResult : CurrencyInformation = await axios({
@@ -183,7 +219,6 @@ export async function getCurrencyAPI() : Promise<boolean>{
       return emptyCurrencyInformation;
     });
 
-    //TODO use value
     saveCurrency(axiosResult);
     return true;
   } catch (error) {
