@@ -11,8 +11,16 @@ import { CurrencyInformation, emptyCurrencyInformation } from '../currencyConver
 
 const { Storage } = Plugins;
 
-const storageKey : string = "currency";   // String that dictates the string that the history of dice rolls is stored under in capacitor.
+const storageKey : string = "currency";   // String that dictates the storage identifier in the capacitor.
 
+////////////////////////
+/*Capacitor Storage for History Storage*/
+////////////////////////
+
+/**
+ * Saves a CurrencyInformation into storage.
+ * @param current the value being put into storage
+ */
 export async function saveCurrency(current : CurrencyInformation) : Promise<boolean> {
 
   /*JSONStringify the Currency values*/
@@ -32,6 +40,10 @@ export async function saveCurrency(current : CurrencyInformation) : Promise<bool
   return returnValue;
 }
 
+
+/**
+ * Retrieves the CurrencyInformation from storage.
+ */
 export async function getCurrencyStorage() : Promise<CurrencyInformation> {
 
   const storageReturn = await Storage.get({key: storageKey});

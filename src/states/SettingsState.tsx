@@ -14,7 +14,6 @@ const storageKey : string = "settings";
 
 export const defaultSettings : Settings =
   {
-    maxSearch : 200,
     searchStored : 20,
     diceStored : 20,
     currency : "NZD",
@@ -27,8 +26,7 @@ export const defaultSettings : Settings =
  * Settings Interface
  * Used to store state of settings
  */
-export interface Settings{
-  maxSearch : number;
+export interface Settings {
   searchStored : number;
   diceStored : number;
   currency : string;

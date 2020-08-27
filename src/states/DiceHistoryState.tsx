@@ -10,7 +10,7 @@ import { Plugins } from '@capacitor/core';
 
 const { Storage } = Plugins;
 
-const historyStorageKey    : string = "diceHistory";   // String that dictates the string that the history of dice rolls is stored under in capacitor.
+const historyStorageKey : string = "diceHistory";   // String that dictates the string that the history of dice rolls is stored under in capacitor.
 
 ////////////////////////
 /*DiceHistoryState*/
@@ -29,7 +29,7 @@ export interface DiceHistoryState {
 ////////////////////////
 
 /**
- * Saves an single of DiceHistoryState into storage.
+ * Saves a set of DiceHistoryState into storage.
  * This is used for DiceHistory to show what has been previously been rolled up.
  * This will retrieve the previous entries, append to it, and remove the earliest record if it goes over the max.
  * @param currentDiceHistoryState - the DiceHistoryState to be saved in storage.
