@@ -91,7 +91,7 @@ class ScryFall extends DataManager {
     //Add Card Text
     if (searchTerms.cardText.length !== 0) {
       let cardText = "";
-      searchTerms.cardText.map((currentText) => cardText += "o:" + currentText.toLowerCase() + " ");
+      searchTerms.cardText.map((currentText) => cardText += "+o:" + currentText.toLowerCase() + " ");
       cardText = cardText.trim();
       compiledSearchTerm += cardText;
     }
