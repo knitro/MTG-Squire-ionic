@@ -1,7 +1,6 @@
 import React from 'react';
-import { IonHeader, IonToolbar, IonTitle, IonIcon, IonButtons, IonMenuButton } from "@ionic/react";
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton } from "@ionic/react";
 import './Header.css';
-import { ellipsisVertical } from 'ionicons/icons';
 
 const Header: React.FC<{headerLabel : string}> = (props) => {
   

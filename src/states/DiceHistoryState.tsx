@@ -3,7 +3,6 @@
 ////////////////////////
 
 import { Plugins } from '@capacitor/core';
-import { getSettings, Settings } from './SettingsState';
 
 ////////////////////////
 /*Local Initialisation*/

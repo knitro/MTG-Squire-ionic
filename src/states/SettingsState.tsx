@@ -17,6 +17,7 @@ export const defaultSettings : Settings =
     maxSearch : 200,
     searchStored : 20,
     diceStored : 20,
+    currency : "NZD",
   };
 ////////////////////////
 /*Settings*/
@@ -30,6 +31,7 @@ export interface Settings{
   maxSearch : number;
   searchStored : number;
   diceStored : number;
+  currency : string;
 }
 
 
