@@ -5,7 +5,7 @@ import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
 import { updateSettings, updateSettingCurrency } from "./SettingsHelper";
 
-const Settings: React.FC = () => {
+const SettingsDisplayComponent: React.FC = () => {
 
   return (
     
@@ -108,4 +108,4 @@ const Settings: React.FC = () => {
   );
 };
 
-export default Settings;
+export default SettingsDisplayComponent;

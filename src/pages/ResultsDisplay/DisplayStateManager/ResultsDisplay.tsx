@@ -1,7 +1,7 @@
 import React from 'react';
 import { SearchState, getSearchState, emptySearch } from '../../../states/SearchState';
 import ResultsDisplayComponent from '../DisplayComponent/ResultsDisplayComponent';
-import { CurrencyInformation, emptyCurrencyInformation, getCurrencyStorage } from '../../../states/CurrencyState';
+import { CurrencyInformation, emptyCurrencyInformation, getCurrency } from '../../../states/CurrencyState';
 import { getSettings } from '../../../states/SettingsState';
 
 ////////////////////////
@@ -57,9 +57,8 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
     this.formatLegalities();
     this.setRulings();
     this.setState({currentCurrency: (await getSettings()).currency});
-    this.setState({currencyMapping: await getCurrencyStorage()});
+    this.setState({currencyMapping: await getCurrency()});
   }
-
   /**
    * Sets the Rulings of a Card to be displayed.
    */

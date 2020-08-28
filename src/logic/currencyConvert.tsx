@@ -17,6 +17,7 @@ export function getConvertedValue(value : number, currencyFrom : string, currenc
   /*Get the Currency Values*/
   let currencyFromValue : number = getCurrencyValue(currencyFrom, currencyInformation);
   let currencyToValue : number = getCurrencyValue(currencyTo, currencyInformation);
+
   //Check for Valid Currency Values
   if ((currencyFromValue === -1) || (currencyToValue === -1)) {
     return -1; //Denotes a Failed Conversion

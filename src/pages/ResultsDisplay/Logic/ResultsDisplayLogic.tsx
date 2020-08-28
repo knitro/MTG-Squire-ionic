@@ -29,13 +29,14 @@ export function getPrice(source : string, currencyFrom : string, currencyTo : st
         //Convert the Price:
         const sourcePrice : number = Number(price);
         const convertedPrice : number = getConvertedValue(sourcePrice, currencyFrom, currencyTo, currencyMapping);
+        const displayString : string = (Math.round(convertedPrice * 100) / 100).toFixed(2);
 
         //Check for Valid Converted Price 
         if (convertedPrice !== -1) {
           return (
             <IonCardContent>
               <IonText class="category-label">{source + " " + ((isFoil) ? ("Foil") : ("Non Foil")) + ": "}</IonText>
-              <IonText class="category-value">{price}{" " + currencyTo}</IonText>
+              <IonText class="category-value">{displayString}{" " + currencyTo}</IonText>
             </IonCardContent>
           )
         }
@@ -44,7 +45,7 @@ export function getPrice(source : string, currencyFrom : string, currencyTo : st
       //Returns with Price not Available if price does not exist, or price conversion failed
       return (
         <IonCardContent>
-          {source + ": Price Not Available"}
+          {source + " " + ((isFoil) ? ("Foil") : ("Non Foil")) + ": Price Not Available"}
         </IonCardContent>
       );
 
