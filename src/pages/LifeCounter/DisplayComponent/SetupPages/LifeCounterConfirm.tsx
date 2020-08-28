@@ -1,10 +1,10 @@
 import React from 'react';
 import { IonContent, IonPage, IonTitle, IonButton, IonGrid, IonLabel, IonRow, IonCol } from '@ionic/react';
 import './LifeCounterSetup.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
-import { GameContextConsumer, Game, GameContextProvider } from '../../states/LifeCounterSetupState';
-import { createPlayers, PlayersContextProvider } from '../../states/LifeCounterPlayerState';
+import FooterTabs from '../../../../components/FooterTabs/FooterTabs';
+import Header from '../../../../components/Header/Header';
+import { GameContextConsumer, Game, GameContextProvider } from '../../../../states/LifeCounterSetupState';
+import { createPlayers, PlayersContextProvider } from '../../../../states/LifeCounterPlayerState';
 
 
 const LifeCounterConfirm: React.FC = () => {
@@ -16,7 +16,8 @@ const LifeCounterConfirm: React.FC = () => {
       <Header headerLabel="Life Counter - New Game"/>
 
       <IonContent>
-
+      
+      {/* Sub Header of setup pages */}
       <IonRow>
           <IonCol>
             <IonButton class="lifeNavigationButtons" color="light" expand="full" href="/life-counter/set-players">
@@ -38,6 +39,9 @@ const LifeCounterConfirm: React.FC = () => {
         <IonTitle class="lifeTitle">
           Confirm Options
         </IonTitle>
+
+
+        {/* Display of setup information */}
         <GameContextConsumer>
           {(context : Game) => (
         <IonGrid class="confirmGrid">
@@ -54,6 +58,7 @@ const LifeCounterConfirm: React.FC = () => {
           </IonGrid>
         )}
         </GameContextConsumer>
+        
       </IonContent>
 
       {/* Displays Tabs at the Bottom */}

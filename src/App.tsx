@@ -24,11 +24,11 @@ import './theme/variables.css';
 
 /*Non-Default Imports*/
 import QuickSearchRequireDownload from './pages/QuickSearch/QuickSearchRequireDownload';
-import LifeCounterNewGame from './pages/LifeCounter/LifeCounterNewGame';
-import LifeCounterPlayerNumber from './pages/LifeCounter/LifeCounterSetPlayers';
-import LifeCounterSetLife from './pages/LifeCounter/LifeCounterSetLife';
-import LifeCounterConfirm from './pages/LifeCounter/LifeCounterConfirm';
-import LifeCounter from './pages/LifeCounter/LifeCounter';
+import LifeCounterNewGame from './pages/LifeCounter/DisplayComponent/SetupPages/LifeCounterNewGame';
+import LifeCounterPlayerNumber from './pages/LifeCounter/DisplayComponent/SetupPages/LifeCounterSetPlayers';
+import LifeCounterSetLife from './pages/LifeCounter/DisplayComponent/SetupPages/LifeCounterSetLife';
+import LifeCounterConfirm from './pages/LifeCounter/DisplayComponent/SetupPages/LifeCounterConfirm';
+import LifeCounter from './pages/LifeCounter/DisplayComponent/LifeCounter';
 import SideBar from './components/SideBar/SideBar'; 
 import DataManager, { DatabaseLoad } from './dataManagers/DataManager'; 
 import ScryFall from './dataManagers/ScryFall/ScryFall';
@@ -42,7 +42,7 @@ import Rules from './pages/Rules/Rules';
 import TradeCards from './pages/TradeCards/TradeCards';
 import QuickSearchDownloaded from './pages/QuickSearch/QuickSearchDownloaded';
 import Settings from './pages/Settings/DisplayStateManager/Settings';
-import Help from './pages/Help/Help';
+import Help from './pages/Help/DisplayComponent/Help';
 import AdvancedSearch from './pages/AdvancedSearch/DisplayComponent/AdvancedSearch';
 
 export interface DatabaseState {

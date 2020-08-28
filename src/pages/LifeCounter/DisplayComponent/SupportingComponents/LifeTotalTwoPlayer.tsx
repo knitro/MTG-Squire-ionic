@@ -2,13 +2,15 @@ import React from 'react';
 import './LifeCounter.css';
 import { IonGrid, IonRow, IonCol, IonSlides, IonSlide } from "@ionic/react";
 import FirstScreenButton from './Slides/FirstScreenButton';
-import { slideOpts0,slideOpts180 } from './Slides/SlidesHelper';
+import { slideOpts0,slideOpts180 } from '../../Logic/SlidesHelper';
 import SecondScreenButton from './Slides/SecondScreenButton';
 
 const LifeTotalTwoPlayer = () => {
     return (
         <IonGrid class="playerGrid">
         <IonRow class="twoPlayerRow">
+
+          {/* Player 1 */}
           <IonCol class="twoPlayerCol">
             <IonSlides class="life-slides-180" pager={true} options={slideOpts180}>
               <IonSlide>
@@ -19,8 +21,11 @@ const LifeTotalTwoPlayer = () => {
                </IonSlide>
             </IonSlides>
           </IonCol>
+
         </IonRow>
         <IonRow class="twoPlayerRow">
+
+          {/* Player 2 */}
           <IonCol class="twoPlayerCol">
             <IonSlides class="life-slides-0" pager={true} options={slideOpts0}>
               <IonSlide>
@@ -31,6 +36,7 @@ const LifeTotalTwoPlayer = () => {
               </IonSlide>
             </IonSlides>
           </IonCol>
+
         </IonRow>
       </IonGrid>
     )

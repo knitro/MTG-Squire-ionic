@@ -2,8 +2,11 @@ import React from 'react';
 import './LifeTotalLeaveButton.css';
 import { IonFab, IonFabButton, IonIcon } from '@ionic/react';
 import { arrowUndoCircle } from 'ionicons/icons';
-import { PlayersContextProvider, PlayersContextConsumer, Players } from '../../../states/LifeCounterPlayerState';
+import { PlayersContextProvider, PlayersContextConsumer, Players } from '../../../../../states/LifeCounterPlayerState';
 
+/**
+ * Button for leaving life counter page
+ */
 const LifeTotalLeaveButton = () => {
     return (
       <PlayersContextProvider>
@@ -21,6 +24,9 @@ const LifeTotalLeaveButton = () => {
     )
 }
 
+/**
+ * Leave life counter button for one player
+ */
 const LifeTotalLeaveButtonOnePlayer = () => {
   return (
     <IonFab vertical="top" horizontal="center" slot="fixed">
@@ -31,6 +37,9 @@ const LifeTotalLeaveButtonOnePlayer = () => {
   )
 }
 
+/**
+ * Leave life counter button for two OR four players
+ */
 const LifeTotalLeaveButtonTwoPlayer = () => {
   return (
     <IonFab vertical="center" horizontal="center" slot="fixed">
@@ -41,6 +50,9 @@ const LifeTotalLeaveButtonTwoPlayer = () => {
   )
 }
 
+/**
+ * Leave life counter button for three players
+ */
 const LifeTotalLeaveButtonThreePlayer = () => {
   return (
     <IonFab vertical="center" horizontal="center" slot="fixed" class="leaveButtonThreePlayer">

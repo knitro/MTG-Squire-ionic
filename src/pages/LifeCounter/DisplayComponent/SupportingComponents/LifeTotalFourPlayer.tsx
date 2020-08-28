@@ -2,13 +2,18 @@ import React from 'react';
 import './LifeCounter.css';
 import { IonGrid, IonRow, IonCol, IonSlides, IonSlide } from "@ionic/react";
 import FirstScreenButton from './Slides/FirstScreenButton';
-import { slideOpts90, slideOpts270 } from './Slides/SlidesHelper';
+import { slideOpts90, slideOpts270 } from '../../Logic/SlidesHelper';
 import SecondScreenButton from './Slides/SecondScreenButton';
 
+/**
+ * Life total grid for four players
+ */
 const LifeTotalFourPlayer = () => {
     return (
       <IonGrid class="playerGrid">
         <IonRow class="fourPlayerRow">
+
+          {/* Player 1 */}
           <IonCol class="fourPlayerCol">
             <IonSlides class="life-slides-90" pager={true} options={slideOpts90}>
               <IonSlide>
@@ -19,6 +24,8 @@ const LifeTotalFourPlayer = () => {
               </IonSlide>
             </IonSlides>
           </IonCol>
+
+          {/* Player 2 */}
           <IonCol class="fourPlayerCol">
             <IonSlides class="life-slides-270" pager={true} options={slideOpts270}>
               <IonSlide>
@@ -29,8 +36,11 @@ const LifeTotalFourPlayer = () => {
               </IonSlide>
             </IonSlides>
           </IonCol>
+
         </IonRow>
         <IonRow class="fourPlayerRow">
+
+          {/* Player 3 */}
           <IonCol class="fourPlayerCol">
             <IonSlides class="life-slides-90" pager={true} options={slideOpts90}>
               <IonSlide>
@@ -41,6 +51,8 @@ const LifeTotalFourPlayer = () => {
               </IonSlide>
             </IonSlides>
           </IonCol>
+
+          {/* Player 4 */}
           <IonCol class="fourPlayerCol">
             <IonSlides class="life-slides-270" pager={true} options={slideOpts270}>
               <IonSlide>
@@ -51,6 +63,7 @@ const LifeTotalFourPlayer = () => {
               </IonSlide>
             </IonSlides>
           </IonCol>
+
         </IonRow>
       </IonGrid>
     )

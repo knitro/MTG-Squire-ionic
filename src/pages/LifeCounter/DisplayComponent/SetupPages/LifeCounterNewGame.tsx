@@ -1,10 +1,10 @@
 import React from 'react';
 import { IonPage, IonButton, } from '@ionic/react';
 import './LifeCounterSetup.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
-import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../states/LifeCounterSetupState';
-import { PlayersContextConsumer, Players, PlayersContextProvider } from '../../states/LifeCounterPlayerState';
+import FooterTabs from '../../../../components/FooterTabs/FooterTabs';
+import Header from '../../../../components/Header/Header';
+import { GameContextConsumer, Game, saveGame, GameContextProvider } from '../../../../states/LifeCounterSetupState';
+import { PlayersContextConsumer, Players, PlayersContextProvider } from '../../../../states/LifeCounterPlayerState';
 
 
 const LifeCounterNewGame: React.FC = () => {
@@ -14,8 +14,11 @@ const LifeCounterNewGame: React.FC = () => {
       <GameContextProvider><PlayersContextProvider>
       {/* Displays the Header */}
       <Header headerLabel="Life Counter - New Game"/>
+
       <GameContextConsumer>
           {(context : Game) => (
+
+      // Button 1 - Create new game
       <IonButton href="/life-counter/set-players" class="newGameButton" shape="round" color="tertiary"
       onClick={e => {
         context == null ?
@@ -24,9 +27,11 @@ const LifeCounterNewGame: React.FC = () => {
       >New<br/>Game</IonButton>
       )}
       </GameContextConsumer>
+
+      {/* Button 2 - Continue Game */}
       <PlayersContextConsumer>
         {(context : Players) => (
-          (context.players == null)
+          (context.players == null) // checks if have stored game
           ? <IonButton class="newGameButton" shape="round" color="dark">Continue<br/>Game</IonButton>
           : <IonButton class="newGameButton" shape="round" color="tertiary" href="/life-counter/game">Continue<br/>Game</IonButton>
         )}

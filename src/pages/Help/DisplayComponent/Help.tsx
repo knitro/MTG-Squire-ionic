@@ -1,8 +1,8 @@
 import React from 'react';
 import { IonContent, IonPage, IonList } from '@ionic/react';
 import './Help.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
+import FooterTabs from '../../../components/FooterTabs/FooterTabs';
+import Header from '../../../components/Header/Header';
 import HelpCard from './SupportingComponents/HelpCard';
 
 const Help: React.FC = () => {
@@ -14,15 +14,7 @@ const Help: React.FC = () => {
       <Header headerLabel="Help"/>
 
       <IonContent>
-
         <IonList>
-          {/* <IonCard>
-            <IonTitle>Quick Search</IonTitle>
-            <IonText>
-              Quick Search finds the single card with the closest name to the given input.
-            </IonText>
-            <IonButton href="/quick-search">go to quick search</IonButton>
-          </IonCard> */}
           <HelpCard
             title = "Quick Search"
             text = "Quick Search finds the single card with the closest name to the given input."

@@ -4,8 +4,8 @@ import LifeTotalOnePlayer from './SupportingComponents/LifeTotalOnePlayer';
 import LifeTotalTwoPlayer from './SupportingComponents/LifeTotalTwoPlayer';
 import LifeTotalThreePlayer from './SupportingComponents/LifeTotalThreePlayer';
 import LifeTotalFourPlayer from './SupportingComponents/LifeTotalFourPlayer';
-import LifeTotalLeaveButton from './SupportingComponents/LifeTotalLeaveButton';
-import { PlayersContextConsumer, Players, PlayersContextProvider } from '../../states/LifeCounterPlayerState';
+import LifeTotalLeaveButton from './SupportingComponents/Button/LifeTotalLeaveButton';
+import { PlayersContextConsumer, Players, PlayersContextProvider } from '../../../states/LifeCounterPlayerState';
 
 const LifeCounter: React.FC = () => {
   return (
