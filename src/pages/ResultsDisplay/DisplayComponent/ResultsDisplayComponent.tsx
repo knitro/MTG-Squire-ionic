@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { IonContent, IonPage, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonRow, IonCol, IonText, IonSlides, IonSlide } from '@ionic/react';
 import './ResultsDisplay.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
-import ManaCost from '../../components/ManaCost/ManaCost';
-import { SearchState, MiscInformation } from '../../states/SearchState';
+import FooterTabs from '../../../components/FooterTabs/FooterTabs';
+import Header from '../../../components/Header/Header';
+import ManaCost from '../../../components/ManaCost/ManaCost';
+import { SearchState } from '../../../states/SearchState';
 import uuid from 'uuid';
-import OtherPrinting from './SupportingComponents/OtherPrinting';
-import StarCityGames from './SupportingComponents/StarCityGames';
-import ResultsDisplay, { ResultsDisplayState, Legality } from './ResultsDisplay';
+import OtherPrinting from '../SupportingComponents/OtherPrinting';
+import StarCityGames from '../SupportingComponents/StarCityGames';
+import ResultsDisplay, { ResultsDisplayState, Legality } from '../DisplayStateManager/ResultsDisplay';
+import { capitaliseFirstLetter, convertBooleanToString } from '../../../logic/stringHelper';
+import { getPrice } from '../Logic/ResultsDisplayLogic';
 
 interface ResultsDisplayComponentProps {
   state : ResultsDisplayState
@@ -23,6 +25,8 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
   const legalitiesFormatted = props.state.legalitiesFormatted;
   const additionalRulings = props.state.additionalRulings;
   const miscInformation = currentSearchState.misc;
+  const currencyTo = props.state.currentCurrency;
+  const currencyMapping = props.state.currencyMapping;
   const main = props.main;
 
   //Optional Parameters for Swiping (Ionic Slides)
@@ -147,8 +151,8 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
                     <IonCardTitle>{"ScryFall Prices"}</IonCardTitle>
                   </IonCardHeader>
                   <div>
-                    {getPrice("Scryfall", "USD", currentSearchState.prices.scryFallPricing_nonfoil, false, false, currentSearchState.misc)}
-                    {getPrice("Scryfall", "USD", currentSearchState.prices.scryFallPricing_foil, true, false, currentSearchState.misc)}
+                    {getPrice("Scryfall", "USD", currencyTo, currencyMapping, currentSearchState.prices.scryFallPricing_nonfoil, false, false, currentSearchState.misc)}
+                    {getPrice("Scryfall", "USD", currencyTo, currencyMapping, currentSearchState.prices.scryFallPricing_foil, true, false, currentSearchState.misc)}
                   </div>
                 </IonCard>
                 
@@ -290,62 +294,5 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
   );
 
 }
-
-////////////////////////
-/*Functions*/
-////////////////////////
-
-/**
- * Creates a React Component containing the card's price.
- * @param source - the Label of the source of the price
- * @param currency - 
- * @param price - the price of the card
- * @param isFoil - boolean whether the card's price is for a foil card
- * @param isOnline - boolean whether the card's price is for an online card
- * @param miscInfo - the MiscInformation of the unique card.
- */
-export function getPrice(source : string, currency : string, price : string, isFoil : boolean, isOnline : boolean, miscInfo: MiscInformation) {
-
-  if ( (isFoil && (miscInfo.foil === true)) || (!isFoil && (miscInfo.nonfoil === true)) ) {
-    if ((isOnline && (miscInfo.digital_only === true)) || (!isOnline && (miscInfo.digital_only === false))) {
-      if ("".localeCompare(price) !== 0) {
-        return (
-          <IonCardContent>
-            <IonText class="category-label">{source + " " + ((isFoil) ? ("Foil") : ("Non Foil")) + ": "}</IonText>
-            <IonText class="category-value">{price}</IonText>
-          </IonCardContent>
-        )
-      } else {
-        return (
-          <IonCardContent>
-            {source + ": Price Not Available"}
-          </IonCardContent>
-        )
-      }
-    }
-  }
-  
-  /*Fail Return*/
-  return (
-    <div></div>
-  );
-}
-
-/**
- * Capitalises the First Letter
- * @param input - the string to capitalise
- */
-export function capitaliseFirstLetter(input : string) : string {
-  return input.charAt(0).toUpperCase() + input.slice(1);
-}
-
-/**
- * Converts a boolean into a Yes/No string
- * @param input - the 
- */
-export function convertBooleanToString(input : boolean) : string {
-  return (input) ? "Yes" : "No";
-}
-
 
 export default ResultsDisplayComponent;

@@ -136,7 +136,7 @@ export async function getCurrency(currencySetting : string) : Promise<CurrencyIn
 /**
  * Retrieves the CurrencyInformation from storage.
  */
-async function getCurrencyStorage() : Promise<CurrencyInformation> {
+export async function getCurrencyStorage() : Promise<CurrencyInformation> {
 
   const storageReturn = await Storage.get({key: storageKey});
 

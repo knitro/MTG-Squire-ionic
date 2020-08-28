@@ -1,29 +1,29 @@
 import React from 'react';
-import { IonCardContent, IonText } from '@ionic/react';
-import './ResultsDisplay.css';
-import { SearchState, getSearchState, emptySearch, MiscInformation } from '../../states/SearchState';
-import ResultsDisplayComponent from './ResultsDisplayComponent';
+import { SearchState, getSearchState, emptySearch } from '../../../states/SearchState';
+import ResultsDisplayComponent from '../DisplayComponent/ResultsDisplayComponent';
+import { CurrencyInformation, emptyCurrencyInformation, getCurrencyStorage } from '../../../states/CurrencyState';
+import { getSettings } from '../../../states/SettingsState';
 
 ////////////////////////
 /*Interfaces*/
 ////////////////////////
 
 export interface Legality {
-  label: string //The Label to go with the Legality (The Format)
-  legality: string //The Legality Status
-  colour: string
+  label: string     //The Label to go with the Legality (The Format)
+  legality: string  //The Legality Status
+  colour: string    //The colour that the Format label should be
 };
 
 export interface ResultsDisplayState {
-  currentSearchState: SearchState //The Label to go with the Legality (The Format)
-  legalitiesFormatted: Legality[] //The Legality Status
-  additionalRulings: string[]
-  currentCurrency : string
-  currencyMapping
+  currentSearchState: SearchState       //The General Information of the current card
+  legalitiesFormatted: Legality[]       //The Legality Status of the current card
+  additionalRulings: string[]           //The Additional Rules of the current card
+  currentCurrency : string              //The Current Currency selected from the settings
+  currencyMapping : CurrencyInformation //The Current Currency Conversions
 };
 
 ////////////////////////
-/*Results Display Class*/
+/*DisplayStateManager: Results Display Class*/
 ////////////////////////
 
 class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
@@ -38,7 +38,8 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
       currentSearchState: emptySearch,
       legalitiesFormatted: [],
       additionalRulings: [],
-      currentCurrency : "USD"
+      currentCurrency : "",
+      currencyMapping : emptyCurrencyInformation
     }
   }
 
@@ -55,6 +56,8 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
     this.setState({currentSearchState: await getSearchState()});
     this.formatLegalities();
     this.setRulings();
+    this.setState({currentCurrency: (await getSettings()).currency});
+    this.setState({currencyMapping: await getCurrencyStorage()});
   }
 
   /**

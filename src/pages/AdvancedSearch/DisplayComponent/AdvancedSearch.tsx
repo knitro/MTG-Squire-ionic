@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { IonContent, IonPage, IonList, IonText, IonCheckbox, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonRow, IonCol, IonGrid, IonButton, IonLoading, IonAlert, IonInput } from '@ionic/react';
 import './AdvancedSearch.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
-import App from '../../App';
+import FooterTabs from '../../../components/FooterTabs/FooterTabs';
+import Header from '../../../components/Header/Header';
+import App from '../../../App';
 import { useHistory } from 'react-router';
-import { AdvancedSearchTerms } from '../../dataManagers/DataMangerInterfaces';
+import { AdvancedSearchTerms } from '../../../dataManagers/DataMangerInterfaces';
 
 const AdvancedSearch: React.FC = () => {
 
@@ -13,10 +13,12 @@ const AdvancedSearch: React.FC = () => {
   const history = useHistory();
 
   /*Hook Initialisation*/
+  //String Related Hooks
   const [mainSearchTerm, setMainSearchTerm] = useState<string>("");
   const [cardTypesValue, setCardTypesValue] = useState<string>("");
   const [cardTextValue, setCardTextValue] = useState<string>("");
 
+  //Colour Inclusion Hooks
   const [includeWhite, setIncludeWhite] = useState(false);
   const [includeBlue, setIncludeBlue] = useState(false);
   const [includeBlack, setIncludeBlack] = useState(false);
@@ -24,6 +26,7 @@ const AdvancedSearch: React.FC = () => {
   const [includeGreen, setIncludeGreen] = useState(false);
   const [includeColourless, setIncludeColourless] = useState(false);
 
+  //Colour Exclusion Hooks
   const [excludeWhite, setExcludeWhite] = useState(false);
   const [excludeBlue, setExcludeBlue] = useState(false);
   const [excludeBlack, setExcludeBlack] = useState(false);
@@ -31,6 +34,7 @@ const AdvancedSearch: React.FC = () => {
   const [excludeGreen, setExcludeGreen] = useState(false);
   const [excludeColourless, setExcludeColourless] = useState(false);
 
+  //Alert/Loading Hooks
   const [showAlert, setShowAlert] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
 
@@ -64,7 +68,6 @@ const AdvancedSearch: React.FC = () => {
                 onIonChange={
                   e => {
                     setMainSearchTerm(e.detail.value!);
-                    // mainSearchTerm = e.detail.value!;
                   } 
                 }
                 clearOnEdit={false}
@@ -173,7 +176,6 @@ const AdvancedSearch: React.FC = () => {
                 onIonChange={
                   e => {
                     setCardTypesValue(e.detail.value!);
-                    // cardTypesValue = e.detail.value!;
                   } 
                 }
               />
@@ -199,13 +201,13 @@ const AdvancedSearch: React.FC = () => {
                 onIonChange={
                   e => {
                     setCardTextValue(e.detail.value!);
-                    // cardTextValue = e.detail.value!;
                   } 
                 }
               />
             </IonCardContent>
           </IonCard>
 
+          {/*Search Button*/}
           <IonButton 
             color="primary"
             expand="block"
@@ -275,6 +277,7 @@ const AdvancedSearch: React.FC = () => {
 
         </IonList>
         
+        {/*Loading Popup*/}
         <IonLoading
           cssClass='ionLoading'
           isOpen={showLoading}
@@ -283,6 +286,7 @@ const AdvancedSearch: React.FC = () => {
           duration={10000}
         />
 
+        {/*Alert Popup*/}
         <IonAlert
           isOpen={showAlert}
           onDidDismiss={() => setShowAlert(false)}

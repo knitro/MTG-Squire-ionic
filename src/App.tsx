@@ -33,8 +33,7 @@ import SideBar from './components/SideBar/SideBar';
 import DataManager, { DatabaseLoad } from './dataManagers/DataManager'; 
 import ScryFall from './dataManagers/ScryFall/ScryFall';
 import { Plugins } from '@capacitor/core';
-import ResultsDisplay from './pages/ResultsDisplay/ResultsDisplay';
-import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
+import ResultsDisplay from './pages/ResultsDisplay/DisplayStateManager/ResultsDisplay';
 import SearchResults from './pages/SearchResults/SearchResults';
 import SearchHistory from './pages/SearchHistory/SearchHistory';
 import Dice from './pages/Dice/Dice';
@@ -44,6 +43,7 @@ import TradeCards from './pages/TradeCards/TradeCards';
 import QuickSearchDownloaded from './pages/QuickSearch/QuickSearchDownloaded';
 import Settings from './pages/Settings/Settings';
 import Help from './pages/Help/Help';
+import AdvancedSearch from './pages/AdvancedSearch/DisplayComponent/AdvancedSearch';
 
 export interface DatabaseState {
   database : DataManager;
