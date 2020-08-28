@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert } from '@ionic/react';
 import uuid from 'uuid';
 import { SearchState, getSearchState, emptySearch } from '../../../states/SearchState';
-import ResultsDisplay from '../ResultsDisplay';
+import ResultsDisplay from '../DisplayStateManager/ResultsDisplay';
 import App from '../../../App';
 
 interface OtherPrintingProps {

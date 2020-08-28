@@ -6,7 +6,6 @@ export enum LiveSearchCategory {
   Cards,
   Rules,
   SetEV,
-  Settings
 }
 
 interface SearchBarProps {
@@ -30,10 +29,6 @@ const LiveSearchBar = (props : SearchBarProps) => {
       <div></div>
     );
   } else if (category === LiveSearchCategory.SetEV) {
-    return (
-      <div></div>
-    );
-  } else if (category === LiveSearchCategory.Settings) {
     return (
       <div></div>
     );

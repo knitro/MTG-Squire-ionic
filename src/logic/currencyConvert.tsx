@@ -1,21 +1,47 @@
-////////////////////////
-/*Imports*/
-////////////////////////
-
 import { CurrencyInformation } from '../states/CurrencyState';
 
 ////////////////////////
-/*Functions*/
+/*Exported Functions*/
 ////////////////////////
 
 /**
- * Gets a currency value from the function
- * While it could use a shortened form using 
- * it allows for possible customisation of inputs
- * @param type want string of currency type
- * @param currencies storage class of currency
+ * Converts the value parameter to the appropriate value after currency conversions.
+ * This function will return -1 if either of the currencies are not recognised.
+ * @param value - the value to convert
+ * @param currencyFrom - the currency of the value param
+ * @param currencyTo - the currency to convert value to
+ * @param currencyInformation - the currency value information to supply the currency conversions.
  */
-export function getCurrencyValue(type : string, currencies : CurrencyInformation) {
+export function getConvertedValue(value : number, currencyFrom : string, currencyTo: string, currencyInformation : CurrencyInformation) : number {
+
+  /*Get the Currency Values*/
+  let currencyFromValue : number = getCurrencyValue(currencyFrom, currencyInformation);
+  let currencyToValue : number = getCurrencyValue(currencyTo, currencyInformation);
+
+  //Check for Valid Currency Values
+  if ((currencyFromValue === -1) || (currencyToValue === -1)) {
+    return -1; //Denotes a Failed Conversion
+  }
+
+  /*Adjust the value with the appropriate Currency Conversions*/
+  let returnValue : number = value;
+  returnValue /= currencyFromValue;
+  returnValue *= currencyToValue;
+
+  return returnValue;
+}
+
+////////////////////////
+/*Local Functions*/
+////////////////////////
+
+/**
+ * Returns the currency rate in relation to the base currency (USD) of the "type" parameter.
+ * If an invalid string is provided, a value of -1 is returned instead to denote a failure.
+ * @param type - the currency string
+ * @param currencies - the storage class of currency
+ */
+function getCurrencyValue(type : string, currencies : CurrencyInformation) : number {
   if ("CAD".localeCompare(type))
     return currencies.rates.CAD;
   else if ("HKD".localeCompare(type))
@@ -83,6 +109,6 @@ export function getCurrencyValue(type : string, currencies : CurrencyInformation
   else if ("USD".localeCompare(type))
     return currencies.rates.USD;
   else
-    return 0;
+    return -1;
 }
 

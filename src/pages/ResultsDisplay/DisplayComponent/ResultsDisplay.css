@@ -1,11 +1,6 @@
 .cardImage {
   max-width: 100%;
   height: auto;
-  /* 
-  min-width: 75%;
-  max-width: 75%;
-  transform: translateX(17.5%); 
-  */
 }
 
 /* Without setting height the slides will take up the height of the slide's content */
@@ -16,9 +11,6 @@ ion-slides {
 }
 
 ion-slide {
-  /* height: 100%; */
-  /* min-height: 100%; */
-  /* width: 100% !important; */
   display: flex;
 }
 
@@ -26,9 +18,6 @@ ion-card {
   display: flex;
   flex-direction: column;
   text-align: left;
-  /* min-width: 95% !important; */
-  /* max-width: 95%; */
-  /* margin: 2.5%; */
 }
 
 /*Eg. "Exists Foil Version"*/
