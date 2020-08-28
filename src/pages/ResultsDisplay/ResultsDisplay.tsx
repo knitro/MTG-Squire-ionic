@@ -18,7 +18,7 @@ export interface ResultsDisplayState {
   currentSearchState: SearchState //The Label to go with the Legality (The Format)
   legalitiesFormatted: Legality[] //The Legality Status
   additionalRulings: string[]
-  currency : string
+  currentCurrency : string
 };
 
 ////////////////////////
