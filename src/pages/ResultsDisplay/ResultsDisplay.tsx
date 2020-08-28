@@ -19,6 +19,7 @@ export interface ResultsDisplayState {
   legalitiesFormatted: Legality[] //The Legality Status
   additionalRulings: string[]
   currentCurrency : string
+  currencyMapping
 };
 
 ////////////////////////

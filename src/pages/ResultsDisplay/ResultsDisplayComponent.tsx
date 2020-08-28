@@ -298,6 +298,7 @@ const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
 /**
  * Creates a React Component containing the card's price.
  * @param source - the Label of the source of the price
+ * @param currency - 
  * @param price - the price of the card
  * @param isFoil - boolean whether the card's price is for a foil card
  * @param isOnline - boolean whether the card's price is for an online card
