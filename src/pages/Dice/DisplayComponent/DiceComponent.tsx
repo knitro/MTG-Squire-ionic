@@ -1,84 +1,25 @@
 import React, { useState } from 'react';
-import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonButton, IonInput, IonLabel, IonList, IonCard, IonText, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent } from '@ionic/react';
 import './Dice.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
-import { rollCustom, flipCoin, rollD6, rollD20 } from './Logic/DiceHelper';
-import { DiceHistoryState, getDiceHistory, clearDiceHistory } from '../../states/DiceHistoryState';
+import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonButton, IonInput, IonLabel, IonList, IonCard, IonText, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent } from '@ionic/react';
+import FooterTabs from '../../../components/FooterTabs/FooterTabs';
+import Header from '../../../components/Header/Header';
+import { rollCustom, flipCoin, rollD6, rollD20 } from '../Logic/DiceHelper';
+import { DiceHistoryState } from '../../../states/DiceHistoryState';
 import uuid from 'uuid';
-import { getSettings } from '../../states/SettingsState';
+import Dice, { DiceState } from '../DisplayStateManager/Dice';
 
-export interface DiceState {
-  currentDiceHistoryState: DiceHistoryState[];
-  maxHistoryNumber : number;
-};
-
+/**
+ * Interface for input of DiceComponent
+ */
 interface DiceComponentProps {
   state : DiceState
   main : Dice
 };
 
-class Dice extends React.Component<{}, DiceState> {
-
-  maxHistoryNumber : number;
-
-  ////////////////////////
-  /*Constructor*/
-  ////////////////////////
-
-  constructor(props : any) {
-    super(props);
-    this.state = {
-      currentDiceHistoryState: [],
-      maxHistoryNumber: 0,
-    }
-    this.maxHistoryNumber = 0;
-  }
-
-  ////////////////////////
-  /*Methods*/
-  ////////////////////////
-
-  /**
-   * Updates the Components when async results.
-   */
-  async componentDidMount() {
-
-    let retrievedMaxHistoryNumber : number = (await getSettings()).diceStored;
-
-    this.setState({
-      currentDiceHistoryState: await getDiceHistory(),
-      maxHistoryNumber: retrievedMaxHistoryNumber
-    });
-    this.maxHistoryNumber = retrievedMaxHistoryNumber;
-  }
-
-  updateDiceHistory() {
-    getDiceHistory().then(e => {
-
-      this.setState({currentDiceHistoryState : e, maxHistoryNumber: this.maxHistoryNumber});
-    });
-  }
-
-  clearDiceHistory() {
-    clearDiceHistory().then(e => {
-      this.setState({currentDiceHistoryState : [], maxHistoryNumber: this.maxHistoryNumber});
-    });
-  }
-
-  ////////////////////////
-  /*Render*/
-  ////////////////////////
-
-  render() {
-    return (
-      <DiceComponent state={this.state} main={this}/>
-    );
-  }
-
-}
-
-
+/**
+ * Component used by Dice
+ * @param props - inputs for component of state and main Dice class
+ */
 const DiceComponent = (props : DiceComponentProps) => {
 
   /*Variable Initialisation*/
@@ -165,7 +106,7 @@ const DiceComponent = (props : DiceComponentProps) => {
 
               </IonRow>
               
-              {/*Custom Die Button*/}
+              {/*Custom Die Input Field*/}
               <IonRow>
                 <IonCol>
                   <IonInput
@@ -174,6 +115,7 @@ const DiceComponent = (props : DiceComponentProps) => {
                         setCustom(Math.ceil(Number(e.detail.value!)))
                     }}/>
                 </IonCol>
+              {/*Custom Die Button*/}
                 <IonCol>
                   <IonButton
                   onClick={e => {
@@ -239,4 +181,4 @@ const DiceComponent = (props : DiceComponentProps) => {
   );
 };
 
-export default Dice;
+export default DiceComponent;

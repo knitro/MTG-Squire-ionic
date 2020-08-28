@@ -5,7 +5,6 @@
 import { Plugins } from '@capacitor/core';
 import axios from 'axios';
 
-
 ////////////////////////
 /*Local Initialisation*/
 ////////////////////////

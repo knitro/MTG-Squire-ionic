@@ -36,12 +36,12 @@ import { Plugins } from '@capacitor/core';
 import ResultsDisplay from './pages/ResultsDisplay/DisplayStateManager/ResultsDisplay';
 import SearchResults from './pages/SearchResults/SearchResults';
 import SearchHistory from './pages/SearchHistory/SearchHistory';
-import Dice from './pages/Dice/Dice';
+import Dice from './pages/Dice/DisplayStateManager/Dice';
 import SetEVs from './pages/SetEVs/SetEVs';
 import Rules from './pages/Rules/Rules';
 import TradeCards from './pages/TradeCards/TradeCards';
 import QuickSearchDownloaded from './pages/QuickSearch/QuickSearchDownloaded';
-import Settings from './pages/Settings/Settings';
+import Settings from './pages/Settings/DisplayStateManager/Settings';
 import Help from './pages/Help/Help';
 import AdvancedSearch from './pages/AdvancedSearch/DisplayComponent/AdvancedSearch';
 

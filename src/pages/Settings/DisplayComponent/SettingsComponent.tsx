@@ -1,52 +1,23 @@
 import React, { useState } from 'react';
-import { IonContent, IonPage, IonList, IonCard, IonGrid, IonRow, IonCol, IonInput, IonButton, IonSelectOption, IonSelect, IonTitle, IonLabel } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonCard, IonGrid, IonRow, IonCol, IonInput, IonButton, IonSelectOption, IonSelect, IonTitle } from '@ionic/react';
 import './Settings.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
-import { updateSettings, updateSettingCurrency } from "./SettingsHelper";
-import { SettingsState, defaultSettings, getSettings } from '../../states/SettingsState';
+import FooterTabs from '../../../components/FooterTabs/FooterTabs';
+import Header from '../../../components/Header/Header';
+import { SettingsState } from '../../../states/SettingsState';
+import Settings from '../DisplayStateManager/Settings';
 
+/**
+ * Interface for input of SettingsDisplayComponent
+ */
 interface SettingsComponentProps {
   state : SettingsState;
   main : Settings;
 };
 
-class Settings extends React.Component<{}, SettingsState> {
-
-  // maxHistoryNumber : number;
-  constructor(props : any) {
-    super(props);
-    this.state = defaultSettings;
-    // console.log("test",this.state);
-    // this.maxHistoryNumber = 0;
-  }
-
-  async componentDidMount() {
-    this.setState(await getSettings());
-  }
-
-  async updateSettingsValue(key : string, value : number) {
-    await updateSettings(key,value);
-    getSettings().then(e => {
-      this.setState(e);
-    });
-  }
-  async updateSettingsValueCurrency(value : string) {
-    await updateSettingCurrency(value);
-    getSettings().then(e => {
-      this.setState(e);
-    });
-
-  }
-
-
-  render() {
-    return (
-      <SettingsDisplayComponent state={this.state} main={this}/>
-    );
-  }
-}
-
+/**
+ * Display Component used by Settings
+ * @param props - inputs for component of state and main Settings class
+ */
 const SettingsDisplayComponent = (props : SettingsComponentProps) => {
 
   /*Variable Initialisation*/
@@ -66,9 +37,9 @@ const SettingsDisplayComponent = (props : SettingsComponentProps) => {
       <IonContent>
 
         <IonList>
+          {/* Card 1 : Card Searches Stored */}
           <IonCard>
-            <IonTitle class="settingsTitle"
-            > 
+            <IonTitle class="settingsTitle"> 
               {"Number of previous searches stored:"} 
             </IonTitle>
             <IonTitle class="settingsText">
@@ -86,7 +57,6 @@ const SettingsDisplayComponent = (props : SettingsComponentProps) => {
                 <IonCol>
                   <IonButton
                   onClick={e => {
-                    // updateSettings('searchStored',searchStored);
                     settingsClass.updateSettingsValue('searchStored',searchStored);
                   }}>
                     {"Save"}
@@ -95,6 +65,7 @@ const SettingsDisplayComponent = (props : SettingsComponentProps) => {
               </IonRow>
             </IonGrid>
           </IonCard>
+          {/* Card 2 : Dice Rolls Stored */}
           <IonCard>
             <IonTitle class="settingsTitle">
               {"Number of previous dice rolls stored:"} 
@@ -122,8 +93,9 @@ const SettingsDisplayComponent = (props : SettingsComponentProps) => {
               </IonRow>
             </IonGrid>
           </IonCard>
+          {/* Card 3 : Currency */}
           <IonCard>
-            <IonTitle class="settingsText">
+            <IonTitle class="settingsTitle">
               {"Change Currency:"}
             </IonTitle>
             <IonSelect value={state.currency} 
@@ -177,42 +149,4 @@ const SettingsDisplayComponent = (props : SettingsComponentProps) => {
   );
 };
 
-// const SettingsDisplayComponent = (props : SettingsComponentProps) => {
-
-//   /*Variable Initialisation*/
-//     let state : SettingsState = props.state;
-//     let settingsClass : Settings = props.main;
-
-//   return (
-    
-//     <IonPage>
-//       {/* Displays the Header */}
-//       <Header headerLabel="Settings"/>
-
-//       <IonContent>
-
-//               <IonLabel>
-//               {
-//                 state.searchStored
-//               }
-//             </IonLabel>
-//             <IonButton
-//             // onClick={e => {
-//               // console.log(state);
-//               // console.log(settingsClass);
-//             // }
-//             // }
-//             >
-//               test
-//             </IonButton>
-
-//       </IonContent>
-
-//       {/* Displays Tabs at the Bottom */}
-//       <FooterTabs/>
-      
-//     </IonPage>
-//   );
-// };
-
-export default Settings;
+export default SettingsDisplayComponent;
