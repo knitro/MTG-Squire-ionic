@@ -17,7 +17,6 @@ export function getConvertedValue(value : number, currencyFrom : string, currenc
   /*Get the Currency Values*/
   let currencyFromValue : number = getCurrencyValue(currencyFrom, currencyInformation);
   let currencyToValue : number = getCurrencyValue(currencyTo, currencyInformation);
-
   //Check for Valid Currency Values
   if ((currencyFromValue === -1) || (currencyToValue === -1)) {
     return -1; //Denotes a Failed Conversion
@@ -42,71 +41,71 @@ export function getConvertedValue(value : number, currencyFrom : string, currenc
  * @param currencies - the storage class of currency
  */
 function getCurrencyValue(type : string, currencies : CurrencyInformation) : number {
-  if ("CAD".localeCompare(type))
+  if ("CAD".localeCompare(type) === 0)
     return currencies.rates.CAD;
-  else if ("HKD".localeCompare(type))
+  else if ("HKD".localeCompare(type) === 0)
     return currencies.rates.HKD;
-  else if ("ISK".localeCompare(type))
+  else if ("ISK".localeCompare(type) === 0)
     return currencies.rates.ISK;
-  else if ("PHP".localeCompare(type))
+  else if ("PHP".localeCompare(type) === 0)
     return currencies.rates.PHP;
-  else if ("DKK".localeCompare(type))
+  else if ("DKK".localeCompare(type) === 0)
     return currencies.rates.DKK;
-  else if ("HUF".localeCompare(type))
+  else if ("HUF".localeCompare(type) === 0)
     return currencies.rates.HUF;
-  else if ("CZK".localeCompare(type))
+  else if ("CZK".localeCompare(type) === 0)
     return currencies.rates.CZK;
-  else if ("GBP".localeCompare(type))
+  else if ("GBP".localeCompare(type) === 0)
     return currencies.rates.GBP;
-  else if ("RON".localeCompare(type))
+  else if ("RON".localeCompare(type) === 0)
     return currencies.rates.RON;
-  else if ("SEK".localeCompare(type))
+  else if ("SEK".localeCompare(type) === 0)
     return currencies.rates.SEK;
-  else if ("IDR".localeCompare(type))
+  else if ("IDR".localeCompare(type) === 0)
     return currencies.rates.IDR;
-  else if ("INR".localeCompare(type))
+  else if ("INR".localeCompare(type) === 0)
     return currencies.rates.INR;
-  else if ("BRL".localeCompare(type))
+  else if ("BRL".localeCompare(type) === 0)
     return currencies.rates.BRL;
-  else if ("RUB".localeCompare(type))
+  else if ("RUB".localeCompare(type) === 0)
     return currencies.rates.RUB;
-  else if ("HRK".localeCompare(type))
+  else if ("HRK".localeCompare(type) === 0)
     return currencies.rates.HRK;
-  else if ("JPY".localeCompare(type))
+  else if ("JPY".localeCompare(type) === 0)
     return currencies.rates.JPY;
-  else if ("THB".localeCompare(type))
+  else if ("THB".localeCompare(type) === 0)
     return currencies.rates.THB;
-  else if ("CHF".localeCompare(type))
+  else if ("CHF".localeCompare(type) === 0)
     return currencies.rates.CHF;
-  else if ("EUR".localeCompare(type))
+  else if ("EUR".localeCompare(type) === 0)
     return currencies.rates.EUR;
-  else if ("MYR".localeCompare(type))
+  else if ("MYR".localeCompare(type) === 0)
     return currencies.rates.MYR;
-  else if ("BGN".localeCompare(type))
+  else if ("BGN".localeCompare(type) === 0)
     return currencies.rates.BGN;
-  else if ("TRY".localeCompare(type))
+  else if ("TRY".localeCompare(type) === 0)
     return currencies.rates.TRY;
-  else if ("CNY".localeCompare(type))
+  else if ("CNY".localeCompare(type) === 0)
     return currencies.rates.CNY;
-  else if ("NOK".localeCompare(type))
+  else if ("NOK".localeCompare(type) === 0)
     return currencies.rates.NOK;
-  else if ("NZD".localeCompare(type))
+  else if ("NZD".localeCompare(type) === 0)
     return currencies.rates.NZD;
-  else if ("ZAR".localeCompare(type))
+  else if ("ZAR".localeCompare(type) === 0)
     return currencies.rates.ZAR;
-  else if ("MXN".localeCompare(type))
+  else if ("MXN".localeCompare(type) === 0)
     return currencies.rates.MXN;
-  else if ("SGD".localeCompare(type))
+  else if ("SGD".localeCompare(type) === 0)
     return currencies.rates.SGD;
-  else if ("AUD".localeCompare(type))
+  else if ("AUD".localeCompare(type) === 0)
     return currencies.rates.AUD;
-  else if ("ILS".localeCompare(type))
+  else if ("ILS".localeCompare(type) === 0)
     return currencies.rates.ILS;
-  else if ("KRW".localeCompare(type))
+  else if ("KRW".localeCompare(type) === 0)
     return currencies.rates.KRW;
-  else if ("PLN".localeCompare(type))
+  else if ("PLN".localeCompare(type) === 0)
     return currencies.rates.PLN;
-  else if ("USD".localeCompare(type))
+  else if ("USD".localeCompare(type) === 0)
     return currencies.rates.USD;
   else
     return -1;
