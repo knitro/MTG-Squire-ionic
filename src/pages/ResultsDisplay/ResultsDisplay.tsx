@@ -1,33 +1,23 @@
-import React, { useState } from 'react';
-import { IonContent, IonPage, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonRow, IonCol, IonText, IonSlides, IonSlide } from '@ionic/react';
+import React from 'react';
+import { IonCardContent, IonText } from '@ionic/react';
 import './ResultsDisplay.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
-import ManaCost from '../../components/ManaCost/ManaCost';
 import { SearchState, getSearchState, emptySearch, MiscInformation } from '../../states/SearchState';
-import uuid from 'uuid';
-import OtherPrinting from './SupportingComponents/OtherPrinting';
-import StarCityGames from './SupportingComponents/StarCityGames';
+import ResultsDisplayComponent from './ResultsDisplayComponent';
 
 ////////////////////////
 /*Interfaces*/
 ////////////////////////
 
-interface legality {
+export interface Legality {
   label: string //The Label to go with the Legality (The Format)
   legality: string //The Legality Status
   colour: string
 };
 
-interface ResultsDisplayState {
+export interface ResultsDisplayState {
   currentSearchState: SearchState //The Label to go with the Legality (The Format)
-  legalitiesFormatted: legality[] //The Legality Status
+  legalitiesFormatted: Legality[] //The Legality Status
   additionalRulings: string[]
-};
-
-interface ResultsDisplayComponentProps {
-  state : ResultsDisplayState
-  main : ResultsDisplay
 };
 
 ////////////////////////
@@ -42,28 +32,26 @@ interface ResultsDisplayComponentProps {
  * @param isOnline - boolean whether the card's price is for an online card
  * @param miscInfo - the MiscInformation of the unique card.
  */
-function getPrice(source : string, price : string, isFoil : boolean, isOnline : boolean, miscInfo: MiscInformation) {
+export function getPrice(source : string, price : string, isFoil : boolean, isOnline : boolean, miscInfo: MiscInformation) {
 
-  // if ((typeof miscInfo.nonfoil != 'undefined') && (typeof miscInfo.foil != 'undefined') && (typeof miscInfo.digital_only != 'undefined')) {
-    if ( (isFoil && (miscInfo.foil === true)) || (!isFoil && (miscInfo.nonfoil === true)) ) {
-      if ((isOnline && (miscInfo.digital_only === true)) || (!isOnline && (miscInfo.digital_only === false))) {
-        if ("".localeCompare(price) !== 0) {
-          return (
-            <IonCardContent>
-              <IonText class="category-label">{source + " " + ((isFoil) ? ("Foil") : ("Non Foil")) + ": "}</IonText>
-              <IonText class="category-value">{price}</IonText>
-            </IonCardContent>
-          )
-        } else {
-          return (
-            <IonCardContent>
-              {source + ": Price Not Available"}
-            </IonCardContent>
-          )
-        }
+  if ( (isFoil && (miscInfo.foil === true)) || (!isFoil && (miscInfo.nonfoil === true)) ) {
+    if ((isOnline && (miscInfo.digital_only === true)) || (!isOnline && (miscInfo.digital_only === false))) {
+      if ("".localeCompare(price) !== 0) {
+        return (
+          <IonCardContent>
+            <IonText class="category-label">{source + " " + ((isFoil) ? ("Foil") : ("Non Foil")) + ": "}</IonText>
+            <IonText class="category-value">{price}</IonText>
+          </IonCardContent>
+        )
+      } else {
+        return (
+          <IonCardContent>
+            {source + ": Price Not Available"}
+          </IonCardContent>
+        )
       }
     }
-  // }
+  }
   
   /*Fail Return*/
   return (
@@ -75,7 +63,7 @@ function getPrice(source : string, price : string, isFoil : boolean, isOnline : 
  * Capitalises the First Letter
  * @param input - the string to capitalise
  */
-function capitaliseFirstLetter(input : string) : string {
+export function capitaliseFirstLetter(input : string) : string {
   return input.charAt(0).toUpperCase() + input.slice(1);
 }
 
@@ -83,7 +71,7 @@ function capitaliseFirstLetter(input : string) : string {
  * Converts a boolean into a Yes/No string
  * @param input - the 
  */
-function convertBooleanToString(input : boolean) : string {
+export function convertBooleanToString(input : boolean) : string {
   return (input) ? "Yes" : "No";
 }
 
@@ -92,12 +80,6 @@ function convertBooleanToString(input : boolean) : string {
 ////////////////////////
 
 class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
-
-  ////////////////////////
-  /*Fields*/
-  ////////////////////////
-
-  //None
 
   ////////////////////////
   /*Constructor*/
@@ -153,7 +135,7 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
 
     /*Variable Simplification*/
     let search : SearchState = this.state.currentSearchState;
-    let array : legality[] = this.state.legalitiesFormatted;
+    let array : Legality[] = this.state.legalitiesFormatted;
 
     /*Re-Add to the String[]*/
     //Standard
@@ -189,7 +171,7 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
    * @param format - the Format String to be printed at the start
    * @param legalityString - the Legality string from the legality interface
    */
-  formatLegality(format: string, legalityString : string) : legality {
+  formatLegality(format: string, legalityString : string) : Legality {
 
     let formatCleaned : string = format + ": ";
 
@@ -219,285 +201,5 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
   }
  
 };
-
-////////////////////////
-/*Results Display Component*/
-////////////////////////
-
-const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
-
-  /*Variable Initialisation*/
-  //Props
-  const currentSearchState = props.state.currentSearchState;
-  const legalitiesFormatted = props.state.legalitiesFormatted;
-  const additionalRulings = props.state.additionalRulings;
-  const miscInformation = currentSearchState.misc;
-  const main = props.main;
-
-  //Optional Parameters for Swiping (Ionic Slides)
-  const slideOpts = {
-    initialSlide: 1,
-    speed: 300,
-    autoHeight: true,
-  };
-
-  //Slider's Swiper
-  const [swiper, setSwiper] = useState<any>({});
-
-  const init = async function(this: any) {
-      setSwiper(await this.getSwiper());
-  };
-
-  /*Display*/ 
-  return (
-    
-    <IonPage>
-      {/* Displays the Header */}
-      <Header headerLabel={currentSearchState.cardName}/>
-      
-      <IonContent>
-
-        <IonSlides pager={true} options={slideOpts} id="slides"onIonSlidesDidLoad={init}>
-            
-          {/* IonSlide 1: Other Printings */}
-          <IonSlide>
-            <IonList>
-
-              {/* IonCard 1:  All Printings Header*/}
-              <IonCard color="secondary">
-                <IonCardHeader>
-                  <IonCardSubtitle>{"All Printings for:"}</IonCardSubtitle>
-                  <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
-                </IonCardHeader>
-              </IonCard>
-              <div>
-                {currentSearchState.otherPrints.map((renderSearchState : SearchState) =>
-                  <OtherPrinting key={uuid.v4()} currentSearchState={renderSearchState} display={main} swiper={swiper}/>
-                )}
-              </div>
-
-            </IonList>
-          </IonSlide>
-
-          {/*Ion Slide 2: General Card Information*/}
-          <IonSlide>
-            <IonList>
-            
-              {/* IonCard 1: Name + Image */}
-              <IonCard color="secondary">
-                <IonCardHeader>
-                  <IonRow>
-                    <IonCol>
-                      <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
-                    </IonCol>
-                    <IonCol>
-                      <ManaCost cost={currentSearchState.manaCost}/>
-                    </IonCol>
-                  </IonRow>
-                  <IonCardSubtitle>{currentSearchState.fullType}</IonCardSubtitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  <img src={currentSearchState.imageLink} alt={currentSearchState.imageLink}/>
-                </IonCardContent>
-              </IonCard>
-              
-              {/* IonCard 2:  Oracle Text*/}
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>{"Oracle Text"}</IonCardTitle>
-                </IonCardHeader>
-                <div>
-                  {currentSearchState.oracleText.split("\n").map((currentItem: string) => 
-                    <IonCardContent key={uuid.v4()}>
-                      {currentItem}
-                    </IonCardContent>
-                  )}
-                </div>
-              </IonCard>
-
-              {/* IonCard 3:  Additional Rulings*/}
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>{"Additional Rulings"}</IonCardTitle>
-                </IonCardHeader>
-                <div>
-                    {additionalRulings.map((currentItem: string) => 
-                      <IonCardContent key={uuid.v4()}>
-                        {currentItem}
-                      </IonCardContent>
-                    )}
-                </div>
-              </IonCard>
-
-            </IonList>
-          </IonSlide>
-
-          {/* IonSlide 3: Pricing */}
-          <IonSlide>
-            {/* <IonList> */}
-              <IonList>
-                
-                {/*IonCard 0: Image Card*/}
-                <IonCard>
-                  <img src={currentSearchState.imageOnlyLink} alt={currentSearchState.imageOnlyLink}/>
-                </IonCard>
-
-                {/* IonCards 1: Prices and Purchase Link Header*/}
-                <IonCard color="secondary">
-                  <IonCardHeader>
-                    <IonCardSubtitle>{"Prices for:"}</IonCardSubtitle>
-                    <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
-                  </IonCardHeader>
-                </IonCard>
-
-                {/* IonCards 2:  Pricing*/}
-                <IonCard class="fullScreenCard">
-                  <IonCardHeader>
-                    <IonCardTitle>{"ScryFall Prices"}</IonCardTitle>
-                  </IonCardHeader>
-                  <div>
-                    {getPrice("Scryfall USD", currentSearchState.prices.scryFallPricing_nonfoil, false, false, currentSearchState.misc)}
-                    {getPrice("Scryfall USD", currentSearchState.prices.scryFallPricing_foil, true, false, currentSearchState.misc)}
-                  </div>
-                </IonCard>
-                
-                {/* IonCards 3:  Prices and Purchase Link Header*/}
-                <IonCard color="secondary">
-                  <IonCardHeader>
-                    <IonCardSubtitle>{"Purchase Links for:"}</IonCardSubtitle>
-                    <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
-                  </IonCardHeader>
-                </IonCard>
-
-                {/* IonCards 4:  Purchase Links*/}
-                <StarCityGames search={currentSearchState}/>
-              
-              </IonList>
-
-          </IonSlide>
-
-          
-          {/* IonSlide 4: Legalities */}
-          <IonSlide>
-            <IonList>
-              
-              {/*IonCard 0: Image Card*/}
-              <IonCard>
-                <img src={currentSearchState.imageOnlyLink} alt={currentSearchState.imageOnlyLink}/>
-              </IonCard>
-
-              {/* IonCards 1: Legality Header*/}
-              <IonCard color="secondary">
-                  <IonCardHeader>
-                    <IonCardSubtitle>{"Format Legality for:"}</IonCardSubtitle>
-                    <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
-                  </IonCardHeader>
-                </IonCard>
-
-              {/* IonCard 2: Legalities */}
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>{"Legalities"}</IonCardTitle>
-                </IonCardHeader>
-                <div>
-                    {legalitiesFormatted.map((currentItem: legality) => 
-                      <IonCardContent key={uuid.v4()}>
-                        <IonText class="category-label">{currentItem.label}</IonText>
-                        <IonText class="category-value" color={currentItem.colour}>{currentItem.legality}</IonText>
-                      </IonCardContent>
-                    )}
-                </div>
-              </IonCard>
-            </IonList>
-          </IonSlide>
-            
-          {/* IonSlide 5: Misc Information */}
-          <IonSlide>
-            <IonList>
-              
-              {/*IonCard 0: Image Card*/}
-              <IonCard>
-                <img src={currentSearchState.imageOnlyLink} alt={currentSearchState.imageOnlyLink}/>
-              </IonCard>
-
-              {/* IonCards 1: Misc Information Header*/}
-              <IonCard color="secondary">
-                  <IonCardHeader>
-                    <IonCardSubtitle>{"Miscellaneous Information for:"}</IonCardSubtitle>
-                    <IonCardTitle>{currentSearchState.cardName}</IonCardTitle>
-                  </IonCardHeader>
-                </IonCard>
-
-              {/* IonCard 2:  Misc Information*/}
-              <IonCard class="fullScreenCard">
-
-                <IonCardHeader>
-                  <IonCardTitle>{"Miscellaneous Information"}</IonCardTitle>
-                </IonCardHeader>
-                
-                <IonCardContent>  
-                  <IonText class="category-label">{"Released Date: "}</IonText>
-                  <IonText class="category-value" color="dark">{capitaliseFirstLetter(miscInformation.released)}</IonText>
-                </IonCardContent>
-                
-                <IonCardContent>  
-                  <IonText class="category-label">{"Artist: "}</IonText>
-                  <IonText class="category-value" color="dark">{capitaliseFirstLetter(miscInformation.artist)}</IonText>
-                </IonCardContent>
-                
-                <IonCardContent>  
-                  <IonText class="category-label">{"Rarity: "}</IonText>
-                  <IonText class="category-value" color="dark">{capitaliseFirstLetter(miscInformation.rarity)}</IonText>
-                </IonCardContent>
-
-                <IonCardContent>  
-                  <IonText class="category-label">{"Collector Number: "}</IonText>
-                  <IonText class="category-value" color="dark">{capitaliseFirstLetter(miscInformation.collector_number)}</IonText>
-                </IonCardContent>
-
-                <IonCardContent>  
-                  <IonText class="category-label">{"Exists Non-Foil Version: "}</IonText>
-                  <IonText class="category-value" color="dark">{convertBooleanToString(miscInformation.nonfoil)}</IonText>
-                </IonCardContent>
-
-                <IonCardContent>  
-                  <IonText class="category-label">{"Exists Foil Version: "}</IonText>
-                  <IonText class="category-value" color="dark">{convertBooleanToString(miscInformation.foil)}</IonText>
-                </IonCardContent>
-
-                <IonCardContent>  
-                  <IonText class="category-label">{"Is a Promo Variant: "}</IonText>
-                  <IonText class="category-value" color="dark">{convertBooleanToString(miscInformation.promo)}</IonText>
-                </IonCardContent>
-
-                <IonCardContent>  
-                  <IonText class="category-label">{"Is it a Reprint?: "} </IonText>
-                  <IonText class="category-value" color="dark">{capitaliseFirstLetter(miscInformation.rarity)}</IonText>
-                </IonCardContent>
-
-                <IonCardContent>  
-                  <IonText class="category-label">{"Frame Version: "}</IonText>
-                  <IonText class="category-value" color="dark">{capitaliseFirstLetter(miscInformation.frame)}</IonText>
-                </IonCardContent>
-
-                <IonCardContent>  
-                  <IonText class="category-label">{"On the Reserve List?: "} </IonText>
-                  <IonText class="category-value" color="dark">{convertBooleanToString(miscInformation.reserved)}</IonText>
-                </IonCardContent>
-
-              </IonCard>
-            </IonList>
-          </IonSlide>
-
-        </IonSlides>
-      </IonContent>
-
-      {/* Displays Tabs at the Bottom */}
-      <FooterTabs/>
-
-    </IonPage>
-  );
-
-}
 
 export default ResultsDisplay;
