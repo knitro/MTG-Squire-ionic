@@ -18,62 +18,8 @@ export interface ResultsDisplayState {
   currentSearchState: SearchState //The Label to go with the Legality (The Format)
   legalitiesFormatted: Legality[] //The Legality Status
   additionalRulings: string[]
+  currency : string
 };
-
-////////////////////////
-/*Functions*/
-////////////////////////
-
-/**
- * Creates a React Component containing the card's price.
- * @param source - the Label of the source of the price
- * @param price - the price of the card
- * @param isFoil - boolean whether the card's price is for a foil card
- * @param isOnline - boolean whether the card's price is for an online card
- * @param miscInfo - the MiscInformation of the unique card.
- */
-export function getPrice(source : string, price : string, isFoil : boolean, isOnline : boolean, miscInfo: MiscInformation) {
-
-  if ( (isFoil && (miscInfo.foil === true)) || (!isFoil && (miscInfo.nonfoil === true)) ) {
-    if ((isOnline && (miscInfo.digital_only === true)) || (!isOnline && (miscInfo.digital_only === false))) {
-      if ("".localeCompare(price) !== 0) {
-        return (
-          <IonCardContent>
-            <IonText class="category-label">{source + " " + ((isFoil) ? ("Foil") : ("Non Foil")) + ": "}</IonText>
-            <IonText class="category-value">{price}</IonText>
-          </IonCardContent>
-        )
-      } else {
-        return (
-          <IonCardContent>
-            {source + ": Price Not Available"}
-          </IonCardContent>
-        )
-      }
-    }
-  }
-  
-  /*Fail Return*/
-  return (
-    <div></div>
-  );
-}
-
-/**
- * Capitalises the First Letter
- * @param input - the string to capitalise
- */
-export function capitaliseFirstLetter(input : string) : string {
-  return input.charAt(0).toUpperCase() + input.slice(1);
-}
-
-/**
- * Converts a boolean into a Yes/No string
- * @param input - the 
- */
-export function convertBooleanToString(input : boolean) : string {
-  return (input) ? "Yes" : "No";
-}
 
 ////////////////////////
 /*Results Display Class*/
@@ -90,7 +36,8 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
     this.state = {
       currentSearchState: emptySearch,
       legalitiesFormatted: [],
-      additionalRulings: []
+      additionalRulings: [],
+      currentCurrency : "USD"
     }
   }
 
