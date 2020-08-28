@@ -12,14 +12,27 @@ export interface SubButtonProps {
   option : string;
 }
 
-export const slideOptsHorizontal = {
+export const slideOpts0 = {
   initialSlide: 0,
   direction: 'horizontal',
   speed: 400,
 };
 
-export const slideOptsVertical = {
+export const slideOpts90 = {
   initialSlide: 0,
+  direction: 'vertical',
+  speed: 400,
+
+};
+
+export const slideOpts180 = {
+  initialSlide: 1,
+  direction: 'horizontal',
+  speed: 400,
+};
+
+export const slideOpts270 = {
+  initialSlide: 1,
   direction: 'vertical',
   speed: 400,
 

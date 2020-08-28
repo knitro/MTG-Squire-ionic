@@ -3,7 +3,7 @@ import './LifeCounter.css';
 import { IonGrid, IonRow, IonCol, IonSlides, IonSlide } from "@ionic/react";
 import SecondScreenButton from './Slides/SecondScreenButton';
 import FirstScreenButton from './Slides/FirstScreenButton';
-import { slideOptsHorizontal } from './Slides/SlidesHelper';
+import { slideOpts0 } from './Slides/SlidesHelper';
 
 
 const LifeTotalOnePlayer = () => {
@@ -11,7 +11,7 @@ const LifeTotalOnePlayer = () => {
       <IonGrid class="playerGrid">
         <IonRow class="onePlayerRow">
           <IonCol class="onePlayerCol">
-            <IonSlides class="life-slides-0" pager={true} options={slideOptsHorizontal}>
+            <IonSlides class="life-slides-0" pager={true} options={slideOpts0}>
               <IonSlide>
                 <FirstScreenButton rotation={0} division={0.5} player={0}/>
               </IonSlide>
