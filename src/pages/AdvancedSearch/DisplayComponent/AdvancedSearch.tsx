@@ -7,6 +7,9 @@ import App from '../../../App';
 import { useHistory } from 'react-router';
 import { AdvancedSearchTerms } from '../../../dataManagers/DataMangerInterfaces';
 
+/**
+ * Displays the Advanced Search Page.
+ */
 const AdvancedSearch: React.FC = () => {
 
   /*Variable Initialisation*/

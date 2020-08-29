@@ -22,23 +22,23 @@ const QuickSearchRequireDownload: React.FC = () => {
       
       <IonContent>
 
-        <SearchBar searchString="" placeholderText="Search for Magic Cards" category={SearchCategory.Cards}/>
-      
         <IonButton 
-            id="downloadDatabaseButton"
-            color="primary"
-            expand="block"
-            fill="outline"
-            shape="round"
-            size="large"
-            text-align="center"
-            class="downloadDatabaseButton"
-            onClick={e => {
-              currentDataManager.downloadDatabase();
-            }}
-          >
-              {"Download Card Database"}
-          </IonButton>
+          id="downloadDatabaseButton"
+          color="primary"
+          expand="block"
+          fill="outline"
+          shape="round"
+          size="large"
+          text-align="center"
+          class="downloadDatabaseButton"
+          onClick={e => {
+            currentDataManager.downloadDatabase();
+          }}
+        >
+            {"Download Card Database"}
+        </IonButton>
+
+        <SearchBar searchString="" placeholderText="Search for Magic Cards" category={SearchCategory.Cards}/>
 
       </IonContent>
 

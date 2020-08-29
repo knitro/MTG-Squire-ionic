@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert } from '@ionic/react';
 import uuid from 'uuid';
-import { SearchState, getSearchState, emptySearch } from '../../../states/SearchState';
-import ResultsDisplay from '../DisplayStateManager/ResultsDisplay';
-import App from '../../../App';
+import { SearchState, getSearchState, emptySearch } from '../../../../states/SearchState';
+import ResultsDisplay from '../../DisplayStateManager/ResultsDisplay';
+import App from '../../../../App';
 
 interface OtherPrintingProps {
   currentSearchState : SearchState
@@ -50,13 +50,16 @@ const OtherPrinting = (props : OtherPrintingProps) => {
           setShowLoading(true)
           
           //Create Blank Search, and add the api url
-          let searchToPerform : SearchState = emptySearch;
+          let searchToPerform : SearchState = Object.assign([], emptySearch);
           searchToPerform.api_uri = search.api_uri;
-
           App.dataManager.performSearch(searchToPerform).then(async (didPerform) => {
             if (didPerform) {
               setShowLoading(false);
+
               display.setState({currentSearchState: await getSearchState()});
+
+              // console.log(await getSearchState());
+
               props.swiper.slideTo(1);
             } else {
               setShowLoading(false);

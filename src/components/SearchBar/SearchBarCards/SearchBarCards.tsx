@@ -18,7 +18,7 @@ const SearchBarCards = (props : SearchBarProps_Cards) => {
 
   //Other Initialisations
   const history = useHistory();
-  let currentSearch: SearchState = emptySearch;
+  let currentSearch: SearchState = Object.assign([], emptySearch);
 
   /*Hook Initialisation*/
 
@@ -55,7 +55,7 @@ const SearchBarCards = (props : SearchBarProps_Cards) => {
         onClick={e => {
           currentSearch.cardName = searchString;
           setShowLoading(true)
-          App.dataManager.performSearch(currentSearch).then((didPerform) => {
+          App.dataManager.performSearch(currentSearch).then(async (didPerform) => {
             if (didPerform) {
               setShowLoading(false)
               history.push("/results-display");
@@ -74,7 +74,7 @@ const SearchBarCards = (props : SearchBarProps_Cards) => {
         cssClass='ionLoading'
         isOpen={showLoading}
         onDidDismiss={() => setShowLoading(false)}
-        message={'Searching for "' + currentSearch.cardName + '"'}
+        message={'Searching for "' + searchString + '"'}
         duration={10000}
       />
 
