@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent } from '@ionic/react';
-import { SearchState } from '../../../states/SearchState';
+import { SearchState } from '../../../../states/SearchState';
 import uuid from 'uuid';
 import { Plugins } from '@capacitor/core';
 
