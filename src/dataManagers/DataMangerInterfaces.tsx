@@ -2,6 +2,9 @@
 /*Main Interfaces*/
 ////////////////////////
 
+/**
+ * Interface that denotes what the Advanced Search Functionality can process.
+ */
 export interface AdvancedSearchTerms {
   mainSearch:     string
   coloursInclude: string[] //Valid Inputs: {W, U, B, R, G}
@@ -15,6 +18,10 @@ export interface AdvancedSearchTerms {
 /*Interface Functions*/
 ////////////////////////
 
+/**
+ * Converts an Interface to a String with new line formatting.
+ * @param currentInterface - the AdvancedSearchTerms interface to convert into a string
+ */
 export function advancedSearchTermsToString(currentInterface: AdvancedSearchTerms) : string {
   
   let returnString = "";
