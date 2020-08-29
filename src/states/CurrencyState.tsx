@@ -5,7 +5,6 @@
 import { Plugins } from '@capacitor/core';
 import axios from 'axios';
 
-
 ////////////////////////
 /*Local Initialisation*/
 ////////////////////////
@@ -24,12 +23,12 @@ export const emptyCurrencyInformation : CurrencyInformation = {
   date: "",
   rates: 
     {
-      CAD: 0, HKD: 0, ISK: 0, PHP: 0, DKK: 0, HUF: 0,
-      CZK: 0, GBP: 0, RON: 0, SEK: 0, IDR: 0, INR: 0,
-      BRL: 0, RUB: 0, HRK: 0, JPY: 0, THB: 0, CHF: 0,
-      EUR: 0, MYR: 0, BGN: 0, TRY: 0, CNY: 0, NOK: 0,
-      NZD: 0, ZAR: 0, USD: 0, MXN: 0, SGD: 0, AUD: 0,
-      ILS: 0, KRW: 0, PLN: 0
+      CAD: -1, HKD: -1, ISK: -1, PHP: -1, DKK: -1, HUF: -1,
+      CZK: -1, GBP: -1, RON: -1, SEK: -1, IDR: -1, INR: -1,
+      BRL: -1, RUB: -1, HRK: -1, JPY: -1, THB: -1, CHF: -1,
+      EUR: -1, MYR: -1, BGN: -1, TRY: -1, CNY: -1, NOK: -1,
+      NZD: -1, ZAR: -1, USD: -1, MXN: -1, SGD: -1, AUD: -1,
+      ILS: -1, KRW: -1, PLN: -1
     }
 };
 
@@ -117,17 +116,35 @@ export async function saveCurrency(current : CurrencyInformation) : Promise<bool
  * Gets current currency mapping from USD to chosen currency
  * Will recall API if no local stored or stored is old
  */
-export async function getCurrency(currencySetting : string) : Promise<CurrencyInformation> {
+export async function getCurrency() : Promise<CurrencyInformation> {
 
+  /*Variable Initialisation*/
   let date : string = getCurrentDate();
   let currency : CurrencyInformation = await getCurrencyStorage();
+
+  // console.log(currency);
+
+  /*If no previously stored data, then */ 
   if ( "".localeCompare(currency.base)) {
-    await getCurrencyAPI(); //if fails will continue to use previous stored values
-    currency = await getCurrencyStorage();
+    
+    let returnValue : boolean = await getCurrencyAPI();
+    if (returnValue) {
+      currency = await getCurrencyStorage(); //Return updated value on success
+    } else {
+      currency = emptyCurrencyInformation; //Return empty on failure
+    }
+
+  /*Check if currency information is up to date */
   } else if ( !(date.localeCompare(currency.date) === 0) ) {
-    await getCurrencyAPI(); //if fails will continue to use previous stored values
-    currency = await getCurrencyStorage();
+
+    let returnValue : boolean = await getCurrencyAPI();
+    if (returnValue) {
+      currency = await getCurrencyStorage(); //Return updated value on success
+    }
+    //On Failure will continue to use previous stored values
   }
+
+  // console.log('before return',currency);
 
   return currency;
 }
@@ -141,7 +158,6 @@ async function getCurrencyStorage() : Promise<CurrencyInformation> {
   const storageReturn = await Storage.get({key: storageKey});
 
   if (typeof storageReturn.value === 'string') {
-    console.log((JSON.parse(storageReturn.value) as CurrencyInformation));
     return (JSON.parse(storageReturn.value) as CurrencyInformation);
   } else { //Null Case
     return emptyCurrencyInformation;
@@ -155,7 +171,11 @@ async function getCurrencyStorage() : Promise<CurrencyInformation> {
  * @return returns boolean of API call success
  */
 async function getCurrencyAPI() : Promise<boolean> {
-  const url : string = "https://api.exchangeratesapi.io/latest?base=USD"; 
+
+  /*Variable Initialisation*/
+  const url : string = "https://api.exchangeratesapi.io/latest?base=USD";
+  
+  /*Perform API Call*/
   try {
     const axiosResult : CurrencyInformation = await axios({
       url: url,
@@ -170,7 +190,7 @@ async function getCurrencyAPI() : Promise<boolean> {
       return emptyCurrencyInformation;
     });
 
-    saveCurrency(axiosResult);
+    await saveCurrency(axiosResult);
     return true;
   } catch (error) {
     console.log(error);
@@ -184,6 +204,5 @@ async function getCurrencyAPI() : Promise<boolean> {
 function getCurrentDate() : string {
   let date = new Date();
   let dateString = "" + date.getUTCFullYear() + "-" + (date.getUTCMonth()+1) + "-" + date.getUTCDate();
-  console.log(dateString);
   return dateString;
 }

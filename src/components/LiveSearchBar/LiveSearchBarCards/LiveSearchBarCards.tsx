@@ -21,7 +21,7 @@ const LiveSearchBarCards = (props : SearchBarProps_Cards) => {
   let currentSearch: SearchState = emptySearch;
 
   /*Hook Initialisation*/
-  
+
   const [showAlert1, setShowAlert1] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [searchString, setSearchString] = useState(props.searchString);
