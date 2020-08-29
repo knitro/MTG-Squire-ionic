@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert, IonImg } from '@ionic/react';
 import uuid from 'uuid';
-import { SearchState, emptySearch } from '../../../states/SearchState';
-import App from '../../../App';
+import { SearchState, emptySearch } from '../../../../states/SearchState';
+import App from '../../../../App';
 import { useHistory } from 'react-router';
 
 interface SingleSearchResultProps {
   currentSearchState : SearchState
 }
 
+/**
+ * Displays the information of a single search result of a card provided by props.
+ * @param props - the information that represents a single card
+ */
 const SingleSearchResult = (props : SingleSearchResultProps) => {
 
   /*Variable Initialisation*/

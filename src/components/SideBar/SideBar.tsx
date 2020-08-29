@@ -72,7 +72,7 @@ class SideBar extends Component {
         <IonHeader>
           <IonToolbar color="primary">
             <IonIcon icon={copy} slot="start" size="large"/>
-            <IonTitle>MTG Squire</IonTitle>
+            <IonTitle>{"MTG Squire"}</IonTitle>
           </IonToolbar>
         </IonHeader>
 

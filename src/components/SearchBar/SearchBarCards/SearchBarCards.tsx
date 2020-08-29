@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {  IonContent, IonSearchbar, IonButton, IonLoading, IonAlert } from "@ionic/react";
-import '../LiveSearchBar.css';
+import '../SearchBar.css';
 import { useHistory } from 'react-router-dom';
 import { emptySearch, SearchState } from '../../../states/SearchState';
 import App from '../../../App';
@@ -10,7 +10,7 @@ interface SearchBarProps_Cards {
   placeholderText: string;
 }
 
-const LiveSearchBarCards = (props : SearchBarProps_Cards) => {
+const SearchBarCards = (props : SearchBarProps_Cards) => {
 
   /*Variable Initialisation*/
   //Parameter Variables
@@ -49,7 +49,6 @@ const LiveSearchBarCards = (props : SearchBarProps_Cards) => {
         color="primary"
         expand="block"
         fill="solid"
-        // shape="round"
         size="large"
         text-align="center"
         class="searchButton"
@@ -93,4 +92,4 @@ const LiveSearchBarCards = (props : SearchBarProps_Cards) => {
   );
 }
 
-export default LiveSearchBarCards;
+export default SearchBarCards;

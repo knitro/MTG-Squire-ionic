@@ -2,6 +2,10 @@ import DataManager, { DatabaseLoad } from '../DataManager';
 import { SearchState } from '../../states/SearchState';
 import { AdvancedSearchTerms } from '../DataMangerInterfaces';
 
+/**
+ * A DataManager that is implemented through the using a SQLLite Database.
+ * This has not been fully implemented, and SQL Libraries need to be implemented.
+ */
 class SQLLite extends DataManager {
 
   ////////////////////////
@@ -24,7 +28,7 @@ class SQLLite extends DataManager {
   ////////////////////////
   
   downloadDatabase() : void {
-    this.downloadingDatabase(this.fileDownloadLink, this.fileName, 0);
+    this.downloadingDatabase(this.fileDownloadLink, this.fileName);
   }
 
   verifyDatabase() : DatabaseLoad {

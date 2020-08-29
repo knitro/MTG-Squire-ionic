@@ -3,7 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import { FilesystemDirectory } from '@capacitor/core';
 import { SearchState } from '../states/SearchState';
-import { ScryFallSearchTerms } from './ScryFall/ScryFallInterfaces';
+import { AdvancedSearchTerms } from './DataMangerInterfaces';
 
 export enum DatabaseLoad {
   NOT_LOADED,
@@ -11,6 +11,10 @@ export enum DatabaseLoad {
   OLD_DATA
 }
 
+/**
+ * The Abstract Class that all DataManagers need to extend.
+ * A DataManager is a class that is able to use use a database, either offline or online.
+ */
 abstract class DataManager extends Component {
 
   ////////////////////////
@@ -60,7 +64,7 @@ abstract class DataManager extends Component {
    * This method should perform a search, and store all the search results into the database.
    * @param searchTerms 
    */
-  abstract async performAllSearch(searchTerms : ScryFallSearchTerms) : Promise<boolean>;
+  abstract async performAllSearch(searchTerms : AdvancedSearchTerms) : Promise<boolean>;
 
   ////////////////////////
   /*"Implemented" Methods*/

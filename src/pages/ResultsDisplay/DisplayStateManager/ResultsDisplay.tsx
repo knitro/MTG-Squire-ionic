@@ -26,6 +26,9 @@ export interface ResultsDisplayState {
 /*DisplayStateManager: Results Display Class*/
 ////////////////////////
 
+/**
+ * Sorts with Async and other constantly updating components for the Results Display Screen.
+ */
 class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
 
   ////////////////////////

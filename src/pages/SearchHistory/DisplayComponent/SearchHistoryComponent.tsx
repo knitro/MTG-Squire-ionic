@@ -1,56 +1,21 @@
 import React from 'react';
 import { IonContent, IonPage, IonList, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
 import './SearchHistory.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
+import FooterTabs from '../../../components/FooterTabs/FooterTabs';
+import Header from '../../../components/Header/Header';
 import SingleSearchHistoryResult from './SupportingComponents/SingleSearchHistoryResult';
 import uuid from 'uuid';
-import { getSearchHistory, SearchHistoryState } from '../../states/SearchHistoryState';
-
-export interface SearchHistoryPageState {
-  currentSearchHistoryState: SearchHistoryState[]
-};
+import { SearchHistoryState } from '../../../states/SearchHistoryState';
+import { SearchHistoryPageState } from '../DisplayStateManager/SearchHistory';
 
 interface SearchHistoryComponentProps {
   state : SearchHistoryPageState
 };
 
-class SearchHistory extends React.Component<{}, SearchHistoryPageState> {
-
-  ////////////////////////
-  /*Constructor*/
-  ////////////////////////
-
-  constructor(props : any) {
-    super(props);
-    this.state = {
-      currentSearchHistoryState: [],
-    }
-  }
-
-  ////////////////////////
-  /*Methods*/
-  ////////////////////////
-
-  /**
-   * Updates the Components when async results.
-   */
-  async componentDidMount() {
-    this.setState({currentSearchHistoryState: await getSearchHistory()});
-  }
-
-  ////////////////////////
-  /*Render*/
-  ////////////////////////
-
-  render() {
-    return (
-      <SearchHistoryComponent state={this.state}/>
-    );
-  }
-
-}
-
+/**
+ * Displays the Search History using information provided from props.
+ * @param props - contains the information to display on the page
+ */
 const SearchHistoryComponent = (props : SearchHistoryComponentProps) => {
 
   let previousSearches : SearchHistoryState[] = props.state.currentSearchHistoryState;
@@ -89,4 +54,4 @@ const SearchHistoryComponent = (props : SearchHistoryComponentProps) => {
   );
 };
 
-export default SearchHistory;
+export default SearchHistoryComponent;

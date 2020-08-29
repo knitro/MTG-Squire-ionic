@@ -1,15 +1,17 @@
 import React from 'react';
 import { IonContent, IonPage, IonButton } from '@ionic/react';
 import './QuickSearch.css';
-import FooterTabs from '../../components/FooterTabs/FooterTabs';
-import Header from '../../components/Header/Header';
-import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
-import App from '../../App';
+import FooterTabs from '../../../components/FooterTabs/FooterTabs';
+import Header from '../../../components/Header/Header';
+import SearchBar, { SearchCategory } from '../../../components/SearchBar/SearchBar';
+import App from '../../../App';
 
+/**
+ * Renders the QuickSearch given that the DataManager DOES NOT have a database to work with.
+ */
 const QuickSearchRequireDownload: React.FC = () => {
 
   const currentDataManager = App.dataManager;
-  // const history = useHistory();
 
   return (
 
@@ -20,7 +22,7 @@ const QuickSearchRequireDownload: React.FC = () => {
       
       <IonContent>
 
-        <LiveSearchBar searchString="" placeholderText="Search for Magic Cards" category={LiveSearchCategory.Cards}/>
+        <SearchBar searchString="" placeholderText="Search for Magic Cards" category={SearchCategory.Cards}/>
       
         <IonButton 
             id="downloadDatabaseButton"
@@ -33,7 +35,6 @@ const QuickSearchRequireDownload: React.FC = () => {
             class="downloadDatabaseButton"
             onClick={e => {
               currentDataManager.downloadDatabase();
-              // history.push("/settings");
             }}
           >
               {"Download Card Database"}
