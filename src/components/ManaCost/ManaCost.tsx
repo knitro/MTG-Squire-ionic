@@ -109,6 +109,9 @@ class ManaCost extends Component<{cost : string}> {
   /*Methods*/
   ////////////////////////
 
+  /**
+   * Updates the ManaCost with the correct mana cost and/or new information.
+   */
   async componentDidMount() {
     this.currentCost = (await getSearchState()).manaCost;
   }
@@ -139,7 +142,7 @@ class ManaCost extends Component<{cost : string}> {
    */
   determineSymbol(symbol : string) {
 
-    /*Initialisation*/
+    /*Variable Initialisation*/
     let currentDirectory : string = "assets/img/0.png"; //Default Value
     let symbolType : string = "normalSymbolImage";
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonText, IonAlert, IonImg } from '@ionic/react';
 import uuid from 'uuid';
-import { SearchState, emptySearch } from '../../../states/SearchState';
-import App from '../../../App';
+import { SearchState, emptySearch } from '../../../../states/SearchState';
+import App from '../../../../App';
 import { useHistory } from 'react-router';
 
 interface SingleSearchResultProps {

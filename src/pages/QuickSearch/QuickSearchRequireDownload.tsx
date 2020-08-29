@@ -3,7 +3,7 @@ import { IonContent, IonPage, IonButton } from '@ionic/react';
 import './QuickSearch.css';
 import FooterTabs from '../../components/FooterTabs/FooterTabs';
 import Header from '../../components/Header/Header';
-import LiveSearchBar, { LiveSearchCategory } from '../../components/LiveSearchBar/LiveSearchBar';
+import SearchBar, { SearchCategory } from '../../components/SearchBar/SearchBar';
 import App from '../../App';
 
 const QuickSearchRequireDownload: React.FC = () => {
@@ -20,7 +20,7 @@ const QuickSearchRequireDownload: React.FC = () => {
       
       <IonContent>
 
-        <LiveSearchBar searchString="" placeholderText="Search for Magic Cards" category={LiveSearchCategory.Cards}/>
+        <SearchBar searchString="" placeholderText="Search for Magic Cards" category={SearchCategory.Cards}/>
       
         <IonButton 
             id="downloadDatabaseButton"

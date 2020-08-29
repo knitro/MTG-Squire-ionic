@@ -2,7 +2,15 @@ import React from 'react';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton } from "@ionic/react";
 import './Header.css';
 
-const Header: React.FC<{headerLabel : string}> = (props) => {
+interface HeaderProps {
+  headerLabel : string
+}
+
+/**
+ * Creates the Default Header for the App.
+ * @param props - takes in parameters (currently only a string to display on the header).
+ */
+const Header: React.FC<HeaderProps> = (props) => {
   
   return (
     <IonHeader>
