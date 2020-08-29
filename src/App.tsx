@@ -35,7 +35,6 @@ import ScryFall from './dataManagers/ScryFall/ScryFall';
 import { Plugins } from '@capacitor/core';
 import ResultsDisplay from './pages/ResultsDisplay/DisplayStateManager/ResultsDisplay';
 import SearchResults from './pages/SearchResults/SearchResults';
-import SearchHistory from './pages/SearchHistory/DisplayComponent/SearchHistoryComponent';
 import Dice from './pages/Dice/DisplayStateManager/Dice';
 import SetEVs from './pages/SetEVs/SetEVs';
 import Rules from './pages/Rules/Rules';
@@ -44,6 +43,7 @@ import QuickSearchDownloaded from './pages/QuickSearch/DisplayComponent/QuickSea
 import Settings from './pages/Settings/DisplayStateManager/Settings';
 import Help from './pages/Help/DisplayComponent/Help';
 import AdvancedSearch from './pages/AdvancedSearch/DisplayComponent/AdvancedSearch';
+import SearchHistory from './pages/SearchHistory/DisplayStateManager/SearchHistory';
 
 export interface DatabaseState {
   database : DataManager;

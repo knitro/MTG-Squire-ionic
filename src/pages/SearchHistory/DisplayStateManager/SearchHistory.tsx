@@ -1,5 +1,4 @@
 import React from 'react';
-import './SearchHistory.css';
 import { getSearchHistory, SearchHistoryState } from '../../../states/SearchHistoryState';
 import SearchHistoryComponent from '../DisplayComponent/SearchHistoryComponent';
 
