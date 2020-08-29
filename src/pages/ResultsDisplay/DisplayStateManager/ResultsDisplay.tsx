@@ -38,7 +38,7 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
   constructor(props : any) {
     super(props);
     this.state = {
-      currentSearchState: emptySearch,
+      currentSearchState: Object.assign([], emptySearch),
       legalitiesFormatted: [],
       additionalRulings: [],
       currentCurrency : "",

@@ -183,7 +183,7 @@ export async function getSearchState() : Promise<SearchState> {
   if (typeof storageReturn.value === 'string') {
     return (JSON.parse(storageReturn.value) as SearchState);
   } else { //Null Case
-    return emptySearch;
+    return Object.assign([], emptySearch);
   }
 }
 

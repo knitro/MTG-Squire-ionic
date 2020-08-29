@@ -52,7 +52,7 @@ const SingleSearchResult = (props : SingleSearchResultProps) => {
           setShowLoading(true)
 
           //Create Blank Search, and add the api url
-          let searchToPerform : SearchState = emptySearch;
+          let searchToPerform : SearchState = Object.assign([], emptySearch);
           searchToPerform.api_uri = search.api_uri;
           
           console.log(searchToPerform.api_uri);

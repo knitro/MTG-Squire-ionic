@@ -61,7 +61,7 @@ const SingleSearchHistoryResult = (props : SingleSearchHistoryResultProps) => {
           if ("Quick Search".localeCompare(search.typeOfSearch) === 0) {
 
           //Create Blank Search, and add the api url
-          let searchToPerform : SearchState = emptySearch;
+          let searchToPerform : SearchState = Object.assign([], emptySearch);
           searchToPerform.api_uri = search.url;
 
           App.dataManager.performSearch(searchToPerform).then(async (didPerform) => {
