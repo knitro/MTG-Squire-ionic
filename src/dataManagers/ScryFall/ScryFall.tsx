@@ -212,6 +212,12 @@ class ScryFall extends DataManager {
     
   }
 
+  /**
+   * Generates the Search State from given parameter information.
+   * @param axiosResult - the ScryFallInformation retrieved from an API call.
+   * @param otherPrints - the other printings of the card.
+   * @param cardRulings - the specific rulings of the card.
+   */
   generateSearchState(axiosResult : ScryFallInformation, otherPrints : SearchState[], cardRulings : string[]) : SearchState {
     
     /*Get Card Images*/

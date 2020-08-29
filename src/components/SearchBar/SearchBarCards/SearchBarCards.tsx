@@ -55,7 +55,7 @@ const SearchBarCards = (props : SearchBarProps_Cards) => {
         onClick={e => {
           currentSearch.cardName = searchString;
           setShowLoading(true)
-          App.dataManager.performSearch(currentSearch).then((didPerform) => {
+          App.dataManager.performSearch(currentSearch).then(async (didPerform) => {
             if (didPerform) {
               setShowLoading(false)
               history.push("/results-display");

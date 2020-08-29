@@ -23,7 +23,6 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 /*Non-Default Imports*/
-import QuickSearchRequireDownload from './pages/QuickSearch/DisplayComponent/QuickSearchRequireDownload';
 import LifeCounterNewGame from './pages/LifeCounter/DisplayComponent/SetupPages/LifeCounterNewGame';
 import LifeCounterPlayerNumber from './pages/LifeCounter/DisplayComponent/SetupPages/LifeCounterSetPlayers';
 import LifeCounterSetLife from './pages/LifeCounter/DisplayComponent/SetupPages/LifeCounterSetLife';
@@ -39,11 +38,12 @@ import Dice from './pages/Dice/DisplayStateManager/Dice';
 import SetEVs from './pages/SetEVs/SetEVs';
 import Rules from './pages/Rules/Rules';
 import TradeCards from './pages/TradeCards/TradeCards';
-import QuickSearchDownloaded from './pages/QuickSearch/DisplayComponent/QuickSearchDownloaded';
 import Settings from './pages/Settings/DisplayStateManager/Settings';
 import Help from './pages/Help/DisplayComponent/Help';
 import AdvancedSearch from './pages/AdvancedSearch/DisplayComponent/AdvancedSearch';
 import SearchHistory from './pages/SearchHistory/DisplayStateManager/SearchHistory';
+import QuickSearchRequireDownload from './pages/QuickSearch/DisplayComponent/QuickSearchRequireDownload';
+import QuickSearchDownloaded from './pages/QuickSearch/DisplayComponent/QuickSearchDownloaded';
 
 export interface DatabaseState {
   database : DataManager;

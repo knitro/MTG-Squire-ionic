@@ -62,6 +62,7 @@ class ResultsDisplay extends React.Component<{}, ResultsDisplayState> {
     this.setState({currentCurrency: (await getSettings()).currency});
     this.setState({currencyMapping: await getCurrency()});
   }
+
   /**
    * Sets the Rulings of a Card to be displayed.
    */
