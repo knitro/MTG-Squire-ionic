@@ -12,6 +12,10 @@ export interface SearchResultsState {
 ////////////////////////
 /*Class: SearchResults*/
 ////////////////////////
+
+/**
+ * Deals with Async and Updating Components, and forces re-displays via the DisplayComponent.
+ */
 class SearchResults extends React.Component<{}, SearchResultsState> {
 
   ////////////////////////

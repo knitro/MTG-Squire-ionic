@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { IonLoading, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonAlert } from '@ionic/react';
 import uuid from 'uuid';
-import App from '../../../App';
+import App from '../../../../App';
 import { useHistory } from 'react-router';
-import { SearchHistoryState } from '../../../states/SearchHistoryState';
-import { SearchState, emptySearch } from '../../../states/SearchState';
-import { AdvancedSearchTerms, advancedSearchTermsToString } from '../../../dataManagers/DataMangerInterfaces';
+import { SearchHistoryState } from '../../../../states/SearchHistoryState';
+import { SearchState, emptySearch } from '../../../../states/SearchState';
+import { AdvancedSearchTerms, advancedSearchTermsToString } from '../../../../dataManagers/DataMangerInterfaces';
 
 interface SingleSearchHistoryResultProps {
   currentSearchHistoryState : SearchHistoryState

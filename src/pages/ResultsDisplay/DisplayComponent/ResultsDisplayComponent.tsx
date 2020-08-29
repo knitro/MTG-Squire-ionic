@@ -17,6 +17,10 @@ interface ResultsDisplayComponentProps {
   main : ResultsDisplay
 };
 
+/**
+ * Displays the ResultsDisplay
+ * @param props - the interface of values that is to be displayed by the ResultsDisplayComponent
+ */
 const ResultsDisplayComponent = (props : ResultsDisplayComponentProps) => {
 
   /*Variable Initialisation*/

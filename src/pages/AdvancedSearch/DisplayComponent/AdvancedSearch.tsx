@@ -253,7 +253,7 @@ const AdvancedSearch: React.FC = () => {
                 });
               }
               
-              /*Create the Search Term*/
+              /*Collate the Initialised Information and Create the Search Term*/
               let searchTerms : AdvancedSearchTerms = {
                 mainSearch:     mainSearchTerm,
                 coloursInclude: coloursInclude,
@@ -262,6 +262,7 @@ const AdvancedSearch: React.FC = () => {
                 cardText:       cardText
               }
 
+              /*Perform the Search and Redirect if needed*/
               setShowLoading(true)
               App.dataManager.performAllSearch(searchTerms).then((didPerform) => {
                 if (didPerform) {

@@ -71,6 +71,7 @@ const SearchBarCards = (props : SearchBarProps_Cards) => {
       </IonButton>
       
       <IonLoading
+        cssClass='ionLoading'
         isOpen={showLoading}
         onDidDismiss={() => setShowLoading(false)}
         message={'Searching for "' + currentSearch.cardName + '"'}

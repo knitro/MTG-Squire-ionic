@@ -14,7 +14,6 @@ const { Browser } = Plugins;
 /*Supporting Functions*/
 ////////////////////////
 
-
 function createSCGLink(cardName : string, setCode : string, collector_number : string, isFoil : boolean) {
 
   const baseLink : string = "https://starcitygames.com/";

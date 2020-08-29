@@ -11,6 +11,10 @@ interface SearchResultsComponentProps {
   state : SearchResultsState
 };
 
+/**
+ * Displays the Search Results using the information provided by props.
+ * @param props - the information required to display all the search results
+ */
 const SearchResultsComponent = (props : SearchResultsComponentProps) => {
 
   let searchArray = props.state.currentSearchState;

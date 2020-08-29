@@ -9,6 +9,10 @@ interface SingleSearchResultProps {
   currentSearchState : SearchState
 }
 
+/**
+ * Displays the information of a single search result of a card provided by props.
+ * @param props - the information that represents a single card
+ */
 const SingleSearchResult = (props : SingleSearchResultProps) => {
 
   /*Variable Initialisation*/
