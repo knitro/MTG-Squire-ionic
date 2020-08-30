@@ -35,7 +35,6 @@ const AdvancedSearch: React.FC = () => {
   const [excludeBlack, setExcludeBlack] = useState(false);
   const [excludeRed, setExcludeRed] = useState(false);
   const [excludeGreen, setExcludeGreen] = useState(false);
-  const [excludeColourless, setExcludeColourless] = useState(false);
 
   //Alert/Loading Hooks
   const [showAlert, setShowAlert] = useState(false);
@@ -151,10 +150,6 @@ const AdvancedSearch: React.FC = () => {
                     <IonRow><IonText class="label">{"Green"}</IonText></IonRow>
                     <IonRow><IonCheckbox color="danger" checked={excludeGreen} onIonChange={e => setExcludeGreen(e.detail.checked)}/></IonRow>
                   </IonCol>
-                  <IonCol>
-                    <IonRow><IonText class="label">{"Colourless"}</IonText></IonRow>
-                    <IonRow><IonCheckbox color="danger" checked={excludeColourless} onIonChange={e => setExcludeColourless(e.detail.checked)}/></IonRow>
-                  </IonCol>
                 </IonRow>
               </IonGrid>
             </IonCardContent>
@@ -191,7 +186,7 @@ const AdvancedSearch: React.FC = () => {
 
             <IonCardHeader>
               <IonCardTitle>{"Card Text"}</IonCardTitle>
-              <IonCardSubtitle>{"Put the card text in quotation marks"}</IonCardSubtitle>
+              <IonCardSubtitle>{"Put the text that would appear in the card's text box"}</IonCardSubtitle>
             </IonCardHeader>
             
             <IonCardContent>
