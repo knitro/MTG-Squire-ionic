@@ -31,7 +31,6 @@ import LifeCounter from './pages/LifeCounter/DisplayComponent/LifeCounter';
 import SideBar from './components/SideBar/SideBar'; 
 import DataManager, { DatabaseLoad } from './dataManagers/DataManager'; 
 import ScryFall from './dataManagers/ScryFall/ScryFall';
-import { Plugins } from '@capacitor/core';
 import ResultsDisplay from './pages/ResultsDisplay/DisplayStateManager/ResultsDisplay';
 import SearchResults from './pages/SearchResults/SearchResults';
 import Dice from './pages/Dice/DisplayStateManager/Dice';
@@ -73,15 +72,6 @@ class App extends Component {
   ////////////////////////
   
   render() {
-
-    /*Perform SplashScreen Actions*/
-    const { SplashScreen } = Plugins;
-    SplashScreen.hide();
-
-    SplashScreen.show({
-      showDuration: 3000,
-      autoHide: true
-    });
 
     return (
       <IonReactRouter>
