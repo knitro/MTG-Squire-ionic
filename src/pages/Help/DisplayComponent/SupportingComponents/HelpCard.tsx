@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonCard, IonButton, IonText, IonTitle, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/react';
+import { IonCard, IonButton, IonText, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/react';
 
 /**
  * Interface of inputs for HelpCard
