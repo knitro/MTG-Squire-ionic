@@ -7,6 +7,7 @@ import { rollCustom, flipCoin, rollD6, rollD20 } from '../Logic/DiceHelper';
 import { DiceHistoryState } from '../../../states/DiceHistoryState';
 import uuid from 'uuid';
 import Dice, { DiceState } from '../DisplayStateManager/Dice';
+import DiceDisplayCard from './SupportingComponents/DiceDisplayCard';
 
 /**
  * Interface for input of DiceComponent
@@ -45,14 +46,7 @@ const DiceComponent = (props : DiceComponentProps) => {
         <IonList>
 
           {/*Ion Card 1: Dice Display*/}
-          <IonCard>
-            <IonLabel class="diceOutputText">
-              {die}
-            </IonLabel>
-            <IonLabel class="diceOutputSubText">
-              {dieType}
-            </IonLabel>
-          </IonCard>
+          <DiceDisplayCard dieValue={die} dieType={dieType} />
 
           {/*Ion Card 2: Dice Buttons*/}
           <IonCard>

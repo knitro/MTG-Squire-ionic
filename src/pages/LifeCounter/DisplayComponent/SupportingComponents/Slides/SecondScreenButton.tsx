@@ -1,7 +1,6 @@
 import React from 'react';
 import './LifeCounterSlide2.css';
 import { IonGrid, IonRow, IonCol, IonButton } from "@ionic/react";
-import { PlayersContextProvider, PlayersContextConsumer, Players } from "../../../../../states/LifeCounterPlayerState";
 import { ButtonProps, getColour, getSubName } from '../../../Logic/SlidesHelper';
 import SubScreenButton from './SubScreenButton';
 
@@ -32,10 +31,6 @@ const SecondScreenButtonHorizontal = (props : ButtonProps) => {
 
   return (
     
-    <PlayersContextProvider>
-    <PlayersContextConsumer>
-    {(context : Players) => (
-
     <IonButton class="playerButton" expand="full" 
     color={getColour(player)}
     >
@@ -62,11 +57,6 @@ const SecondScreenButtonHorizontal = (props : ButtonProps) => {
         </IonRow>
       </IonGrid>
     </IonButton>
-
-
-    )}
-    </PlayersContextConsumer>
-    </PlayersContextProvider>
 
   )
 }
