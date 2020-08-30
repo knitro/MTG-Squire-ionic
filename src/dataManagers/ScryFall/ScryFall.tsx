@@ -74,9 +74,8 @@ class ScryFall extends DataManager {
 
     //Add Exclusion of Colours
     if (searchTerms.coloursExclude.length !== 0) {
-      let coloursExcludeString = "+-c:";
-      searchTerms.coloursExclude.map((currentColour) => coloursExcludeString += currentColour.toLowerCase());
-      compiledSearchTerm += coloursExcludeString;
+      // let coloursExcludeString = ;
+      searchTerms.coloursExclude.map((currentColour) => compiledSearchTerm += "+-c:" + currentColour.toLowerCase());
     }
     
 
@@ -98,6 +97,7 @@ class ScryFall extends DataManager {
 
     //Get the Final URL
     let url = this.percentEncode("https://api.scryfall.com/cards/search?order=released&q=" + compiledSearchTerm);
+    console.log(url);
 
     /*Perform API Call*/
     try {
