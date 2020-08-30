@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonCard, IonButton, IonText, IonTitle } from '@ionic/react';
+import { IonCard, IonButton, IonText, IonTitle, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/react';
 
 /**
  * Interface of inputs for HelpCard
@@ -19,18 +19,24 @@ const HelpCard = (props : HelpCardProps) => {
 
   return (
     <IonCard>
-      <IonTitle>{props.title}</IonTitle>
-      <IonText>
-        {props.text}
-      </IonText>
-        {(''.localeCompare(props.buttonHref) === 0)
-        ? 
-          <></>
-        :
-          <IonButton href={props.buttonHref}>
-            {props.buttonText}
-          </IonButton>        
-        }
+      <IonCardHeader>
+        <IonCardTitle>{props.title}</IonCardTitle>
+      </IonCardHeader>
+
+      <IonCardContent>
+        <IonText>
+          {props.text}
+        </IonText>
+        <div>
+          {
+          (''.localeCompare(props.buttonHref) === 0)
+          ? <></>
+          : <IonButton href={props.buttonHref}>
+              {props.buttonText}
+            </IonButton>        
+          }
+        </div>
+      </IonCardContent>
     </IonCard>
   );
 };
