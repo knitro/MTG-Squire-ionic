@@ -227,7 +227,7 @@ const AdvancedSearch: React.FC = () => {
               if (includeBlack)       {coloursInclude.push("b");}
               if (includeRed)         {coloursInclude.push("r");}
               if (includeGreen)       {coloursInclude.push("g");}
-              if (excludeColourless)  {coloursInclude.push("c");}
+              if (includeColourless)  {coloursInclude.push("c");}
 
               //coloursExclude Initialisation
               if (excludeWhite)       {coloursExclude.push("w");}
@@ -235,7 +235,6 @@ const AdvancedSearch: React.FC = () => {
               if (excludeBlack)       {coloursExclude.push("b");}
               if (excludeRed)         {coloursExclude.push("r");}
               if (excludeGreen)       {coloursExclude.push("g");}
-              if (excludeColourless)  {coloursExclude.push("c");}
               
               //cardTypes Initialisation
               if ("".localeCompare(cardTypesValue) !== 0) {
