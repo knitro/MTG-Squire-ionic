@@ -22,12 +22,12 @@ const SubScreenButton = (props : SubButtonProps ) => {
           {(context : Players) => (
             <IonButton class="slide2Button" 
             color={getSubColour(option)}
-            onClick={e => {              
+            onClick={async (e) => {              
               //get press value of required rotation
               var pressValue = (rotation === 0 || rotation === 180) ? e.clientY : e.clientX;
               
               //get change and update storage and hook
-              updatePlayer(context.players,player,getChange(rotation,division,pressValue),option);
+              await updatePlayer(context.players,player,getChange(rotation,division,pressValue),option);
               setLife(getSubValue(context,player,option))
             }}
             >
