@@ -1,88 +1,48 @@
-# README.md for MTG Squire
+# README for MTG Squire
 
-## Group Information
+## What this Program is:
 
-### Group Members
+This is a mobile application designed for all Magic the Gathering players.
+It is designed to have everything that a Magic the Gathering player would need for a game of Magic with life counters, rules, oracle text and more.
 
-* **Calvin Lee**
-  * ECS Username: leecalv
-  * Student ID: 300445806
-* **Matthew Butterfield**
-  * ECS Username: buttermatt
-  * Student ID: 300443568
+### Current Implementations
+
+* Card Searching Database (Quick and Advanced Searching)
+* Price Checking for each different version of the Card
+* Life Total Counters with Sliders for additional counters
+* Dice Functionality (Coin, D6, D20, Custom Dice)
+* Search History
+
+## Future Implementations
+
+* More Advanced Search Functionality
+* Live Searching for Quick Search
+* More Vendors to get Card Prices from (TCG, Card Kingdom, SCG)
+* Commander Damage Tracking
+* More Life Total Customisations
+* Local Caching
+* Offline Functionality
+* Adjusted Life Total Positioning
+* Wishlist
+* Comprehensive Rulings
+
+
+## Origins of this Program:
+
+The origins of this program is for a Mobile Architecture Assignment, which now I have adopted to being a personal project to work on. 
+I intend to continue to update this app as I play Magic the Gathering with friends, and adjust it accordingly to our needs and the changes in the game.
 
 ## Required Libraries to Run
+
+This program was developed using the Ionic Framework with integration with React.
+
+The following commands are required in order for the program to work:
 
 * npm install @types/uuid --save
 * npm install axios
 
----
+## Notes:
 
-## Components
+This app is intended not to be used commercially, or made commercially by any means.
 
-**Calvin Lee**
 
-1. General - FooterTabs
-2. General - Header
-3. General - ManaCost
-4. General - SearchBar
-5. General - SideBar
-6. General - DataManagers (ScryFall)
-7. ResultsDisplay - GeneralInformationCards
-8. ResultsDisplay - LegalitiesCards
-9. ResultsDisplay - MiscInformationCards
-10. ResultsDisplay - PricingCards
-11. ResultsDisplay - SingleOtherPrinting
-12. ResultsDisplay - StarCityGames (functions that return components to render)
-13. SearchResult - SingleSearchResult
-14. SearchHistory - SingleSearchHistoryResult
-
-**Matthew Butterfield**
-
-15. LifeTotal - LifeTotalOnePlayer
-16. LifeTotal - LifeTotalTwoPlayer
-17. LifeTotal - LifeTotalThreePlayer
-18. LifeTotal - LifeTotalFourPlayer
-19. LifeTotal - LifeTotalLeaveButton
-20. LifeTotal - FirstScreenButton
-21. LifeTotal - SecondScreenButton
-22. LifeTotal - SubScreenButton
-23. Dice - DiceDisplayCard
-24. Dice - DiceComponent
-25. Help - HelpCard
-
----
-
-## Pages
-
-**Calvin Lee**
-
-1. Quick Search
-2. Advanced Search
-3. Search Results
-4. Results Display
-5. Search History
-
-**Matthew Butterfield**
-
-6. Dice
-7. Life Counter Setup
-8. Life Counter
-9. Settings
-10. Help
-
----
-
-## External Assets
-
-**Calvin Lee**
-
-1. Scryfall API: https://scryfall.com/docs/api
-
-ScryFall API allows us to gather verbose information about any card, provide links to card images, and additional rulings.
-
-**Matthew Butterfield**
-
-2. European Central Bank API: https://exchangeratesapi.io/
-
-European Central Bank API allows us to convert prices we obtain through any means to any currency we wish to better support different regions.
